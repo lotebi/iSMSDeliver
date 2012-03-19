@@ -16,6 +16,32 @@
 </head>
 <body>
 <div data-role="page" id="page1">
+    <div data-theme="a" data-role="header">
+        <a data-role="button" data-transition="fade" href="#page1">
+            back
+        </a>
+    </div>
+    <div data-role="content">
+        <div data-role="fieldcontain">
+            <fieldset data-role="controlgroup">
+                <label for="textinput2">
+                    UserName:
+                </label>
+                <input id="textinput2" placeholder="Type your MagtiFun username" value="" type="text"/>
+            </fieldset>
+        </div>
+        <div data-role="fieldcontain">
+            <fieldset data-role="controlgroup">
+                <label for="textinput3">
+                    Password:
+                </label>
+                <input id="textinput3" placeholder="Password Hire" value="" type="password"/>
+            </fieldset>
+        </div>
+        <input type="submit" id="login" data-theme="b" value="Login"/>
+    </div>
+</div>
+<div data-role="page" id="page2">
     <div data-role="content">
         <div data-role="fieldcontain">
             <fieldset data-role="controlgroup">
@@ -34,7 +60,7 @@
                 </textarea>
             </fieldset>
         </div>
-        <input type="submit" id="send" data-theme="b" value="send" />
+        <input type="submit" id="send" data-theme="b" value="send"/>
     </div>
 </div>
 <script>
@@ -42,15 +68,19 @@
         console.log('i was hire');
         $.mobile.allowCrossDomainPages = true;
     });
-    $('#send').click(function (e) {
+    $('#login').vclick(function (e) {
         e.preventDefault();
-        $.post('http://www.magtifun.ge/index.php?page=11&lang=ge', {user:'lukasabukasa', password:'dodelia1993'},
-                function (data) {
+        $.post('http://www.magtifun.ge/index.php?page=11&lang=ge', {act:1 , user:'lukasabukasa', password:'dodelia1993'},
+                function (data,textstatus,jqXHR) {
                     console.log(data);
+                    console.log(jqXHR);
                 }
         )
-    })
+    });
+    $('#send').vclick(function (e) {
+        e.preventDefault();
 
+    });
 </script>
 </body>
 </html>
