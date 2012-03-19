@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="947ce71e-2f62-448f-a454-16991e5272ad" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sendSms.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.html" afterPath="$PROJECT_DIR$/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sendSms.html" afterPath="$PROJECT_DIR$/sendSms.html" />
     </list>
     <ignored path="iSMSDeliver.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -29,7 +29,7 @@
       <file leaf-file-name="index.html" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="56" column="49" selection-start="2064" selection-end="2064" vertical-scroll-proportion="0.6204819">
+            <state line="50" column="36" selection-start="1738" selection-end="1738" vertical-scroll-proportion="0.16867469">
               <folding />
             </state>
           </provider>
@@ -38,7 +38,7 @@
       <file leaf-file-name="sendSms.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/sendSms.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="44" column="7" selection-start="1491" selection-end="1491" vertical-scroll-proportion="-22.708334">
+            <state line="29" column="39" selection-start="981" selection-end="981" vertical-scroll-proportion="-18.125">
               <folding />
             </state>
           </provider>
@@ -307,14 +307,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/sendSms.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="44" column="7" selection-start="1491" selection-end="1491" vertical-scroll-proportion="-22.708334">
+        <state line="29" column="39" selection-start="981" selection-end="981" vertical-scroll-proportion="-18.125">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="56" column="49" selection-start="2064" selection-end="2064" vertical-scroll-proportion="0.6204819">
+        <state line="50" column="36" selection-start="1738" selection-end="1738" vertical-scroll-proportion="0.16867469">
           <folding />
         </state>
       </provider>
