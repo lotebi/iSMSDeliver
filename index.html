@@ -97,6 +97,10 @@
                 xhr.setRequestHeader('Cookie', cookie);
             },
             success:function (data) {
+                if(data == 'not_logged_in'){
+                    alert("wrong user name or password");
+                    $.mobile.changePage($("#page1"), { transition:"flip"});
+                }
                 console.log(data);
                 $('#textinput1').val("");
                 $('#textarea1').val("");
