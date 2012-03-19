@@ -4,7 +4,6 @@
     <list default="true" id="947ce71e-2f62-448f-a454-16991e5272ad" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.html" afterPath="$PROJECT_DIR$/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sendSms.html" afterPath="$PROJECT_DIR$/sendSms.html" />
     </list>
     <ignored path="iSMSDeliver.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -29,7 +28,7 @@
       <file leaf-file-name="index.html" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="77" column="66" selection-start="2726" selection-end="2726" vertical-scroll-proportion="0.6385542">
+            <state line="100" column="34" selection-start="3630" selection-end="3630" vertical-scroll-proportion="0.78313255">
               <folding />
             </state>
           </provider>
@@ -314,7 +313,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="77" column="66" selection-start="2726" selection-end="2726" vertical-scroll-proportion="0.6385542">
+        <state line="100" column="34" selection-start="3630" selection-end="3630" vertical-scroll-proportion="0.78313255">
           <folding />
         </state>
       </provider>
