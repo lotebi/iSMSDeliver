@@ -72,8 +72,8 @@
     });
     $('#login').click(function (e) {
         e.preventDefault();
-        var user = $("textinput2").val();
-        var password = $("textinput3").val();
+        var user = $("#textinput2").val();
+        var password = $("#textinput3").val();
         console.log(user);
         console.log(password);
         $.post('http://www.magtifun.ge/index.php?page=11&lang=ge', {act:1, user:user, password:password},
