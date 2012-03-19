@@ -16,47 +16,32 @@
 </head>
 <body>
 <div data-role="page" id="page1">
-    <div data-theme="a" data-role="header">
-        <a data-role="button" data-transition="fade" href="#page1">
-            back
-        </a>
-    </div>
     <div data-role="content">
         <div data-role="fieldcontain">
             <fieldset data-role="controlgroup">
-                <label for="textinput2">
-                    UserName:
+                <label for="textinput1">
+                    Recipients:
                 </label>
-                <input id="textinput2" placeholder="Type your MagtiFun username" value="" type="text"/>
+                <input id="textinput1" placeholder="receiver number seperated with , (comma)" value="" type="text"/>
             </fieldset>
         </div>
         <div data-role="fieldcontain">
             <fieldset data-role="controlgroup">
-                <label for="textinput3">
-                    Password:
+                <label for="textarea1">
+                    Message Body
                 </label>
-                <input id="textinput3" placeholder="Password Hire" value="" type="password"/>
+                <textarea id="textarea1" placeholder="type your message hire">
+                </textarea>
             </fieldset>
         </div>
-        <input type="submit" id="login" data-theme="b" value="Login"/>
+        <input type="submit" id="send" data-theme="b" value="send"/>
     </div>
 </div>
-
 <script>
     var cookie;
     $(document).bind("mobileinit", function () {
         console.log('i was hire');
         $.mobile.allowCrossDomainPages = true;
-    });
-    $('#login').click(function (e) {
-        e.preventDefault();
-        $.post('http://www.magtifun.ge/index.php?page=11&lang=ge', {act:1, user:'lukasabukasa', password:'dodelia1993'},
-                function (data, textstatus, jqXHR) {
-                    cookie = "User=h293rrdfo20fb75dc5nkki7as6; path=/".split(';')[0];
-                    console.log(jqXHR.getResponseHeader('Set-Cookie'));
-                    $.mobile.changePage( "sendSms.html", { transition: "flip"} );
-                }
-        )
     });
     $('#send').click(function (e) {
         e.preventDefault();
