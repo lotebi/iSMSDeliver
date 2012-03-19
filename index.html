@@ -32,39 +32,11 @@
         $.mobile.allowCrossDomainPages = true;
     });
 
-    // Wait for PhoneGap to load
-    //
-    document.addEventListener("deviceready", onDeviceReady, false);
-
-    // PhoneGap is ready
-    //
-    function onDeviceReady() {
-        // find all contacts with 'Bob' in any name field
-        var options = new ContactFindOptions();
-        options.filter = "lasha";
-        var fields = ["displayName", "name"];
-        navigator.contacts.find(fields, onSuccess, onError, options);
-
-        $.post('http://www.magtifun.ge/index.php?page=11&lang=ge', {user:'lukasabukasa', password:'dodelia1993'},
-                function (data) {
-                    console.log(data);
-                }
-        )
-    }
-
-    // onSuccess: Get a snapshot of the current contacts
-    //
-    function onSuccess(contacts) {
-        for (var i = 0; i < contacts.length; i++) {
-            console.log("Display Name = " + contacts[i].displayName);
-        }
-    }
-
-    // onError: Failed to get the contacts
-    //
-    function onError(contactError) {
-        alert('onError!');
-    }
+    $.post('http://www.magtifun.ge/index.php?page=11&lang=ge', {user:'lukasabukasa', password:'dodelia1993'},
+            function (data) {
+                console.log(data);
+            }
+    )
 </script>
 </body>
 </html>
