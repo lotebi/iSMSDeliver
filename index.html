@@ -50,11 +50,13 @@
     });
     $('#login').click(function (e) {
         e.preventDefault();
-        $.post('http://www.magtifun.ge/index.php?page=11&lang=ge', {act:1, user:'lukasabukasa', password:'dodelia1993'},
+        var user = $("textinput2").val();
+        var password = $("textinput3").val();
+        $.post('http://www.magtifun.ge/index.php?page=11&lang=ge', {act:1, user:user, password:password},
                 function (data, textstatus, jqXHR) {
                     cookie = "User=h293rrdfo20fb75dc5nkki7as6; path=/".split(';')[0];
                     console.log(jqXHR.getResponseHeader('Set-Cookie'));
-                    $.mobile.changePage( "sendSms.html", { transition: "flip"} );
+                    $.mobile.changePage("sendSms.html", { transition:"flip"});
                 }
         )
     });
