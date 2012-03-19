@@ -26,6 +26,12 @@
     </div>
 </div>
 <script>
+    $(document).bind("mobileinit", function () {
+        // Make your jQuery Mobile framework configuration changes here!
+
+        $.mobile.allowCrossDomainPages = true;
+    });
+
     // Wait for PhoneGap to load
     //
     document.addEventListener("deviceready", onDeviceReady, false);
@@ -35,15 +41,21 @@
     function onDeviceReady() {
         // find all contacts with 'Bob' in any name field
         var options = new ContactFindOptions();
-        options.filter="lasha";
+        options.filter = "lasha";
         var fields = ["displayName", "name"];
         navigator.contacts.find(fields, onSuccess, onError, options);
+
+        $.post('http://www.magtifun.ge/index.php?page=11&lang=ge', {user:'lukasabukasa', password:'dodelia1993'},
+                function (data) {
+                    console.log(data);
+                }
+        )
     }
 
     // onSuccess: Get a snapshot of the current contacts
     //
     function onSuccess(contacts) {
-        for (var i=0; i<contacts.length; i++) {
+        for (var i = 0; i < contacts.length; i++) {
             console.log("Display Name = " + contacts[i].displayName);
         }
     }
@@ -52,6 +64,7 @@
     //
     function onError(contactError) {
         alert('onError!');
-    }</script>
+    }
+</script>
 </body>
 </html>
