@@ -60,6 +60,7 @@
             </fieldset>
         </div>
         <input type="submit" id="send" data-theme="b" value="send"/>
+        <input type="submit" id="back" data-theme="b" value="back"/>
     </div>
 </div>
 <script>
@@ -73,6 +74,8 @@
         e.preventDefault();
         var user = $("textinput2").val();
         var password = $("textinput3").val();
+        console.log(user);
+        console.log(password);
         $.post('http://www.magtifun.ge/index.php?page=11&lang=ge', {act:1, user:user, password:password},
                 function (data, textstatus, jqXHR) {
                     cookie = jqXHR.getResponseHeader('Set-Cookie').split(';')[0];
@@ -83,11 +86,6 @@
     });
     $('#send').click(function (e) {
         e.preventDefault();
-        /*$.post('http://www.magtifun.ge/scripts/sms_send.php', {recipients:recipients, message_body:msgBody},
-         function (data) {
-         console.log(data);
-         }
-         )*/
         var recipients = $('#textinput1').val();
         var msgBody = $('#textarea1').val();
 
@@ -101,6 +99,10 @@
             success:function (data) {
                 console.log(data);
             }
+        });
+        $('#login').click(function (e) {
+            e.preventDefault();
+            $.mobile.changePage($("#page1"), { transition:"flip"});
         });
     });
 </script>
