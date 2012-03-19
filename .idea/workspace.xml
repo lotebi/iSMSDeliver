@@ -29,7 +29,7 @@
       <file leaf-file-name="index.html" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="50" column="36" selection-start="1738" selection-end="1738" vertical-scroll-proportion="0.16867469">
+            <state line="77" column="66" selection-start="2726" selection-end="2726" vertical-scroll-proportion="0.6385542">
               <folding />
             </state>
           </provider>
@@ -38,7 +38,7 @@
       <file leaf-file-name="sendSms.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/sendSms.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="29" column="39" selection-start="981" selection-end="981" vertical-scroll-proportion="-18.125">
+            <state line="17" column="0" selection-start="505" selection-end="1235" vertical-scroll-proportion="-10.625">
               <folding />
             </state>
           </provider>
@@ -307,14 +307,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/sendSms.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="29" column="39" selection-start="981" selection-end="981" vertical-scroll-proportion="-18.125">
+        <state line="17" column="0" selection-start="505" selection-end="1235" vertical-scroll-proportion="-10.625">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="50" column="36" selection-start="1738" selection-end="1738" vertical-scroll-proportion="0.16867469">
+        <state line="77" column="66" selection-start="2726" selection-end="2726" vertical-scroll-proportion="0.6385542">
           <folding />
         </state>
       </provider>

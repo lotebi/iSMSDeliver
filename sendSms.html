@@ -38,26 +38,16 @@
     </div>
 </div>
 <script>
-    var cookie;
-    (function ($) {
-        $(function () {
-
-            $(document).bind("mobileinit", function () {
-                console.log('i was hire');
-                $.mobile.allowCrossDomainPages = true;
-            });
-            $('#send').click(function (e) {
-                e.preventDefault();
-                var recipients = $('#textinput1').val();
-                var msgBody = $('#textarea1').val();
-                $.post('http://www.magtifun.ge/scripts/sms_send.php', {recipients:recipients, message_body:msgBody},
-                        function (data) {
-                            console.log(data);
-                        }
-                )
-            });
-        });
-    })(jQuery);
+    $('#send').click(function (e) {
+        e.preventDefault();
+        var recipients = $('#textinput1').val();
+        var msgBody = $('#textarea1').val();
+        $.post('http://www.magtifun.ge/scripts/sms_send.php', {recipients:recipients, message_body:msgBody},
+                function (data) {
+                    console.log(data);
+                }
+        )
+    });
 </script>
 </body>
 </html>

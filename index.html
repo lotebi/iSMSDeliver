@@ -75,10 +75,9 @@
         var password = $("textinput3").val();
         $.post('http://www.magtifun.ge/index.php?page=11&lang=ge', {act:1, user:user, password:password},
                 function (data, textstatus, jqXHR) {
-                    cookie = "User=h293rrdfo20fb75dc5nkki7as6; path=/".split(';')[0];
+                    cookie = jqXHR.getResponseHeader('Set-Cookie').split(';')[0];
                     console.log(jqXHR.getResponseHeader('Set-Cookie'));
-                    $("#page1").hide();
-                    $("#page2").show();
+                    $.mobile.changePage($("#page2"), { transition:"flip"});
                 }
         )
     });
@@ -90,7 +89,7 @@
                 function (data) {
                     console.log(data);
                 }
-        ).setRequestHeader("Set-Cookie",cookie);
+        )
     });
 </script>
 </body>
