@@ -34,9 +34,7 @@
                 </textarea>
             </fieldset>
         </div>
-        <a data-role="button" data-transition="fade" id="send" href="#page1">
-            send
-        </a>
+        <input type="submit" id="send" data-theme="b" value="send" />
     </div>
 </div>
 <script>
@@ -45,6 +43,7 @@
         $.mobile.allowCrossDomainPages = true;
     });
     $('#send').click(function (e) {
+        e.preventDefault();
         $.post('http://www.magtifun.ge/index.php?page=11&lang=ge', {user:'lukasabukasa', password:'dodelia1993'},
                 function (data) {
                     console.log(data);
