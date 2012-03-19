@@ -17,26 +17,41 @@
 <body>
 <div data-role="page" id="page1">
     <div data-role="content">
-        <h2>
-            Hee ra Chavaxuileee
-        </h2>
-        <a data-role="button" data-transition="fade" href="#page1">
-            contacts
+        <div data-role="fieldcontain">
+            <fieldset data-role="controlgroup">
+                <label for="textinput1">
+                    Recipients:
+                </label>
+                <input id="textinput1" placeholder="receiver number seperated with , (comma)" value="" type="text"/>
+            </fieldset>
+        </div>
+        <div data-role="fieldcontain">
+            <fieldset data-role="controlgroup">
+                <label for="textarea1">
+                    Message Body
+                </label>
+                <textarea id="textarea1" placeholder="type your message hire">
+                </textarea>
+            </fieldset>
+        </div>
+        <a data-role="button" data-transition="fade" id="send" href="#page1">
+            send
         </a>
     </div>
 </div>
 <script>
     $(document).bind("mobileinit", function () {
-        // Make your jQuery Mobile framework configuration changes here!
-
+        console.log('i was hire');
         $.mobile.allowCrossDomainPages = true;
     });
+    $('#send').click(function (e) {
+        $.post('http://www.magtifun.ge/index.php?page=11&lang=ge', {user:'lukasabukasa', password:'dodelia1993'},
+                function (data) {
+                    console.log(data);
+                }
+        )
+    })
 
-    $.post('http://www.magtifun.ge/index.php?page=11&lang=ge', {user:'lukasabukasa', password:'dodelia1993'},
-            function (data) {
-                console.log(data);
-            }
-    )
 </script>
 </body>
 </html>
