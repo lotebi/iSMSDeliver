@@ -69,6 +69,17 @@
         console.log('i was hire!!!');
         $.mobile.allowCrossDomainPages = true;
     });
+    $.ajaxSetup({
+        cache:false,
+        crossDomain:true,
+        error:function (jqXHR, textStatus, errorThrown) {
+            console.log("Error: \n");
+            console.log(jqXHR);
+            console.log(textStatus);
+            console.log(errorThrown);
+            console.log("\n_----_\n")
+        }
+    });
     $('#login').click(function (e) {
         e.preventDefault();
         var user = $("#textinput2").val();
@@ -81,7 +92,7 @@
                     console.log(jqXHR.getResponseHeader('Set-Cookie'));
                     $.mobile.changePage($("#page2"), { transition:"flip"});
                 }
-        ).error(function(e) { alert("error");console.log(e); $.mobile.changePage($("#page2"), { transition:"flip"});})
+        )
     });
     $('#back').click(function (e) {
         e.preventDefault();
@@ -96,11 +107,12 @@
             type:"POST",
             url:'http://www.magtifun.ge/scripts/sms_send.php',
             data:{recipients:recipients, message_body:msgBody},
+            cache:false,
             beforeSend:function (xhr) {
                 xhr.setRequestHeader('Cookie', cookie);
             },
             success:function (data) {
-                if(data == 'not_logged_in'){
+                if (data == 'not_logged_in') {
                     alert("wrong user name or password");
                     $.mobile.changePage($("#page1"), { transition:"flip"});
                 }
