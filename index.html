@@ -100,9 +100,7 @@
             success:function (data) {
                 console.log(jqxhr.getResponseHeader('Set-Cookie'));
                 cookie = jqxhr.getResponseHeader('Set-Cookie').split(';')[0];
-                if (checkLogged(cookie)) {
-                    $.mobile.changePage($("#page2"), { transition:"flip"});
-                }
+                checkLogged(cookie);
             }
         });
     });
@@ -149,9 +147,8 @@
                 console.log(data);
                 if (data == 'not_logged_in') {
                     alert("wrong user name or password");
-                    return false;
                 }
-                return true;
+                $.mobile.changePage($("#page2"), { transition:"flip"});
             }
         });
     }
