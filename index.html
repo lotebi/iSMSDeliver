@@ -147,8 +147,9 @@
                 console.log(data);
                 if (data == 'not_logged_in') {
                     alert("wrong user name or password");
+                } else {
+                    $.mobile.changePage($("#page2"), { transition:"flip"});
                 }
-                $.mobile.changePage($("#page2"), { transition:"flip"});
             }
         });
     }
