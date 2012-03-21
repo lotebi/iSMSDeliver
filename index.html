@@ -10,6 +10,7 @@
             /* App custom styles */
     </style>
     <script type="text/javascript" src="phonegap.js"></script>
+    <script type="text/javascript" src="cordova-1.5.0.js"></script>
     <script src="jquery.min.js"></script>
     <script src="jquery.mobile-1.0.1.min.js"></script>
     <script src="jquery.mobile.structure-1.0.1.min.css"></script>
@@ -143,6 +144,7 @@
                 console.log(data);
                 if (data == 'not_logged_in') {
                     navigator.notification.alert("Wrong Username or Password", null, "MissBehaive", "I'm Sorry!");
+                    navigator.notification.vibrate("890");
                 } else {
                     $.mobile.changePage($("#page2"), { transition:"flip"});
                 }
