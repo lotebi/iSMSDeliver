@@ -74,9 +74,13 @@
         crossDomain:true,
         error:function (jqXHR, textStatus, errorThrown) {
             console.log("Error: \n");
+            console.log("ResponseOBJ: ");
             console.log(jqXHR);
+            console.log("\n");
+            console.log("TextStatus: ");
             console.log(textStatus);
-            console.log(errorThrown);
+            console.log("\n");
+            console.log("Error: " + errorThrown);
             console.log("\n_----_\n")
         }
     });
@@ -86,13 +90,22 @@
         var password = $("#textinput3").val();
         console.log(user);
         console.log(password);
-        $.post('http://www.magtifun.ge/index.php?page=11&lang=ge', {act:1, user:user, password:password},
-                function (data, textstatus, jqXHR) {
-                    cookie = jqXHR.getResponseHeader('Set-Cookie').split(';')[0];
-                    console.log(jqXHR.getResponseHeader('Set-Cookie'));
-                    $.mobile.changePage($("#page2"), { transition:"flip"});
-                }
-        )
+        var jqxhr = $.ajax({
+            type:"POST",
+            url:'http://www.magtifun.ge/index.php?page=11&lang=ge',
+            data:{act:1, user:user, password:password},
+            beforeSend:function (xhr) {
+                xhr.setRequestHeader('Cookie', '');
+            },
+            success:function (data) {
+                cookie = jqxhr.getResponseHeader('Set-Cookie').split(';')[0];
+                console.log(jqxhr.getResponseHeader('Set-Cookie'));
+                $.mobile.changePage($("#page2"), { transition:"flip"});
+            }
+        });
+    });
+    $.ajaxPrefilter(function (options, originalOptions, jqXHR) {
+        console.log(options);
     });
     $('#back').click(function (e) {
         e.preventDefault();
