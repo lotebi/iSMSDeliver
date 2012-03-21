@@ -98,9 +98,11 @@
                 xhr.setRequestHeader('Cookie', '');
             },
             success:function (data) {
-                cookie = jqxhr.getResponseHeader('Set-Cookie').split(';')[0];
                 console.log(jqxhr.getResponseHeader('Set-Cookie'));
-                $.mobile.changePage($("#page2"), { transition:"flip"});
+                cookie = jqxhr.getResponseHeader('Set-Cookie').split(';')[0];
+                if (checkLogged(cookie)) {
+                    $.mobile.changePage($("#page2"), { transition:"flip"});
+                }
             }
         });
     });
@@ -135,6 +137,24 @@
             }
         });
     });
+    function checkLogged(cookie) {
+        $.ajax({
+            type:"POST",
+            url:'http://www.magtifun.ge/scripts/profile_check.php',
+            data:{},
+            beforeSend:function (xhr) {
+                xhr.setRequestHeader('Cookie', cookie);
+            },
+            success:function (data) {
+                console.log(data);
+                if (data == 'not_logged_in') {
+                    alert("wrong user name or password");
+                    return false;
+                }
+                return true;
+            }
+        });
+    }
 </script>
 </body>
 </html>
