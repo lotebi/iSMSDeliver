@@ -65,10 +65,6 @@
 </div>
 <script>
     var cookie;
-    $(document).bind("mobileinit", function () {
-        console.log('i was hire!!!');
-        $.mobile.allowCrossDomainPages = true;
-    });
     $.ajaxSetup({
         cache:false,
         crossDomain:true,
@@ -126,7 +122,7 @@
             },
             success:function (data) {
                 if (data == 'not_logged_in') {
-                    alert("Not Logged in!!\nHow you Got hire?");
+                    navigator.notification.alert("Not Logged in!!\nHow you Got hire?", null, "MissBehaive", "I'm Sorry!");
                     $.mobile.changePage($("#page1"), { transition:"flip"});
                 }
                 console.log(data);
@@ -146,12 +142,16 @@
             success:function (data) {
                 console.log(data);
                 if (data == 'not_logged_in') {
-                    alert("wrong user name or password");
+                    navigator.notification.alert("Wrong Username or Password", null, "MissBehaive", "I'm Sorry!");
                 } else {
                     $.mobile.changePage($("#page2"), { transition:"flip"});
                 }
             }
         });
+    }
+    function getLocalContacts() {
+        var fields = ["displayName", "name"];
+        return navigator.contacts.find(fields, null, null, null);
     }
 </script>
 </body>
