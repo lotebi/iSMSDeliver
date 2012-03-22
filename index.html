@@ -3,17 +3,16 @@
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <title>
-    </title>
-    <link rel="stylesheet" href="jquery.mobile-1.0.1.min.css"/>
+    <title>iSMSDeliver</title>
+    <link rel="stylesheet" href="jquery.mobile-1.0.1.css"/>
     <style>
             /* App custom styles */
     </style>
     <script type="text/javascript" src="phonegap.js"></script>
     <script type="text/javascript" src="cordova-1.5.0.js"></script>
     <script src="jquery.min.js"></script>
-    <script src="jquery.mobile-1.0.1.min.js"></script>
-    <script src="jquery.mobile.structure-1.0.1.min.css"></script>
+    <script src="jquery.mobile-1.0.1.js"></script>
+    <script src="jquery.mobile.structure-1.0.1.css"></script>
 </head>
 <body>
 <div data-role="page" id="page1">
@@ -28,7 +27,7 @@
                 <label for="textinput2">
                     UserName:
                 </label>
-                <input id="textinput2" placeholder="Type your MagtiFun username" value="" type="text"/>
+                <input id="textinput2" placeholder="your magtifun username" value="" type="text"/>
             </fieldset>
         </div>
         <div data-role="fieldcontain">
@@ -36,13 +35,16 @@
                 <label for="textinput3">
                     Password:
                 </label>
-                <input id="textinput3" placeholder="Password Hire" value="" type="password"/>
+                <input id="textinput3" placeholder="your magtifun password" value="" type="password"/>
             </fieldset>
         </div>
         <input type="submit" id="login" data-theme="b" value="Login"/>
     </div>
 </div>
 <div data-role="page" id="page2">
+    <div data-role="header">
+
+    </div>
     <div data-role="content">
         <div data-role="fieldcontain">
             <fieldset data-role="controlgroup">
@@ -62,6 +64,9 @@
         </div>
         <input type="submit" id="send" data-theme="b" value="send"/>
         <input type="submit" id="back" data-theme="b" value="back"/>
+    </div>
+    <div data-role="footer">
+        <span></span>
     </div>
 </div>
 <script>
