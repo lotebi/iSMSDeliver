@@ -152,6 +152,7 @@
         options.multiple = true;
         filter = ["displayName", "name", "phoneNumbers"];
         navigator.contacts.find(filter, onSuccess, onError, options);
+        add(suggestions);
     }
 
     function contactSelected(e, ui) {
