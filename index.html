@@ -105,7 +105,7 @@
             success:function (data) {
                 if (data == 'not_logged_in') {
                     navigator.notification.alert("Not Logged in!!\nHow you Got hire?", null, "MissBehaive", "I'm Sorry!");
-                    $.mobile.changePage($("#page1"), { transition:"flip"});
+                    $.mobile.changePage($("#pageLogin"), { transition:"flip"});
                 }
                 $.mobile.hidePageLoadingMsg();
                 $('#recipients').val("");
@@ -127,18 +127,27 @@
                     navigator.notification.vibrate("890");
                 } else {
                     $.mobile.hidePageLoadingMsg();
-                    $.mobile.changePage($("#page2"), { transition:"flip"});
+                    $.mobile.changePage($("#pageMain"), { transition:"flip"});
                 }
             }
         });
     }
-    function autocomplateContacts(a,b) {
-        console.log("first argument:\n");
-        console.log(a);
-        console.log("\nsecond argument:\n");
-        console.log(b);
+    function onSuccess(contacts) {
+        console.log(contacts);
     }
-    $( "#recipients" ).autocomplete({ source: autocomplateContacts  });
+
+    function onError(contactError) {
+        console.log(contactError);
+    }
+
+
+    function autocomplateContacts(a, b) {
+        var options = new ContactFindOptions();
+        options.filter = "";
+        filter = ["displayName", "name", "phoneNumbers"];
+        navigator.contacts.find(filter, onSuccess, onError, options);
+    }
+    $("#recipients").autocomplete({ source:autocomplateContacts  });
 </script>
 </body>
 </html>
