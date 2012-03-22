@@ -16,48 +16,43 @@
     <script src="jquery.mobile.structure-1.0.1.css"></script>
 </head>
 <body>
-<div data-role="page" id="page1">
+<div data-role="page" id="pageLogin">
     <div data-role="content">
         <div data-role="fieldcontain">
             <fieldset data-role="controlgroup">
-                <label for="textinput2">
+                <label for="userNameField">
                     UserName:
                 </label>
-                <input id="textinput2" placeholder="your magtifun username" value="" type="text"/>
+                <input id="userNameField" placeholder="your magtifun username" value="" type="text"/>
             </fieldset>
         </div>
         <div data-role="fieldcontain">
             <fieldset data-role="controlgroup">
-                <label for="textinput3">
+                <label for="passwordField">
                     Password:
                 </label>
-                <input id="textinput3" placeholder="your magtifun password" value="" type="password"/>
+                <input id="passwordField" placeholder="your magtifun password" value="" type="password"/>
             </fieldset>
         </div>
         <input type="submit" id="login" data-theme="b" value="Login"/>
     </div>
 </div>
-<div data-role="page" id="page2">
-    <div data-theme="a" data-role="header">
-        <a data-role="button" data-transition="fade" href="#page1">
-            back
-        </a>
-    </div>
+<div data-role="page" id="pageMain">
     <div data-role="content">
         <div data-role="fieldcontain">
             <fieldset data-role="controlgroup">
-                <label for="textinput1">
+                <label for="recipients">
                     Recipients:
                 </label>
-                <input id="textinput1" value="" placeholder="recipient number or contact name" type="text"/>
+                <input id="recipients" value="" placeholder="recipient number or contact name" type="text"/>
             </fieldset>
         </div>
         <div data-role="fieldcontain">
             <fieldset data-role="controlgroup">
-                <label for="textarea1">
+                <label for="msgBody">
                     Message Body:
                 </label>
-                <textarea id="textarea1"></textarea>
+                <textarea id="msgBody"></textarea>
             </fieldset>
         </div>
         <input type="submit" id="send" data-theme="b" value="send"/>
@@ -72,8 +67,10 @@
     });
     $('#login').click(function (e) {
         e.preventDefault();
-        var user = $("#textinput2").val();
-        var password = $("#textinput3").val();
+        var user = $("#userNameField").val();
+        var password = $("#passwordField").val();
+        $.mobile.loadingMessage = "Logining...";
+        $.mobile.showPageLoadingMsg();
         var jqxhr = $.ajax({
             type:"POST",
             url:'http://www.magtifun.ge/index.php?page=11&lang=ge',
@@ -89,13 +86,14 @@
     });
     $('#back').click(function (e) {
         e.preventDefault();
-        $.mobile.changePage($("#page1"), { transition:"flip"});
+        $.mobile.changePage($("#pageLogin"), { transition:"flip"});
     });
     $('#send').click(function (e) {
         e.preventDefault();
-        var recipients = $('#textinput1').val();
-        var msgBody = $('#textarea1').val();
-
+        var recipients = $('#recipients').val();
+        var msgBody = $('#msgBody').val();
+        $.mobile.loadingMessage = "Sending...";
+        $.mobile.showPageLoadingMsg();
         $.ajax({
             type:"POST",
             url:'http://www.magtifun.ge/scripts/sms_send.php',
@@ -109,8 +107,9 @@
                     navigator.notification.alert("Not Logged in!!\nHow you Got hire?", null, "MissBehaive", "I'm Sorry!");
                     $.mobile.changePage($("#page1"), { transition:"flip"});
                 }
-                $('#textinput1').val("");
-                $('#textarea1').val("");
+                $.mobile.hidePageLoadingMsg();
+                $('#recipients').val("");
+                $('#msgBody').val("");
             }
         });
     });
@@ -127,15 +126,19 @@
                     navigator.notification.alert("Wrong Username or Password", null, "MissBehaive", "I'm Sorry!");
                     navigator.notification.vibrate("890");
                 } else {
+                    $.mobile.hidePageLoadingMsg();
                     $.mobile.changePage($("#page2"), { transition:"flip"});
                 }
             }
         });
     }
-    function getLocalContacts() {
-        var fields = ["displayName", "name"];
-        return navigator.contacts.find(fields, null, null, null);
+    function autocomplateContacts(a,b) {
+        console.log("first argument:\n");
+        console.log(a);
+        console.log("\nsecond argument:\n");
+        console.log(b);
     }
+    $( "#recipients" ).autocomplete({ source: autocomplateContacts  });
 </script>
 </body>
 </html>
