@@ -5,11 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <title>iSMSDeliver</title>
     <link rel="stylesheet" href="jquery.mobile-1.0.1.css"/>
+    <link rel="stylesheet" href="autocomplete.css"/>
     <style>
             /* App custom styles */
     </style>
-    <script type="text/javascript" src="phonegap.js"></script>
     <script type="text/javascript" src="cordova-1.5.0.js"></script>
+    <script type="text/javascript" src="phonegap.js"></script>
     <script src="jquery.min.js"></script>
     <script src="jquery.mobile-1.0.1.js"></script>
     <script src="jquery-ui-1.8.18.custom.min.js"></script>
@@ -66,6 +67,25 @@
         cache:false,
         crossDomain:true
     });
+
+    $(".remove", document.getElementById("friends")).live("click", function () {
+
+        //remove current friend
+        $(this).parent().remove();
+
+        //correct 'to' field position
+        if ($("#friends span").length === 0) {
+            $("#recipients").css("top", 0);
+        }
+    });
+
+
+    $("#recipients").autocomplete({ source:autocomplateContacts, select:contactSelected,
+        change:function () {
+            $("#recipients").val("").css("top", 2);
+        }
+    });
+
     $('#login').click(function (e) {
         e.preventDefault();
         var user = $("#userNameField").val();
@@ -156,14 +176,14 @@
     }
 
     function contactSelected(e, ui) {
-        console.log("\n");
-        console.log(e);
-        console.log("\n");
-        console.log(ui);
-        console.log("\n");
+        var friend = ui.item.value,
+                span = $("<span>").text(friend),
+                a = $("<a>").addClass("remove").attr({
+                    href:"javascript:",
+                    title:"Remove " + friend
+                }).text("x").appendTo(span);
+        span.insertBefore("#recipients");
     }
-
-    $("#recipients").autocomplete({ source:autocomplateContacts, select:contactSelected  });
 </script>
 </body>
 </html>
