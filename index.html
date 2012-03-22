@@ -61,6 +61,7 @@
 </div>
 <script>
     var cookie;
+    var suggestions = [];
     $.ajaxSetup({
         cache:false,
         crossDomain:true
@@ -133,21 +134,35 @@
         });
     }
     function onSuccess(contacts) {
-        console.log(contacts);
+        for (var i = 0; i < contacts.length; i++) {
+            for (var j = 0; j < contacts[i].phoneNumbers.length; j++) {
+                console.log(contacts[i].name.formatted + "(" + contacts[i].phoneNumbers[j].value + ")");
+                suggestions.push(contacts[i].name.formatted + "(" + contacts[i].phoneNumbers[j].value + ")");
+            }
+        }
     }
 
     function onError(contactError) {
-        console.log(contactError);
+        alert('onError!');
     }
 
-
-    function autocomplateContacts(a, b) {
+    function autocomplateContacts(req, add) {
         var options = new ContactFindOptions();
-        options.filter = "";
+        options.filter = req.term;
+        options.multiple = true;
         filter = ["displayName", "name", "phoneNumbers"];
         navigator.contacts.find(filter, onSuccess, onError, options);
     }
-    $("#recipients").autocomplete({ source:autocomplateContacts  });
+
+    function contactSelected(e, ui) {
+        console.log("\n");
+        console.log(e);
+        console.log("\n");
+        console.log(ui);
+        console.log("\n");
+    }
+
+    $("#recipients").autocomplete({ source:autocomplateContacts, select:contactSelected  });
 </script>
 </body>
 </html>
