@@ -73,25 +73,12 @@
     var cookie;
     $.ajaxSetup({
         cache:false,
-        crossDomain:true,
-        error:function (jqXHR, textStatus, errorThrown) {
-            console.log("Error: \n");
-            console.log("ResponseOBJ: ");
-            console.log(jqXHR);
-            console.log("\n");
-            console.log("TextStatus: ");
-            console.log(textStatus);
-            console.log("\n");
-            console.log("Error: " + errorThrown);
-            console.log("\n_----_\n")
-        }
+        crossDomain:true
     });
     $('#login').click(function (e) {
         e.preventDefault();
         var user = $("#textinput2").val();
         var password = $("#textinput3").val();
-        console.log(user);
-        console.log(password);
         var jqxhr = $.ajax({
             type:"POST",
             url:'http://www.magtifun.ge/index.php?page=11&lang=ge',
@@ -100,14 +87,10 @@
                 xhr.setRequestHeader('Cookie', '');
             },
             success:function (data) {
-                console.log(jqxhr.getResponseHeader('Set-Cookie'));
                 cookie = jqxhr.getResponseHeader('Set-Cookie').split(';')[0];
                 checkLogged(cookie);
             }
         });
-    });
-    $.ajaxPrefilter(function (options, originalOptions, jqXHR) {
-        console.log(options);
     });
     $('#back').click(function (e) {
         e.preventDefault();
@@ -131,7 +114,6 @@
                     navigator.notification.alert("Not Logged in!!\nHow you Got hire?", null, "MissBehaive", "I'm Sorry!");
                     $.mobile.changePage($("#page1"), { transition:"flip"});
                 }
-                console.log(data);
                 $('#textinput1').val("");
                 $('#textarea1').val("");
             }
@@ -146,7 +128,6 @@
                 xhr.setRequestHeader('Cookie', cookie);
             },
             success:function (data) {
-                console.log(data);
                 if (data == 'not_logged_in') {
                     navigator.notification.alert("Wrong Username or Password", null, "MissBehaive", "I'm Sorry!");
                     navigator.notification.vibrate("890");
