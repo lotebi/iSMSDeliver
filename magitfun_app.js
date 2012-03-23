@@ -77,6 +77,7 @@ $(function () {
             $("#message").text(1);
             $("#maxMessages").css("visibility", "hidden");
         } else if (currChars > (146 + 146 + 146)) {
+            $("#charCount").text((146 + 146 + 146) - currChars);
             $("#message").text(3);
             $("#maxMessages").css("visibility", "visible");
         } else if (currChars > (146 + 146)) {
