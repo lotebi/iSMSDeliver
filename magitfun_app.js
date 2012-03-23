@@ -14,7 +14,8 @@ $(function () {
         magtifunobj = new magitfun(user, password);
         magtifunobj.login(function (a) {
             if (a == "succses") {
-                $.mobile.changePage($("#pageHome"), {transition:getRandTransition()})
+                $.mobile.changePage($("#pageHome"), {transition:getRandTransition()});
+                magtifunobj.getBalance(updateCreditsGel());
             } else {
                 navigator.notification.vibrate(250);
                 navigator.notification.alert("Wrong Username or Password", null, "MissBehaive", "I'm Sorry!");
@@ -29,6 +30,7 @@ $(function () {
             magtifunobj.sendSms(recipient, msgbody, function (a) {
                 $("#recipients").val("");
                 $("#msgBody").val("");
+                magtifunobj.getBalance(updateCreditsGel());
             })
         } else {
             navigator.notification.alert("You exsided message character limit", null, "MissBehaive", "I'm Sorry!");
@@ -37,7 +39,7 @@ $(function () {
 
     $("#msgBody").keyup(onMsgChange);
     $("#msgBody").keydown(onMsgChange);
-    $("#msgBody").bind( "change", onMsgChange);
+    $("#msgBody").bind("change", onMsgChange);
 
     $("#logout").click(function (e) {
         e.preventDefault();
@@ -88,6 +90,11 @@ $(function () {
             $("#message").text(2);
             $("#maxMessages").css("visibility", "hidden");
         }
+    }
+
+    function updateCreditsGel(credits, gel) {
+        $("#credit").text(credits);
+        $("#gel").text(gel);
     }
 
     function getRandTransition() {
