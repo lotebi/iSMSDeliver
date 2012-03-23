@@ -23,7 +23,7 @@ $(function () {
     });
     $("#send").click(function (e) {
         e.preventDefault();
-        if ($("#maxMessages").css("visibility") == "visible") {
+        if ($("#maxMessages").css("visibility") == "hidden") {
             var recipient = $("#recipients").val();
             var msgbody = $("#msgBody").val();
             magtifunobj.sendSms(recipient, msgbody, function (a) {
