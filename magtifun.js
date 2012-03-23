@@ -176,7 +176,9 @@ function magitfun(user, password) {
                 xhr.setRequestHeader('Cookie', cookie);
             },
             success:function (data) {
-                succ(data);
+                if (data != "not_logged_in") {
+                    succ("succses");
+                }
             }
         });
     };
