@@ -25,9 +25,30 @@ $(function () {
         e.preventDefault();
         var recipient = $("#recipients").val();
         var msgbody = $("#msgBody").val();
-        magtifunobj.send(recipient,msgbody,function (a) {
-            //Nothing Yet
+        magtifunobj.sendSms(recipient, msgbody, function (a) {
+            $("#recipients").val("");
+            $("#msgBody").val("");
         })
+    });
+
+    $("#msgBody").keyup(function (e) {
+        var currChars = $("#msgBody").val().length;
+        if (currChars < 146) {
+            $("#charCount").val(146 - currChars);
+            $("#message").val(1);
+            $("#maxMessages").css("visibility", "hidden");
+        } else if (currChars > 146) {
+            $("#charCount").val((146 + 146) - currChars);
+            $("#message").val(2);
+            $("#maxMessages").css("visibility", "hidden");
+        } else if (currChars > (146 + 146)) {
+            $("#charCount").val((146 + 146 + 146) - currChars);
+            $("#message").val(3);
+            $("#maxMessages").css("visibility", "hidden");
+        } else if (currChars > (146 + 146 + 146)) {
+            $("#message").val(3);
+            $("#maxMessages").css("visibility", "visible");
+        }
     });
 
     $("#logout").click(function (e) {

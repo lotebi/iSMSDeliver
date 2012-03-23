@@ -178,6 +178,8 @@ function magitfun(user, password) {
             success:function (data) {
                 if (data != "not_logged_in") {
                     succ("succses");
+                } else {
+                    succ(data);
                 }
             }
         });
