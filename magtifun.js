@@ -52,7 +52,6 @@ function magitfun(user, password) {
         $.ajax({
             type:"POST",
             url:'http://www.magtifun.ge/index.php?page=5&lang=ge',
-            data:{act:1, user:user, password:password},
             beforeSend:function (xhr) {
                 xhr.setRequestHeader('Cookie', cookie);
             },
@@ -95,40 +94,59 @@ function magitfun(user, password) {
                 xhr.setRequestHeader('Cookie', cookie);
             },
             success:function (data) {
-                parseHistory(data);
-                succ(history);
+                var pagesCount = $(data).find(".page_number,active,red,round_border,english").length;
+                history = new Array();
+                parseHistory(pagesCount, succ);
             }
         });
     };
 
-    var parseHistory = function (data) {
-        history = new Array();
-        var children = $($(data).find("#message_list").children());
+    var parseHistory = function (index, succ) {
+        if (index <= 0) {
+            succ(history);
+        } else {
+            $.ajax({
+                type:"POST",
+                url:'http://www.magtifun.ge/index.php?page=10&lang=ge',
+                data:{cur_page:index, fav_page:0},
+                beforeSend:function (xhr) {
+                    xhr.setRequestHeader('Cookie', cookie);
+                },
+                success:function (data) {
+                    parseHistoryPerPage(data);
+                    parseHistory(--index, succ);
+                }
+            });
+        }
+    };
+    var parseHistoryPerPage = function (data) {
+        var children = $(data).find("#message_list").children();
         for (var i = 0; i < children.length; i++) {
+            var child = $(children[i]);
             var rec = {};
             rec.msgID = $($(data).find("#message_list").children())[i].id
-            rec.msgText = children[i].find(".msg_text").html();
+            rec.msgText = child.find(".msg_text").text();
 
-            children[i].find(".message_list_recipient > .red").each(function (index, element) {
+            child.find(".message_list_recipient > .red").each(function (index, element) {
                 if ($(element).text().replace(/[^\+\d]/g, "")) {
                     rec.number = $(element).text().replace(/[^\+\d]/g, "");
                 } else {
-                    children[i].find(".message_list_recipient > .gray").each(function (index, element) {
+                    child.find(".message_list_recipient > .gray").each(function (index, element) {
                         if ($(element).text().replace(/[^\+\d]/g, "")) {
                             rec.number = $(element).text().replace(/[^\+\d]/g, "");
-                            if (index == children[i].find(".message_list_recipient > .gray").length) {
-                                rec.status = children[i].find(".message_list_recipient > .gray")[index - 1];
+                            if (index == child.find(".message_list_recipient > .gray").length) {
+                                rec.status = child.find(".message_list_recipient > .gray")[index - 1];
                             } else {
-                                rec.status = children[i].find(".message_list_recipient > .gray")[index + 1];
+                                rec.status = child.find(".message_list_recipient > .gray")[index + 1];
                             }
                         }
                     })
                 }
             });
             rec.date = new Date();
-            var monthYear = children[i].find(".msg_date").find(".date_month").text().split("<br>");
-            var dateTime = children[i].find(".date_time").text().split(":");
-            rec.date.day = children[i].find(".msg_date").find(".xlarge").text();
+            var monthYear = child.find(".msg_date").find(".date_month").text().split("<br>");
+            var dateTime = child.find(".date_time").text().split(":");
+            rec.date.day = child.find(".msg_date").find(".xlarge").text();
             rec.date.month = monthYear[0];
             rec.date.year = monthYear[1];
             rec.date.houre = dateTime[0];
@@ -139,13 +157,13 @@ function magitfun(user, password) {
     };
 
     var parseCreditsAndGel = function (data) {
-        //credits = $(data).find(".dark").filter(".english").filter("span").filter(".xxlarge").html();
-        $(document).find(".dark").filter(".english").filter("span").each(function (index, element) {
+        //credits = $(data).find(".dark").filter(".english").filter("span").filter(".xxlarge").text();
+        $(data).find(".dark").filter(".english").filter("span").each(function (index, element) {
             var spans = $(element);
             if (spans.hasClass("xxlarge")) {
-                credits = spans.html();
+                credits = spans.text();
             } else {
-                gel = spans.html();
+                gel = spans.text();
             }
         })
     };

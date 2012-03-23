@@ -3,11 +3,22 @@
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <title>
-    </title>
+    <title>iSMSDeliver</title>
+
     <link rel="stylesheet" href="jquery.mobile-1.0.1.css"/>
     <style>
-            /* App custom styles */
+        #credit {
+            font-size: 1.5em;
+        }
+
+        .gel {
+            font-size: 0.8em;
+        }
+
+        #maxMessages {
+            color: red;
+            visibility: hidden;
+        }
     </style>
     <script type="text/javascript" src="phonegap.js"></script>
     <script type="text/javascript" src="magtifun.js"></script>
@@ -16,144 +27,58 @@
     <script src="jquery.mobile.structure-1.0.1.css"></script>
 </head>
 <body>
-<div data-role="page" id="page1">
-    <div data-theme="a" data-role="header">
-        <a data-role="button" data-transition="fade" href="#page1">
-            back
-        </a>
+<div data-role="page" id="pageHome">
+    <div data-role="header" class="footer-docs ui-footer ui-bar-a ui-footer-fixed ui-footer-fullscreen slideup"
+         data-theme="a" data-position="fixed" data-fullscreen="true" role="contentinfo">
+        <h1>
+            <a href="index.html" data-theme="b" data-role="button" data-mini="true" class="ui-btn-left">Logout</a>
+            <span id="credit">50</span>
+            <span class="gel ui-btn-right ui-btn-corner-right">Gel:<span>0</span></span>
+        </h1>
     </div>
-    <div data-role="content">
-        <div data-role="fieldcontain">
-            <fieldset data-role="controlgroup">
-                <label for="textinput2">
-                    UserName:
-                </label>
-                <input id="textinput2" placeholder="Type your MagtiFun username" value="" type="text"/>
-            </fieldset>
-        </div>
-        <div data-role="fieldcontain">
-            <fieldset data-role="controlgroup">
-                <label for="textinput3">
-                    Password:
-                </label>
-                <input id="textinput3" placeholder="Password Hire" value="" type="password"/>
-            </fieldset>
-        </div>
-        <input type="submit" id="login" data-theme="b" value="Login"/>
-    </div>
-</div>
-<div data-role="page" id="page2">
-    <div data-role="content">
-        <div data-role="fieldcontain">
-            <fieldset data-role="controlgroup">
-                <label for="textinput1">
-                    Recipients:
-                </label>
-                <input id="textinput1" value="" type="text"/>
-            </fieldset>
-        </div>
-        <div data-role="fieldcontain">
-            <fieldset data-role="controlgroup">
-                <label for="textarea1">
-                    Message Body
-                </label>
-                <textarea id="textarea1"></textarea>
-            </fieldset>
-        </div>
-        <input type="submit" id="send" data-theme="b" value="send"/>
-        <input type="submit" id="back" data-theme="b" value="back"/>
-    </div>
-</div>
-<script>
-    var cookie;
-    $.ajaxSetup({
-        cache:false,
-        crossDomain:true,
-        error:function (jqXHR, textStatus, errorThrown) {
-            console.log("Error: \n");
-            console.log("ResponseOBJ: ");
-            console.log(jqXHR);
-            console.log("\n");
-            console.log("TextStatus: ");
-            console.log(textStatus);
-            console.log("\n");
-            console.log("Error: " + errorThrown);
-            console.log("\n_----_\n")
-        }
-    });
-    $('#login').click(function (e) {
-        e.preventDefault();
-        var user = $("#textinput2").val();
-        var password = $("#textinput3").val();
-        console.log(user);
-        console.log(password);
-        var jqxhr = $.ajax({
-            type:"POST",
-            url:'http://www.magtifun.ge/index.php?page=11&lang=ge',
-            data:{act:1, user:user, password:password},
-            beforeSend:function (xhr) {
-                xhr.setRequestHeader('Cookie', '');
-            },
-            success:function (data) {
-                console.log(jqxhr.getResponseHeader('Set-Cookie'));
-                cookie = jqxhr.getResponseHeader('Set-Cookie').split(';')[0];
-                checkLogged(cookie);
-            }
-        });
-    });
-    $.ajaxPrefilter(function (options, originalOptions, jqXHR) {
-        console.log(options);
-    });
-    $('#back').click(function (e) {
-        e.preventDefault();
-        $.mobile.changePage($("#page1"), { transition:"flip"});
-    });
-    $('#send').click(function (e) {
-        e.preventDefault();
-        var recipients = $('#textinput1').val();
-        var msgBody = $('#textarea1').val();
 
-        $.ajax({
-            type:"POST",
-            url:'http://www.magtifun.ge/scripts/sms_send.php',
-            data:{recipients:recipients, message_body:msgBody},
-            cache:false,
-            beforeSend:function (xhr) {
-                xhr.setRequestHeader('Cookie', cookie);
-            },
-            success:function (data) {
-                if (data == 'not_logged_in') {
-                    navigator.notification.alert("Not Logged in!!\nHow you Got hire?", null, "MissBehaive", "I'm Sorry!");
-                    $.mobile.changePage($("#page1"), { transition:"flip"});
-                }
-                console.log(data);
-                $('#textinput1').val("");
-                $('#textarea1').val("");
-            }
-        });
-    });
-    function checkLogged(cookie) {
-        $.ajax({
-            type:"POST",
-            url:'http://www.magtifun.ge/scripts/profile_check.php',
-            data:{},
-            beforeSend:function (xhr) {
-                xhr.setRequestHeader('Cookie', cookie);
-            },
-            success:function (data) {
-                console.log(data);
-                if (data == 'not_logged_in') {
-                    navigator.notification.alert("Wrong Username or Password", null, "MissBehaive", "I'm Sorry!");
-                } else {
-                    $.mobile.changePage($("#page2"), { transition:"flip"});
-                }
-            }
-        });
-    }
-    function getLocalContacts() {
-        var fields = ["displayName", "name"];
-        return navigator.contacts.find(fields, null, null, null);
-    }
-</script>
+    <div data-role="content">
+        <label for="recipients">Recipients:</label>
+        <input id="recipients" placeholder="number or contact's name" type="text">
+        <br>
+        <label for="msgBody">Message Body:</label>
+        <textarea cols="80" rows="8" id="msgBody" placeholder="type your message hire"
+                  class="ui-input-text ui-body-c ui-corner-all ui-shadow-inset"></textarea>
+        <br>
+        <span>
+            <span id="charCount">146</span><span> Character(</span><span id="message">1</span><span> messages)</span>
+            <span id="maxMessages"> (3 Is Max Message Count!)</span>
+        </span>
+        <br>
+        <input id="send" value="send" type="button" data-theme="b">
+    </div>
+    <div data-role="footer" class="footer-docs ui-footer ui-bar-a ui-footer-fixed ui-footer-fullscreen slideup"
+         data-theme="a" data-position="fixed" data-fullscreen="true" role="contentinfo">
+        <div data-role="navbar" data-iconpos="bottom" class="ui-navbar ui-state-persist" role="navigation">
+            <ul>
+                <li><a href="#">SMS</a></li>
+                <li><a href="#">History</a></li>
+                <li><a href="#">Conacts</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div data-role="page" id="pageLogin">
+
+    <div data-role="header" data-position="inline">
+        <h1>iSMSDeliver</h1>
+        <a href="index.html" data-theme="b" class="ui-btn-right">About</a>
+    </div>
+
+    <div data-role="content">
+        <label for="username">User Name:</label>
+        <input id="username" placeholder="magtifun username" type="text">
+        <br>
+        <label for="password">Password:</label>
+        <input id="password" placeholder="magtifun password" type="password">
+        <br>
+        <input id="login" value="login" type="button" data-theme="b">
+    </div>
+</div>
 </body>
 </html>
