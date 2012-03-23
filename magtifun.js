@@ -23,7 +23,7 @@ function magitfun(user, password) {
                 xhr.setRequestHeader('Cookie', '');
             },
             success:function (data) {
-                console.log(jqxhr.getAllResponseHeaders());
+                //console.log(jqxhr.getAllResponseHeaders());
                 cookie = jqxhr.getResponseHeader('Set-Cookie').split(';')[0];
                 verifyLogin(succ);
                 parseCreditsAndGel(data);
