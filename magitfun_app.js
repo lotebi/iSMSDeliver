@@ -37,6 +37,7 @@ $(function () {
 
     $("#msgBody").keyup(onMsgChange);
     $("#msgBody").keydown(onMsgChange);
+    $("#msgBody").bind( "change", onMsgChange);
 
     $("#logout").click(function (e) {
         e.preventDefault();
