@@ -23,33 +23,20 @@ $(function () {
     });
     $("#send").click(function (e) {
         e.preventDefault();
-        var recipient = $("#recipients").val();
-        var msgbody = $("#msgBody").val();
-        magtifunobj.sendSms(recipient, msgbody, function (a) {
-            $("#recipients").val("");
-            $("#msgBody").val("");
-        })
-    });
-
-    $("#msgBody").keyup(function (e) {
-        var currChars = $("#msgBody").val().length;
-        if (currChars < 146) {
-            $("#charCount").val(146 - currChars);
-            $("#message").val(1);
-            $("#maxMessages").css("visibility", "hidden");
-        } else if (currChars > 146) {
-            $("#charCount").val((146 + 146) - currChars);
-            $("#message").val(2);
-            $("#maxMessages").css("visibility", "hidden");
-        } else if (currChars > (146 + 146)) {
-            $("#charCount").val((146 + 146 + 146) - currChars);
-            $("#message").val(3);
-            $("#maxMessages").css("visibility", "hidden");
-        } else if (currChars > (146 + 146 + 146)) {
-            $("#message").val(3);
-            $("#maxMessages").css("visibility", "visible");
+        if ($("#maxMessages").css("visibility") == "visible") {
+            var recipient = $("#recipients").val();
+            var msgbody = $("#msgBody").val();
+            magtifunobj.sendSms(recipient, msgbody, function (a) {
+                $("#recipients").val("");
+                $("#msgBody").val("");
+            })
+        } else {
+            navigator.notification.alert("You exsided message character limit", null, "MissBehaive", "I'm Sorry!");
         }
     });
+
+    $("#msgBody").keyup(onMsgChange);
+    $("#msgBody").keydown(onMsgChange);
 
     $("#logout").click(function (e) {
         e.preventDefault();
@@ -82,6 +69,26 @@ $(function () {
         $(".content-sms").css("display", "none");
         $(".content-history").css("display", "none");
     });
+    function onMsgChange() {
+        var currChars = $("#msgBody").val().length;
+        if (currChars < 146) {
+            $("#charCount").text(146 - currChars);
+            $("#message").text(1);
+            $("#maxMessages").css("visibility", "hidden");
+        } else if (currChars > (146 + 146 + 146)) {
+            $("#message").text(3);
+            $("#maxMessages").css("visibility", "visible");
+        } else if (currChars > (146 + 146)) {
+            $("#charCount").text((146 + 146 + 146) - currChars);
+            $("#message").text(3);
+            $("#maxMessages").css("visibility", "hidden");
+        } else if (currChars > 146) {
+            $("#charCount").text((146 + 146) - currChars);
+            $("#message").text(2);
+            $("#maxMessages").css("visibility", "hidden");
+        }
+    }
+
     function getRandTransition() {
         return transitions[getRandomArbitrary(0, transitions.length)];
     }
