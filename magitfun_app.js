@@ -68,8 +68,8 @@ $(function () {
                 var aHistory = historys[i];
                 if (aHistory.date.toDateString().split(" ").join() != group) {
                     group = aHistory.date.toDateString().split(" ");
-                    group = group[0] + "," + group[1] + " " + group[2] + ","+group[3];
-                    var appendHeader = "<li data-role=\"list-divider\" role=\"heading\" class=\"ui-li ui-li-divider ui-btn ui-bar-b ui-li-has-count ui-btn-up-undefined counterli\">" + group +
+                    var tmpGroup = group[0] + "," + group[1] + " " + group[2] + ","+group[3];
+                    var appendHeader = "<li data-role=\"list-divider\" role=\"heading\" class=\"ui-li ui-li-divider ui-btn ui-bar-b ui-li-has-count ui-btn-up-undefined counterli\">" + tmpGroup +
                         "<span class=\"ui-li-count ui-btn-up-c ui-btn-corner-all\">" + groupCounter + "</span></li>";
                     $(".ui-listview").append(appendHeader);
                     groupCounter = 0;
