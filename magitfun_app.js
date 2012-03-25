@@ -60,6 +60,33 @@ $(function () {
     });
     $("#navbarHistory").click(function (e) {
         e.preventDefault();
+        magtifunobj.getHistory(function (historys) {
+            var group;
+            var groupCounter = 0;
+            $(".ui-listview").html("");
+            for (var i = 0; i < historys.length; i++) {
+                var aHistory = historys[i];
+                if (aHistory.date.toDateString().split(" ").join() != group) {
+                    group = aHistory.date.toDateString().split(" ").join();
+                    var appendHeader = "<li data-role=\"list-divider\" role=\"heading\" class=\"ui-li ui-li-divider ui-btn ui-bar-b ui-li-has-count ui-btn-up-undefined counterli\">" + group +
+                        "<span class=\"ui-li-count ui-btn-up-c ui-btn-corner-all\">" + groupCounter + "</span></li>";
+                    $(".ui-listview").append(appendHeader);
+                    groupCounter = 0;
+                } else {
+                    groupCounter++;
+                    var appendMsg = "<li data-theme=\"c\" class=\"ui-btn ui-btn-icon-right ui-li-has-arrow ui-li ui-li-static ui-body-c ui-btn-up-c\">" +
+                        "<div class=\"ui-btn-inner ui-li ui-li-static ui-body-c\">" +
+                        "<div class=\"ui-btn-text\">" +
+                        "<a href=\"\" class=\"ui-link-inherit\">" +
+                        "<p class=\"ui-li-aside ui-li-desc\"><strong>" + aHistory.date.getHours() + ":" + aHistory.date.getMinutes() + ":" + aHistory.date.getSeconds() + "</strong></p>" +
+                        "<h3 class=\"ui-li-heading\">" + aHistory.number + "</h3>" +
+                        "<p class=\"ui-li-desc\"><strong>" + aHistory.msgText + "</strong></p>" +
+                        "</a></div></div></li>";
+                    $(".ui-listview").append(appendMsg);
+                }
+            }
+        });
+
         $(".content-history").css("display", "block");
         $(".content-sms").css("display", "none");
         $(".content-contacts").css("display", "none");
@@ -70,6 +97,17 @@ $(function () {
         $(".content-sms").css("display", "none");
         $(".content-history").css("display", "none");
     });
+
+    function normalizeHistory() {
+        var counters = $(".counterli > span");
+        for (var i = 0; i < counters.length; i++) {
+            if (i+1 != counters.length) {
+                $(counters[i]).text($($(".counterli > span")[i + 1]).text())
+            }
+        }
+
+    }
+
     function onMsgChange() {
         var currChars = $("#msgBody").val().length;
         if (currChars < 146) {

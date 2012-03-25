@@ -12,6 +12,11 @@ function magitfun(user, password) {
     var gel;
     var history;
 
+
+    this.setCookie = function (cook) {
+        cookie = cook;
+    };
+
     this.login = function (succ) {
         var jqxhr = $.ajax({
             type:"POST",
@@ -103,6 +108,11 @@ function magitfun(user, password) {
 
     var parseHistory = function (index, succ) {
         if (index <= 0) {
+            history.sort(function (a, b) {
+                if (a.date > b.date) return -1;
+                if (a.date < b.date) return 1;
+                return 0;
+            });
             succ(history);
         } else {
             $.ajax({
@@ -135,24 +145,47 @@ function magitfun(user, password) {
                         if ($(element).text().replace(/[^\+\d]/g, "")) {
                             rec.number = $(element).text().replace(/[^\+\d]/g, "");
                             if (index == child.find(".message_list_recipient > .gray").length) {
-                                rec.status = child.find(".message_list_recipient > .gray")[index - 1];
+                                rec.status = $(child.find(".message_list_recipient > .gray")[index - 1]).text();
                             } else {
-                                rec.status = child.find(".message_list_recipient > .gray")[index + 1];
+
+                                rec.status = $(child.find(".message_list_recipient > .gray")[index + 1]).text();
                             }
                         }
                     })
                 }
             });
-            rec.date = new Date();
-            var monthYear = child.find(".msg_date").find(".date_month").text().split("<br>");
+            var monthYear = child.find(".msg_date").find(".date_month").html().split("<br>");
             var dateTime = child.find(".date_time").text().split(":");
-            rec.date.day = child.find(".msg_date").find(".xlarge").text();
-            rec.date.month = monthYear[0];
-            rec.date.year = monthYear[1];
-            rec.date.houre = dateTime[0];
-            rec.date.minutes = dateTime[1];
-            rec.date.seconds = dateTime[2];
+            rec.date = new Date(monthYear[1], getMonth(monthYear[0]), child.find(".msg_date").find(".xlarge").text(), dateTime[0], dateTime[1], dateTime[2]);
             history.push(rec);
+        }
+    };
+
+    var getMonth = function (month) {
+        if (month == 'ინვ') {
+            return 0;
+        } else if (month = 'თებ') {
+            return 1;
+        } else if (month == 'მარ') {
+            return 2;
+        } else if (month == 'აპრ') {
+            return 3;
+        } else if (month == 'მაი') {
+            return 4;
+        } else if (month == 'ივნ') {
+            return 5;
+        } else if (month == 'ივლ') {
+            return 6;
+        } else if (month == 'აგვ') {
+            return 7;
+        } else if (month == 'სექ') {
+            return 8;
+        } else if (month == 'ოქტ') {
+            return 9;
+        } else if (month == 'ნოე') {
+            return 10;
+        } else if (month == 'დეკ') {
+            return 11;
         }
     };
 
