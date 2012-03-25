@@ -1,5 +1,8 @@
 $(function () {
-    var magtifunobj;
+    var connectorObject;
+    var history;
+    var contactsLocal;
+    var contactsRemote;
     var transitions = new Array();
     transitions.push("pop");
     transitions.push("flip");
@@ -11,11 +14,13 @@ $(function () {
         e.preventDefault();
         var user = $("#username").val();
         var password = $("#password").val();
-        magtifunobj = new magitfun(user, password);
-        magtifunobj.login(function (a) {
+        connectorObject = new magitfun(user, password);
+        connectorObject.login(function (a) {
             if (a == "succses") {
                 $.mobile.changePage($("#pageHome"), {transition:getRandTransition()});
-                magtifunobj.getBalance(updateCreditsGel);
+                refreshBalance();
+                dealWithHistory();
+                dealWithContacts();
             } else {
                 navigator.notification.vibrate(250);
                 navigator.notification.alert("Wrong Username or Password", null, "MissBehaive", "I'm Sorry!");
@@ -27,10 +32,10 @@ $(function () {
         if ($("#maxMessages").css("visibility") == "hidden") {
             var recipient = $("#recipients").val();
             var msgbody = $("#msgBody").val();
-            magtifunobj.sendSms(recipient, msgbody, function (a) {
+            connectorObject.sendSms(recipient, msgbody, function (a) {
                 $("#recipients").val("");
                 $("#msgBody").val("");
-                magtifunobj.getBalance(updateCreditsGel);
+                connectorObject.getBalance(updateCreditsGel);
             })
         } else {
             navigator.notification.alert("You exsided message character limit", null, "MissBehaive", "I'm Sorry!");
@@ -60,7 +65,36 @@ $(function () {
     });
     $("#navbarHistory").click(function (e) {
         e.preventDefault();
-        magtifunobj.getHistory(function (historys) {
+        $(".content-history").css("display", "block");
+        $(".content-sms").css("display", "none");
+        $(".content-contacts").css("display", "none");
+    });
+    $("#navbarContacts").click(function (e) {
+        e.preventDefault();
+        $(".content-contacts").css("display", "block");
+        $(".content-sms").css("display", "none");
+        $(".content-history").css("display", "none");
+    });
+
+    function refreshBalance() {
+        connectorObject.getBalance(updateCreditsGel);
+    }
+
+    function dealWithContacts() {
+        if (!contactsRemote) {
+            grabContacts();
+        }
+    }
+
+    function grabContacts() {
+        connectorObject.getContacts(function (a) {
+            contactsRemote = a
+        });
+    }
+
+    function dealWithHistory() {
+        connectorObject.getHistory(function (historys) {
+            history = historys;
             var group;
             var groupCounter = 0;
             $(".ui-listview").html("");
@@ -68,7 +102,7 @@ $(function () {
                 var aHistory = historys[i];
                 if (aHistory.date.toDateString().split(" ").join() != group) {
                     group = aHistory.date.toDateString().split(" ");
-                    var tmpGroup = group[0] + "," + group[1] + " " + group[2] + ","+group[3];
+                    var tmpGroup = group[0] + "," + group[1] + " " + group[2] + "," + group[3];
                     var appendHeader = "<li data-role=\"list-divider\" role=\"heading\" class=\"ui-li ui-li-divider ui-btn ui-bar-b ui-li-has-count ui-btn-up-undefined counterli\">" + tmpGroup +
                         "<span class=\"ui-li-count ui-btn-up-c ui-btn-corner-all\">" + groupCounter + "</span></li>";
                     $(".ui-listview").append(appendHeader);
@@ -86,27 +120,17 @@ $(function () {
                     $(".ui-listview").append(appendMsg);
                 }
             }
+            normalizeHistory();
         });
-        normalizeHistory();
-        $(".content-history").css("display", "block");
-        $(".content-sms").css("display", "none");
-        $(".content-contacts").css("display", "none");
-    });
-    $("#navbarContacts").click(function (e) {
-        e.preventDefault();
-        $(".content-contacts").css("display", "block");
-        $(".content-sms").css("display", "none");
-        $(".content-history").css("display", "none");
-    });
+    }
 
     function normalizeHistory() {
         var counters = $(".counterli > span");
         for (var i = 0; i < counters.length; i++) {
-            if (i+1 != counters.length) {
+            if (i + 1 != counters.length) {
                 $(counters[i]).text($($(".counterli > span")[i + 1]).text())
             }
         }
-
     }
 
     function onMsgChange() {
