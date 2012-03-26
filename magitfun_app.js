@@ -117,7 +117,6 @@ $(function () {
                     contactsLocal.push(aContact);
                 }
                 sortContacts(contactsLocal);
-                console.log(contactsLocal);
             }
 
             function onError(contactError) {
@@ -202,7 +201,7 @@ $(function () {
             if (merge) {
                 contacts = mergeContacts();
             }
-            $(".contacts-view").htmlm('<ul data-role="listview" data-filter="true" data-filter-placeholder="Search contacts..." data-filter-theme="d" data-theme="d" data-divider-theme="d" >');
+            $(".contacts-view").html('<ul data-role="listview" data-filter="true" data-filter-placeholder="Search contacts..." data-filter-theme="d" data-theme="d" data-divider-theme="d" >');
             var firtChar = '';
             for (var i = 0; i < contacts.length; i++) {
                 var aContact = contacts[i];
