@@ -1,3 +1,10 @@
+function sortHistory(history) {
+    history.sort(function (a, b) {
+        if (a.date > b.date) return -1;
+        if (a.date < b.date) return 1;
+        return 0;
+    });
+}
 /**
  * Created by JetBrains WebStorm.
  * User: lukasa
@@ -6,7 +13,7 @@
  * To change this template use File | Settings | File Templates.
  */
 
-function magitfun(user, password) {
+function Magitfun(user, password) {
     var cookie;
     var credits;
     var gel;
@@ -99,20 +106,32 @@ function magitfun(user, password) {
                 xhr.setRequestHeader('Cookie', cookie);
             },
             success:function (data) {
-                var pagesCount = $(data).find(".page_number,active,red,round_border,english").length;
+                var pagesCount = $(data).find(".page_number,active,red,round_border,english").length - 1;
                 history = new Array();
+                parseHistoryPerPage(data);
                 parseHistory(pagesCount, succ);
+            }
+        });
+    };
+    this.updateHistory = function (succ) {
+        $.ajax({
+            type:"POST",
+            url:'http://www.magtifun.ge/index.php?page=10&lang=ge',
+            beforeSend:function (xhr) {
+                xhr.setRequestHeader('Cookie', cookie);
+            },
+            success:function (data) {
+                history = new Array();
+                parseHistoryPerPage(data);
+                sortHistory(history);
+                succ(history);
             }
         });
     };
 
     var parseHistory = function (index, succ) {
         if (index <= 0) {
-            history.sort(function (a, b) {
-                if (a.date > b.date) return -1;
-                if (a.date < b.date) return 1;
-                return 0;
-            });
+            sortHistory(history);
             succ(history);
         } else {
             $.ajax({
