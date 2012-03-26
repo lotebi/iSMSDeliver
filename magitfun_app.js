@@ -231,9 +231,9 @@ $(function () {
                     groupCounter = 0;
                 } else {
                     groupCounter++;
-                    var appendMsg = '<h3>' + aHistory.number + '</h3>' +
-                        '<p><strong>' + aHistory.number + '</strong></p>' +
-                        '<p class="ui-li-aside"><strong>' + aHistory.date.getHours() + ":" + aHistory.date.getMinutes() + ":" + aHistory.date.getSeconds() + '</strong></p>';
+                    var appendMsg = '<li><h3>' + aHistory.number + '</h3>' +
+                        '<p><strong>' + aHistory.msgText + '</strong></p>' +
+                        '<p class="ui-li-aside"><strong>' + aHistory.date.getHours() + ":" + aHistory.date.getMinutes() + ":" + aHistory.date.getSeconds() + '</strong></p></li>';
                     if (!update) {
                         $(".ui-listview").append(appendMsg);
                     } else {
@@ -245,10 +245,10 @@ $(function () {
         }
 
         function normalizeHistory() {
-            var counters = $(".counterli > span");
+            var counters = $(".ui-li-count");
             for (var i = 0; i < counters.length; i++) {
                 if (i + 1 != counters.length) {
-                    $(counters[i]).text($($(".counterli > span")[i + 1]).text())
+                    $(counters[i]).text($(counters[i + 1]).text());
                 }
             }
         }
