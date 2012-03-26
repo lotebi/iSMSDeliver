@@ -217,8 +217,9 @@ $(function () {
         function generateHistory(hist, update) {
             var group;
             var groupCounter = 0;
+            var workingElement = $(".content-history > .ui-listview");
             if (!update) {
-                $(".ui-listview").html("");
+                workingElement.html("");
             }
             for (var i = 0; i < hist.length; i++) {
                 var aHistory = history[i];
@@ -227,7 +228,7 @@ $(function () {
                     var tmpGroup = group[0] + "," + group[1] + " " + group[2] + "," + group[3];
                     var appendHeader = '<li data-role="list-divider">' + tmpGroup +
                         '<span class="ui-li-count">' + groupCounter + "</span></li>";
-                    $(".ui-listview").append(appendHeader);
+                    workingElement.append(appendHeader);
                     groupCounter = 0;
                 } else {
                     groupCounter++;
@@ -235,13 +236,13 @@ $(function () {
                         '<span>' + aHistory.msgText + '</span>' +
                         '<p class="ui-li-aside"><strong>' + aHistory.date.getHours() + ":" + aHistory.date.getMinutes() + ":" + aHistory.date.getSeconds() + '</strong></p></li>';
                     if (!update) {
-                        $(".ui-listview").append(appendMsg);
+                        workingElement.append(appendMsg);
                     } else {
-                        $(".ui-listview").prepend(appendMsg);
+                        workingElement.prepend(appendMsg);
                     }
                 }
             }
-            $(".ui-listview").listview("refresh");
+            workingElement.listview("refresh");
         }
 
         function normalizeHistory() {
