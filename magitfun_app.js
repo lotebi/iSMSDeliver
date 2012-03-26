@@ -103,6 +103,7 @@ $(function () {
         //----------------------------Local Contacts-----------------------------------
         document.addEventListener("deviceready", function () {
             function onSuccess(contacts) {
+                alert("Contaacts");
                 for (var i = 0; i < contacts.length; i++) {
                     var deviceContact = contacts[i];
                     var aContact = new Object();
@@ -122,7 +123,6 @@ $(function () {
                 //console.log(contactError);
             }
 
-            alert("Device Ready!");
             var options = new ContactFindOptions();
             options.filter = "";
             options.multiple = true;
