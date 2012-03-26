@@ -83,19 +83,21 @@ $(function () {
 
         $("#allContacts").click(function (e) {
             e.preventDefault();
+            console.log(contactsLocal);
+            console.log(contactsRemote);
             generateContacts("", true);
             $(".contacts-choose").css("display", "none");
             $(".contacts-view").css("display", "block");
         });
         $("#localContacts").click(function (e) {
             e.preventDefault();
-            generateContacts(contactsLocal);
+            generateContacts(contactsLocal, false);
             $(".contacts-choose").css("display", "none");
             $(".contacts-view").css("display", "block");
         });
         $("#providerContacts").click(function (e) {
             e.preventDefault();
-            generateContacts(contactsRemote);
+            generateContacts(contactsRemote, false);
             $(".contacts-choose").css("display", "none");
             $(".contacts-view").css("display", "block");
         });
@@ -103,7 +105,6 @@ $(function () {
         //----------------------------Local Contacts-----------------------------------
         document.addEventListener("deviceready", function () {
             function onSuccess(contacts) {
-                alert("Contaacts");
                 for (var i = 0; i < contacts.length; i++) {
                     var deviceContact = contacts[i];
                     var aContact = new Object();
@@ -116,6 +117,7 @@ $(function () {
                     contactsLocal.push(aContact);
                 }
                 sortContacts(contactsLocal);
+                console.log(contactsLocal);
             }
 
             function onError(contactError) {
