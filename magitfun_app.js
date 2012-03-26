@@ -232,10 +232,10 @@ $(function () {
                 } else {
                     groupCounter++;
                     var appendMsg = "<li>" +
-                        "<a href=\"#\" class=\"ui-link-inherit\">" +
-                        "<p><strong>" + aHistory.date.getHours() + ":" + aHistory.date.getMinutes() + ":" + aHistory.date.getSeconds() + "</strong></p>" +
+                        "<a href=\"#\">" +
+                        "<p><strong>" + aHistory.msgText + "</strong></p>" +
                         "<h3>" + aHistory.number + "</h3>" +
-                        "<p class=\"ui-li-aside\"><strong>" + aHistory.msgText + "</strong></p>" +
+                        "<p class=\"ui-li-aside\"><strong>" + aHistory.date.getHours() + ":" + aHistory.date.getMinutes() + ":" + aHistory.date.getSeconds() + "</strong></p>" +
                         "</a></div></div></li>";
                     if (!update) {
                         $(".ui-listview").append(appendMsg);
