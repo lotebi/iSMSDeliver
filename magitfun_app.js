@@ -231,8 +231,8 @@ $(function () {
                     groupCounter = 0;
                 } else {
                     groupCounter++;
-                    var appendMsg = '<li><h3>' + aHistory.number + '</h3>' +
-                        '<strong>' + aHistory.msgText + '</strong>' +
+                    var appendMsg = '<li><h3 style="color: blue;">' + aHistory.number + '</h3>' +
+                        '<span>' + aHistory.msgText + '</span>' +
                         '<p class="ui-li-aside"><strong>' + aHistory.date.getHours() + ":" + aHistory.date.getMinutes() + ":" + aHistory.date.getSeconds() + '</strong></p></li>';
                     if (!update) {
                         $(".ui-listview").append(appendMsg);
