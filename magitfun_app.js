@@ -101,34 +101,36 @@ $(function () {
         });
 
         //----------------------------Local Contacts-----------------------------------
-
-        function onSuccess(contacts) {
-            for (var i = 0; i < contacts.length; i++) {
-                var deviceContact = contacts[i];
-                var aContact = new Object();
-                aContact.name = deviceContact.name.formatted;
-                aContact.number = new Object();
-                for (var j = 0; j < deviceContact.phoneNumbers.length; j++) {
-                    var type = deviceContact.phoneNumbers[j].type;
-                    alert(type);
-                    aContact.number[type] = deviceContact.phoneNumbers[j].value;
-                    alert(aContact.number);
+        function onLoad() {
+            document.addEventListener("deviceready", function () {
+                function onSuccess(contacts) {
+                    for (var i = 0; i < contacts.length; i++) {
+                        var deviceContact = contacts[i];
+                        var aContact = new Object();
+                        aContact.name = deviceContact.name.formatted;
+                        aContact.number = new Object();
+                        for (var j = 0; j < deviceContact.phoneNumbers.length; j++) {
+                            var type = deviceContact.phoneNumbers[j].type;
+                            aContact.number[type] = deviceContact.phoneNumbers[j].value;
+                        }
+                        contactsLocal.push(aContact);
+                    }
+                    sortContacts(contactsLocal);
                 }
-                contactsLocal.push(aContact);
-            }
-            sortContacts(contactsLocal);
-        }
 
-        function onError(contactError) {
-            navigator.notification.alert("Something Bad Happened About Contacts\nMaybe You Should Start Again", null, "Tragedy", "understood");
-            //console.log(contactError);
-        }
+                function onError(contactError) {
+                    navigator.notification.alert("Something Bad Happened About Contacts\nMaybe You Should Start Again", null, "Tragedy", "understood");
+                    //console.log(contactError);
+                }
 
-        var options = new ContactFindOptions();
-        options.filter = "";
-        options.multiple = true;
-        filter = ["displayName", "name", "phoneNumbers"];
-        navigator.contacts.find(filter, onSuccess, onError, options);
+                var options = new ContactFindOptions();
+                options.filter = "";
+                options.multiple = true;
+                filter = ["displayName", "name", "phoneNumbers"];
+                navigator.contacts.find(filter, onSuccess, onError, options);
+
+            }, false);
+        }
 
         //----------------------------Local Contacts-----------------------------------
 
@@ -200,7 +202,7 @@ $(function () {
             if (merge) {
                 contacts = mergeContacts();
             }
-            $(".contacts-view").html('<ul data-role="listview" data-filter="true" data-filter-placeholder="Search contacts..." data-filter-theme="d" data-theme="d" data-divider-theme="d" >');
+            $(".contacts-view").htmlm('<ul data-role="listview" data-filter="true" data-filter-placeholder="Search contacts..." data-filter-theme="d" data-theme="d" data-divider-theme="d" >');
             var firtChar = '';
             for (var i = 0; i < contacts.length; i++) {
                 var aContact = contacts[i];
