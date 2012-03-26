@@ -67,8 +67,8 @@ $(function () {
         });
         $("#navbarHistory").click(function (e) {
             e.preventDefault();
-            //generateHistory(history);
-            //normalizeHistory();
+            generateHistory(history);
+            normalizeHistory();
             $(".content-history").css("display", "block");
             $(".content-sms").css("display", "none");
             $(".content-contacts").css("display", "none");
