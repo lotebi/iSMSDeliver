@@ -231,12 +231,9 @@ $(function () {
                     groupCounter = 0;
                 } else {
                     groupCounter++;
-                    var appendMsg = "<li>" +
-                        "<a href=\"#\">" +
-                        "<p><strong>" + aHistory.msgText + "</strong></p>" +
-                        "<h3>" + aHistory.number + "</h3>" +
-                        "<p class=\"ui-li-aside\"><strong>" + aHistory.date.getHours() + ":" + aHistory.date.getMinutes() + ":" + aHistory.date.getSeconds() + "</strong></p>" +
-                        "</a></div></div></li>";
+                    var appendMsg = '<h3>' + aHistory.number + '</h3>' +
+                        '<p><strong>' + aHistory.number + '</strong></p>' +
+                        '<p class="ui-li-aside"><strong>' + aHistory.date.getHours() + ":" + aHistory.date.getMinutes() + ":" + aHistory.date.getSeconds() + '</strong></p>';
                     if (!update) {
                         $(".ui-listview").append(appendMsg);
                     } else {
