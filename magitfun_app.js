@@ -55,7 +55,8 @@ $(function () {
         $("#about").click(function (e) {
             e.preventDefault();
             var transition = getRandTransition();
-            $.mobile.changePage($("#pageHome"), {transition:transition})
+            $.mobile.changePage($("#pageHome"), {transition:transition});
+            $("#pageHome").trigger('create');
         });
 
         $("#navbarSms").click(function (e) {
@@ -66,8 +67,8 @@ $(function () {
         });
         $("#navbarHistory").click(function (e) {
             e.preventDefault();
-            generateHistory(history);
-            normalizeHistory();
+            //generateHistory(history);
+            //normalizeHistory();
             $(".content-history").css("display", "block");
             $(".content-sms").css("display", "none");
             $(".content-contacts").css("display", "none");
@@ -224,7 +225,7 @@ $(function () {
                 if (aHistory.date.toDateString().split(" ").join() != group) {
                     group = aHistory.date.toDateString().split(" ");
                     var tmpGroup = group[0] + "," + group[1] + " " + group[2] + "," + group[3];
-                    var appendHeader = '<li data-role="list-divider" class="counterli">' + tmpGroup +
+                    var appendHeader = '<li data-role="list-divider">' + tmpGroup +
                         '<span class="ui-li-count">' + groupCounter + "</span></li>";
                     $(".ui-listview").append(appendHeader);
                     groupCounter = 0;
@@ -243,7 +244,7 @@ $(function () {
                     }
                 }
             }
-            $(".ui-listview").trigger('create');
+            $(".ui-listview").listview("refresh");
         }
 
         function normalizeHistory() {

@@ -48,9 +48,8 @@
         <input id="login" value="login" type="button" data-theme="b">
     </div>
 </div>
-<div data-role="page" id="pageHome">
-    <div data-role="header" data-position="fixed" data-theme="a" class="ui-header ui-bar-f ui-header-fixed slidedown"
-         role="banner" style="">
+<div data-role="page" class="type-interior" id="pageHome">
+    <div data-role="header" data-position="fixed">
         <h1>
             <a href="#" id="logout" data-theme="b" data-role="button" data-mini="true" class="ui-btn-left">Logout</a>
             <span id="credit">50</span>
@@ -128,10 +127,10 @@
 
     </div>
 
-    <div data-role="footer" data-position="fixed" data-fullscreen="true" data-theme="a" role="contentinfo">
-        <div data-role="navbar" data-iconpos="bottom" class="ui-navbar ui-state-persist" role="navigation">
+    <div data-role="footer" data-position="fixed" data-theme="a">
+        <div data-role="navbar" data-iconpos="bottom" role="navigation">
             <ul>
-                <li><a href="#" id="navbarSms">SMS</a></li>
+                <li><a href="#" id="navbarSms" class="ui-btn-active">SMS</a></li>
                 <li><a href="#" id="navbarHistory">History</a></li>
                 <li><a href="#" id="navbarContacts">Conacts</a></li>
             </ul>
