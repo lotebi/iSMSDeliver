@@ -67,8 +67,6 @@ $(function () {
         });
         $("#navbarHistory").click(function (e) {
             e.preventDefault();
-            generateHistory(history);
-            normalizeHistory();
             $(".content-history").css("display", "block");
             $(".content-sms").css("display", "none");
             $(".content-contacts").css("display", "none");
@@ -181,6 +179,8 @@ $(function () {
         function grabHistory() {
             connectorObject.getHistory(function (historys) {
                 history = historys;
+                generateHistory(history);
+                normalizeHistory();
             });
         }
 
@@ -250,6 +250,16 @@ $(function () {
                 if (i + 1 != counters.length) {
                     $(counters[i]).text($($(".counterli > span")[i + 1]).text())
                 }
+            }
+        }
+
+        function contactByNumber(number) {
+            var contacts = mergeContacts();
+            for (var i = 0; i < contacts.length; i++) {
+                var aContact = contacts[i];
+                console.log(aContact);
+                console.log("\n");
+                console.log(number);
             }
         }
 
