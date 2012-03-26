@@ -193,7 +193,6 @@ $(function () {
             for (var j = 0; i < contactsRemote.length.length; j++) {
                 contacts.push(contactsLocal[j]);
             }
-            sortContacts(contacts);
             return contacts;
         }
 
@@ -201,6 +200,7 @@ $(function () {
             if (merge) {
                 contacts = mergeContacts();
             }
+            sortContacts(contacts);
             $(".contacts-view").html('<ul data-role="listview" data-filter="true" data-filter-placeholder="Search contacts..." data-filter-theme="d" data-theme="d" data-divider-theme="d" >');
             var firtChar = '';
             for (var i = 0; i < contacts.length; i++) {
