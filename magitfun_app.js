@@ -200,17 +200,17 @@ $(function () {
             if (merge) {
                 contacts = mergeContacts();
             }
-            $(".contacts-view").append('<ul data-role="listview" data-filter="true" data-filter-placeholder="Search contacts..." data-filter-theme="d"data-theme="d" data-divider-theme="d">');
+            $(".contacts-view").html('<ul data-role="listview" data-filter="true" data-filter-placeholder="Search contacts..." data-filter-theme="d" data-theme="d" data-divider-theme="d" >');
             var firtChar = '';
             for (var i = 0; i < contacts.length; i++) {
                 var aContact = contacts[i];
                 if (aContact.name[0] != firtChar) {
                     firtChar = aContact.name[0];
-                    $(".contacts-view").append('<li data-role="list-divider">' + firtChar + '</li>');
+                    $(".contacts-view > [data-role='listview']").append('<li data-role="list-divider">' + firtChar + '</li>');
                 }
-                $(".contacts-view").append('<li><a href="#">' + aContact.name + '</a></li>');
+                $(".contacts-view > [data-role='listview']").append('<li><a href="#">' + aContact.name + '</a></li>');
             }
-            $(".contacts-view").append("</ul>");
+            $(".contacts-view").append('</ul>');
             $(".contacts-view").trigger('create');
         }
 
