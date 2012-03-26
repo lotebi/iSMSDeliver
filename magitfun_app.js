@@ -232,7 +232,7 @@ $(function () {
                 } else {
                     groupCounter++;
                     var appendMsg = '<li><h3>' + aHistory.number + '</h3>' +
-                        '<p><strong>' + aHistory.msgText + '</strong></p>' +
+                        '<strong>' + aHistory.msgText + '</strong>' +
                         '<p class="ui-li-aside"><strong>' + aHistory.date.getHours() + ":" + aHistory.date.getMinutes() + ":" + aHistory.date.getSeconds() + '</strong></p></li>';
                     if (!update) {
                         $(".ui-listview").append(appendMsg);
