@@ -91,13 +91,13 @@ $(function () {
         $("#localContacts").click(function (e) {
             e.preventDefault();
             generateContacts(contactsLocal);
-            $(".contacts-choose").css("display", "nonex");
+            $(".contacts-choose").css("display", "none");
             $(".contacts-view").css("display", "block");
         });
         $("#providerContacts").click(function (e) {
             e.preventDefault();
             generateContacts(contactsRemote);
-            $(".contacts-choose").css("display", "nonex");
+            $(".contacts-choose").css("display", "none");
             $(".contacts-view").css("display", "block");
         });
 
@@ -199,31 +199,18 @@ $(function () {
             if (merge) {
                 contacts = mergeContacts();
             }
-            $(".contacts-view").html("<form class=\"ui-listview-filter ui-bar-d\" role=\"search\"><div class=\"ui-input-search ui-shadow-inset ui-btn-corner-all " +
-                "ui-btn-shadow ui-icon-searchfield ui-body-d\"> <input placeholder=\"Search contact...\" data-type=\"search\" class=\"ui-input-text ui-body-d\">" +
-                "<a href=\"#\"class=\"ui-input-clear ui-btn ui-btn-up-d ui-btn-icon-notext ui-btn-corner-all ui-shadow ui-input-clear-hidden\" title=\"clear text\" " +
-                "data-corners=\"true\" data-shadow=\"true\" data-iconshadow=\"true\" data-inline=\"false\" data-wrapperels=\"span\" data-icon=\"delete\" data-iconpos=\"notext\" " +
-                "data-mini=\"false\"><span class=\"ui-btn-inner ui-btn-corner-all\"><span class=\"ui-btn-text\">clear text</span><span " +
-                "class=\"ui-icon ui-icon-delete ui-icon-shadow\"></span></span></a></div> " +
-                "</form>");
-            $(".contacts-view").append("<ul data-role=\"listview\" data-filter=\"true\" data-filter-placeholder=\"Search people...\" data-filter-theme=\"d\" " +
-                "data-theme=\"d\" data-divider-theme=\"d\" class=\"ui-listview\">");
+            $(".contacts-view").append('<ul data-role="listview" data-filter="true" data-filter-placeholder="Search contacts..." data-filter-theme="d"data-theme="d" data-divider-theme="d">');
             var firtChar = '';
             for (var i = 0; i < contacts.length; i++) {
                 var aContact = contacts[i];
                 if (aContact.name[0] != firtChar) {
                     firtChar = aContact.name[0];
-                    $(".contacts-view").append('<li data-role="list-divider" role="heading" class="ui-li ui-li-divider ui-btn ui-bar-d ui-btn-up-undefined">' + firtChar + '</li>');
+                    $(".contacts-view").append('<li data-role="list-divider">' + firtChar + '</li>');
                 }
-                $(".contacts-view").append('<li data-corners="false" data-shadow="false" data-iconshadow="true" data-inline="false" data-wrapperels="div" ' +
-                    'data-icon="arrow-r" data-iconpos="right" data-theme="d" ' +
-                    'class="ui-btn ui-btn-icon-right ui-li-has-arrow ui-li ui-btn-up-d"> ' +
-                    '<div class="ui-btn-inner ui-li"> ' +
-                    '<div class="ui-btn-text"><a href="#" class="ui-link-inherit">' + aContact.name + '</a></div> ' +
-                    '<span class="ui-icon ui-icon-arrow-r ui-icon-shadow"></span></div>' +
-                    '</li>');
+                $(".contacts-view").append('<li><a href="#">' + aContact.name + '</a></li>');
             }
             $(".contacts-view").append("</ul>");
+            $(".contacts-view").trigger('create');
         }
 
         function generateHistory(hist, update) {
@@ -237,19 +224,17 @@ $(function () {
                 if (aHistory.date.toDateString().split(" ").join() != group) {
                     group = aHistory.date.toDateString().split(" ");
                     var tmpGroup = group[0] + "," + group[1] + " " + group[2] + "," + group[3];
-                    var appendHeader = "<li data-role=\"list-divider\" role=\"heading\" class=\"ui-li ui-li-divider ui-btn ui-bar-b ui-li-has-count ui-btn-up-undefined counterli\">" + tmpGroup +
-                        "<span class=\"ui-li-count ui-btn-up-c ui-btn-corner-all\">" + groupCounter + "</span></li>";
+                    var appendHeader = '<li data-role="list-divider">' + tmpGroup +
+                        '<span class="ui-li-count">' + groupCounter + "</span></li>";
                     $(".ui-listview").append(appendHeader);
                     groupCounter = 0;
                 } else {
                     groupCounter++;
-                    var appendMsg = "<li data-theme=\"c\" class=\"ui-btn ui-btn-icon-right ui-li-has-arrow ui-li ui-li-static ui-body-c ui-btn-up-c\">" +
-                        "<div class=\"ui-btn-inner ui-li ui-li-static ui-body-c\">" +
-                        "<div class=\"ui-btn-text\">" +
-                        "<a href=\"\" class=\"ui-link-inherit\">" +
-                        "<p class=\"ui-li-aside ui-li-desc\"><strong>" + aHistory.date.getHours() + ":" + aHistory.date.getMinutes() + ":" + aHistory.date.getSeconds() + "</strong></p>" +
-                        "<h3 class=\"ui-li-heading\">" + aHistory.number + "</h3>" +
-                        "<p class=\"ui-li-desc\"><strong>" + aHistory.msgText + "</strong></p>" +
+                    var appendMsg = "<li>" +
+                        "<a href=\"#\" class=\"ui-link-inherit\">" +
+                        "<p><strong>" + aHistory.date.getHours() + ":" + aHistory.date.getMinutes() + ":" + aHistory.date.getSeconds() + "</strong></p>" +
+                        "<h3>" + aHistory.number + "</h3>" +
+                        "<p class=\"ui-li-aside\"><strong>" + aHistory.msgText + "</strong></p>" +
                         "</a></div></div></li>";
                     if (!update) {
                         $(".ui-listview").append(appendMsg);
@@ -258,6 +243,7 @@ $(function () {
                     }
                 }
             }
+            $(".ui-listview").trigger('create');
         }
 
         function normalizeHistory() {
