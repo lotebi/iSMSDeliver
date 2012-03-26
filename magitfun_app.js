@@ -224,7 +224,7 @@ $(function () {
                 if (aHistory.date.toDateString().split(" ").join() != group) {
                     group = aHistory.date.toDateString().split(" ");
                     var tmpGroup = group[0] + "," + group[1] + " " + group[2] + "," + group[3];
-                    var appendHeader = '<li data-role="list-divider">' + tmpGroup +
+                    var appendHeader = '<li data-role="list-divider" class="counterli">' + tmpGroup +
                         '<span class="ui-li-count">' + groupCounter + "</span></li>";
                     $(".ui-listview").append(appendHeader);
                     groupCounter = 0;
