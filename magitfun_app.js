@@ -28,6 +28,7 @@ $(function () {
                 }
             })
         });
+
         $("#refresh").click(function (e) {
             e.preventDefault();
             refreshBalance();
@@ -183,6 +184,7 @@ $(function () {
                 for (var j = 0; j < history.length; j++) {
                     hist.push(history[j]);
                 }
+                history = hist;
                 generateHistory();
                 normalizeHistory();
             });
@@ -198,13 +200,12 @@ $(function () {
 
         function mergeContacts() {
             var contacts = new Array();
-            for (var j = 0; j < contactsRemote.length.length; j++) {
+            for (var j = 0; j < contactsRemote.length; j++) {
                 contacts.push(contactsRemote[j]);
             }
             for (var i = 0; i < contactsLocal.length; i++) {
                 contacts.push(contactsLocal[i]);
             }
-            console.log(contacts);
             return contacts;
         }
 
