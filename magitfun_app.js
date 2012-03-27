@@ -174,14 +174,17 @@ $(function () {
 
         function updateHistory() {
             connectorObject.updateHistory(function (newHistory) {
-                var i;
-                for (i = 0; i < history.length; i++) {
-                    if (history[i].date = newHistory[i].date) {
+                var hist = new Array();
+                for (var i = 0; i < newHistory; i++) {
+                    if (newHistory[i].date != history[0].date) {
+                        hist.push(newHistory[i]);
+                    } else {
                         break;
                     }
                 }
-                newHistory.slice(0, i);
-                generateHistory(newHistory, true);
+                for (var j = 0; j < history.length; j++) {
+                    hist.push(history[j]);
+                }
             });
         }
 
@@ -189,7 +192,6 @@ $(function () {
             connectorObject.getHistory(function (historys) {
                 history = historys;
                 generateHistory(history);
-                normalizeHistory();
             });
         }
 
@@ -199,7 +201,7 @@ $(function () {
                 contacts.push(contactsLocal[i]);
             }
             for (var j = 0; i < contactsRemote.length.length; j++) {
-                contacts.push(contactsLocal[j]);
+                contacts.push(contactsRemote[j]);
             }
             return contacts;
         }
@@ -223,13 +225,11 @@ $(function () {
             $(".contacts-view").trigger('create');
         }
 
-        function generateHistory(hist, update) {
+        function generateHistory(hist) {
             var group;
             var groupCounter = 0;
             var workingElement = $(".content-history > .ui-listview");
-            if (!update) {
-                workingElement.html("");
-            }
+            workingElement.html("");
             for (var i = 0; i < hist.length; i++) {
                 var aHistory = history[i];
                 if (aHistory.date.toDateString().split(" ").join() != group) {
@@ -243,12 +243,9 @@ $(function () {
                     groupCounter++;
                     var appendMsg = '<li><h3 style="color: blue;">' + aHistory.number + '</h3>' +
                         '<span>' + aHistory.msgText + '</span>' +
-                        '<p class="ui-li-aside"><strong>' + aHistory.date.getHours() + ":" + aHistory.date.getMinutes() + ":" + aHistory.date.getSeconds() + '</strong></p></li>';
-                    if (!update) {
-                        workingElement.append(appendMsg);
-                    } else {
-                        workingElement.prepend(appendMsg);
-                    }
+                        '<p class="ui-li-aside"><strong>' + aHistory.date.getHours() + ":" + aHistory.date.getMinutes() +
+                        ":" + aHistory.date.getSeconds() + '</strong></p></li>';
+                    workingElement.append(appendMsg);
                 }
             }
             workingElement.listview("refresh");
