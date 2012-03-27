@@ -111,6 +111,7 @@ $(function () {
 
         //----------------------------Local Contacts-----------------------------------
         document.addEventListener("deviceready", function () {
+            $.mobile.touchOverflowEnabled = true;
             function onSuccess(contacts) {
                 for (var i = 0; i < contacts.length; i++) {
                     var deviceContact = contacts[i];
@@ -177,6 +178,7 @@ $(function () {
                 for (var i = 0; i < newHistory; i++) {
                     if (newHistory[i].date != history[0].date) {
                         hist.push(newHistory[i]);
+                        alert(i);
                     } else {
                         break;
                     }
