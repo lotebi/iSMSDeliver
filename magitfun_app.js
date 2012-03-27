@@ -28,6 +28,12 @@ $(function () {
                 }
             })
         });
+        $("#refresh").click(function (e) {
+            e.preventDefault();
+            refreshBalance();
+            updateHistory();
+        });
+
         $("#send").click(function (e) {
             e.preventDefault();
             if ($("#maxMessages").css("visibility") == "hidden") {
