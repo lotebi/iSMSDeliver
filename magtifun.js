@@ -98,7 +98,7 @@ function Magitfun(user, password) {
         });
     };
 
-    this.getHistory = function (succ) {
+    this.getHistory = function (succ,page) {
         $.ajax({
             type:"POST",
             url:'http://www.magtifun.ge/index.php?page=10&lang=ge',
@@ -107,29 +107,18 @@ function Magitfun(user, password) {
             },
             success:function (data) {
                 var pagesCount = $(data).find(".page_number,active,red,round_border,english").length - 1;
+                if(page != undefined) {
+                    pagesCount = page;
+                }
                 history = new Array();
                 parseHistoryPerPage(data);
-                parseHistory(pagesCount, succ);
-            }
-        });
-    };
-    this.updateHistory = function (succ) {
-        $.ajax({
-            type:"POST",
-            url:'http://www.magtifun.ge/index.php?page=10&lang=ge',
-            beforeSend:function (xhr) {
-                xhr.setRequestHeader('Cookie', cookie);
-            },
-            success:function (data) {
-                history = new Array();
-                parseHistoryPerPage(data);
-                parseHistory(0, succ);
+                parseHistory(succ, 2, pagesCount);
             }
         });
     };
 
-    var parseHistory = function (index, succ) {
-        if (index <= 0) {
+    var parseHistory = function (succ, currIndex, lastIndex) {
+        if (currIndex >= lastIndex) {
             sortHistory(history);
             succ(history);
         } else {
@@ -142,7 +131,7 @@ function Magitfun(user, password) {
                 },
                 success:function (data) {
                     parseHistoryPerPage(data);
-                    parseHistory(--index, succ);
+                    parseHistory(succ, ++currIndex, lastIndex);
                 }
             });
         }

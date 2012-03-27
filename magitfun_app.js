@@ -21,7 +21,7 @@ $(function () {
                     $.mobile.changePage($("#pageHome"), {transition:getRandTransition()});
                     refreshBalance();
                     updateHistory();
-                    grabContacts();
+                    grabHistory(2);
                 } else {
                     navigator.notification.vibrate(250);
                     navigator.notification.alert("Wrong Username or Password", null, "MissBehaive", "I'm Sorry!");
@@ -44,7 +44,7 @@ $(function () {
                     $("#recipients").val("");
                     $("#msgBody").val("");
                     refreshBalance();
-                    updateHistory();
+                    grabHistory(2);
                     //connectorObject.getBalance(updateCreditsGel);
                 })
             } else {
@@ -172,31 +172,12 @@ $(function () {
             )
         }
 
-        function updateHistory() {
-            connectorObject.updateHistory(function (newHistory) {
-                /*var hist = new Array();
-                for (var i = 0; i < newHistory; i++) {
-                    if (newHistory[i].date != history[0].date) {
-                        hist.push(newHistory[i]);
-                    } else {
-                        break;
-                    }
-                }
-                for (var j = 0; j < history.length; j++) {
-                    hist.push(history[j]);
-                }*/
-                history = newHistory;
-                generateHistory();
-                normalizeHistory();
-            });
-        }
-
-        function grabHistory() {
+        function grabHistory(page) {
             connectorObject.getHistory(function (historys) {
                 history = historys;
                 generateHistory();
                 normalizeHistory();
-            });
+            }, page);
         }
 
         function mergeContacts() {
