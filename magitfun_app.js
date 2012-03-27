@@ -45,6 +45,8 @@ $(function () {
             }
         });
 
+        $("#msgBody").keyup(onMsgChange);
+        $("#msgBody").keydown(onMsgChange);
         $("#msgBody").bind("change", onMsgChange);
 
         $("#logout").click(function (e) {
@@ -205,8 +207,8 @@ $(function () {
             var firtChar = '';
             for (var i = 0; i < contacts.length; i++) {
                 var aContact = contacts[i];
-                if (aContact.name[0] != firtChar) {
-                    firtChar = aContact.name[0];
+                if (aContact.name[0].toUpperCase() != firtChar) {
+                    firtChar = aContact.name[0].toUpperCase();
                     $(".contacts-view > [data-role='listview']").append('<li data-role="list-divider">' + firtChar + '</li>');
                 }
                 $(".contacts-view > [data-role='listview']").append('<li><a href="#">' + aContact.name + '</a></li>');
@@ -301,9 +303,9 @@ $(function () {
 
         function sortContacts(contacts) {
             contacts.sort(function (a, b) {
-                if (a.name > b.name)
+                if (a.name.toLowerCase() > b.name.toLowerCase())
                     return 1;
-                else if (a.name < b.name)
+                else if (a.name.toLowerCase() < b.name.toLowerCase())
                     return -1;
                 else
                     return 0;

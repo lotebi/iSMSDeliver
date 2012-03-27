@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <title>iSMSDeliver</title>
 
-    <link rel="stylesheet" href="jquery.mobile-1.0.1.css"/>
+    <link rel="stylesheet" href="jquery.mobile-1.1.0-rc.1.min.css"/>
+    <link rel="stylesheet" href="jquery.mobile.structure-1.1.0-rc.1.min.css"/>
     <style>
         #credit {
             font-size: 1.5em;
@@ -25,7 +26,7 @@
         }
     </style>
     <script src="jquery.min.js"></script>
-    <script src="jquery.mobile-1.0.1.min.js"></script>
+    <script src="jquery.mobile-1.1.0-rc.1.min.js"></script>
     <script type="text/javascript" src="phonegap.js"></script>
     <script type="text/javascript" src="magtifun.js"></script>
     <script type="text/javascript" src="magitfun_app.js"></script>
@@ -39,7 +40,7 @@
     </div>
 
     <div data-role="content">
-        <label for="username">User Name:</label>
+        <label for="username">Username:</label>
         <input id="username" placeholder="required" type="text">
         <br>
         <label for="password">Password:</label>
@@ -49,12 +50,10 @@
     </div>
 </div>
 <div data-role="page" class="type-interior" id="pageHome">
-    <div data-role="header" data-tap-toggle="false" data-position="fixed">
-        <h1>
-            <a href="#" id="logout" data-theme="b" data-role="button" data-mini="true" class="ui-btn-left">Logout</a>
-            <span id="credit">50</span>
-            <span class="gel ui-btn-right ui-btn-corner-right">Gel:<span id="gel">0</span></span>
-        </h1>
+    <div data-role="header" data-id="foo" data-position="fixed">
+        <h3><span id="credit">50</span></h3>
+        <a id="logout" data-theme="b"><span>Logout</span></a>
+        <a id="refresh" data-theme="b"><span class="gel">Gel:<span id="gel">0</span></span></a>
     </div>
 
     <div data-role="content">
@@ -127,7 +126,7 @@
 
     </div>
 
-    <div data-role="footer" data-tap-toggle="false" data-position="fixed" data-theme="a">
+    <div data-role="footer" data-id="foo" data-position="fixed">
         <div data-role="navbar" data-iconpos="bottom" role="navigation">
             <ul>
                 <li><a href="#" id="navbarSms" class="ui-btn-active">SMS</a></li>
