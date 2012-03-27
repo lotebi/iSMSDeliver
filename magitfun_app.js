@@ -202,10 +202,11 @@ $(function () {
             var contacts = new Array();
             for (var i = 0; i < contactsLocal.length; i++) {
                 contacts.push(contactsLocal[i]);
-            }
+            }alert("mergeRemote");
             for (var j = 0; j < contactsRemote.length.length; j++) {
                 contacts.push(contactsRemote[j]);
             }
+            console.log(contacts);
             return contacts;
         }
 
@@ -263,13 +264,11 @@ $(function () {
             }
         }
 
-        function contactByNumber(number) {
+        function contactsSearch(sVal) {
             var contacts = mergeContacts();
             for (var i = 0; i < contacts.length; i++) {
                 var aContact = contacts[i];
-                console.log(aContact);
-                console.log("\n");
-                console.log(number);
+
             }
         }
 
