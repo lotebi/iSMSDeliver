@@ -185,6 +185,8 @@ $(function () {
                 for (var j = 0; j < history.length; j++) {
                     hist.push(history[j]);
                 }
+                generateHistory();
+                normalizeHistory();
             });
         }
 
@@ -225,12 +227,12 @@ $(function () {
             $(".contacts-view").trigger('create');
         }
 
-        function generateHistory(hist) {
+        function generateHistory() {
             var group;
             var groupCounter = 0;
             var workingElement = $(".content-history > .ui-listview");
             workingElement.html("");
-            for (var i = 0; i < hist.length; i++) {
+            for (var i = 0; i < history.length; i++) {
                 var aHistory = history[i];
                 if (aHistory.date.toDateString().split(" ").join() != group) {
                     group = aHistory.date.toDateString().split(" ");
