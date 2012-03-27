@@ -193,7 +193,8 @@ $(function () {
         function grabHistory() {
             connectorObject.getHistory(function (historys) {
                 history = historys;
-                generateHistory(history);
+                generateHistory();
+                normalizeHistory();
             });
         }
 
@@ -202,7 +203,7 @@ $(function () {
             for (var i = 0; i < contactsLocal.length; i++) {
                 contacts.push(contactsLocal[i]);
             }
-            for (var j = 0; i < contactsRemote.length.length; j++) {
+            for (var j = 0; j < contactsRemote.length.length; j++) {
                 contacts.push(contactsRemote[j]);
             }
             return contacts;
