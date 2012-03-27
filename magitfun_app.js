@@ -175,7 +175,7 @@ $(function () {
                     }
                 }
                 newHistory.slice(0, i);
-                generateHistory(newHistory);
+                generateHistory(newHistory, true);
             });
         }
 
