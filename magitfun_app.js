@@ -20,7 +20,7 @@ $(function () {
                 if (a == "succses") {
                     $.mobile.changePage($("#pageHome"), {transition:getRandTransition()});
                     refreshBalance();
-                    grabHistory();
+                    updateHistory();
                     grabContacts();
                 } else {
                     navigator.notification.vibrate(250);
@@ -174,19 +174,18 @@ $(function () {
 
         function updateHistory() {
             connectorObject.updateHistory(function (newHistory) {
-                var hist = new Array();
+                /*var hist = new Array();
                 for (var i = 0; i < newHistory; i++) {
                     if (newHistory[i].date != history[0].date) {
                         hist.push(newHistory[i]);
-                        alert(i);
                     } else {
                         break;
                     }
                 }
                 for (var j = 0; j < history.length; j++) {
                     hist.push(history[j]);
-                }
-                history = hist;
+                }*/
+                history = newHistory;
                 generateHistory();
                 normalizeHistory();
             });
@@ -262,14 +261,6 @@ $(function () {
                 if (i + 1 != counters.length) {
                     $(counters[i]).text($(counters[i + 1]).text());
                 }
-            }
-        }
-
-        function contactsSearch(sVal) {
-            var contacts = mergeContacts();
-            for (var i = 0; i < contacts.length; i++) {
-                var aContact = contacts[i];
-
             }
         }
 
