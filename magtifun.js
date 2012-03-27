@@ -123,8 +123,7 @@ function Magitfun(user, password) {
             success:function (data) {
                 history = new Array();
                 parseHistoryPerPage(data);
-                sortHistory(history);
-                succ(history);
+                parseHistory(0, succ);
             }
         });
     };
