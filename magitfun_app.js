@@ -91,8 +91,6 @@ $(function () {
 
         $("#allContacts").click(function (e) {
             e.preventDefault();
-            console.log(contactsLocal);
-            console.log(contactsRemote);
             generateContacts("", true);
             $(".contacts-choose").css("display", "none");
             $(".contacts-view").css("display", "block");
@@ -206,7 +204,7 @@ $(function () {
             for (var i = 0; i < contactsLocal.length; i++) {
                 contacts.push(contactsLocal[i]);
             }
-            alert("mergeRemote");
+            console.log(contacts);
             return contacts;
         }
 
