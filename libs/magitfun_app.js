@@ -20,7 +20,7 @@ $(function () {
                 if (a == "succses") {
                     $.mobile.changePage($("#pageHome"), {transition:getRandTransition()});
                     refreshBalance();
-                    grabContacts();
+                    //grabContacts();
                     grabHistory(2);
                 } else {
                     navigator.notification.vibrate(250);
@@ -176,7 +176,7 @@ $(function () {
             connectorObject.getHistory(function (historys) {
                 history = historys;
                 generateHistory();
-                normalizeHistory();
+                //normalizeHistory();
             }, page);
         }
 
@@ -211,27 +211,28 @@ $(function () {
         }
 
         function generateHistory() {
-            var group;
+            var previousDate;
             var groupCounter = 0;
             var workingElement = $(".content-history > .ui-listview");
             workingElement.html("");
             for (var i = 0; i < history.length; i++) {
                 var aHistory = history[i];
-                if (aHistory.date.toDateString().split(" ").join() != group) {
-                    group = aHistory.date.toDateString().split(" ");
-                    var tmpGroup = group[0] + "," + group[1] + " " + group[2] + "," + group[3];
+                if (aHistory.date.getDate() != previousDate.getDate()) {
+                    previousDate = aHistory.date;
+                    var group = previousDate.toDateString().split(" ");
+                    var tmpGroup = group[0] + "," + group[1] + " " + group[2] + ", " + group[3];
                     var appendHeader = '<li data-role="list-divider">' + tmpGroup +
                         '<span class="ui-li-count">' + groupCounter + "</span></li>";
                     workingElement.append(appendHeader);
                     groupCounter = 0;
-                } else {
-                    groupCounter++;
-                    var appendMsg = '<li><h3 style="color: blue;">' + aHistory.number + '</h3>' +
-                        '<span>' + aHistory.msgText + '</span>' +
-                        '<p class="ui-li-aside"><strong>' + aHistory.date.getHours() + ":" + aHistory.date.getMinutes() +
-                        ":" + aHistory.date.getSeconds() + '</strong></p></li>';
-                    workingElement.append(appendMsg);
                 }
+                groupCounter++;
+                var appendMsg = '<li><h3 style="color: blue;">' + aHistory.number + '</h3>' +
+                    '<span>' + aHistory.msgText + '</span>' +
+                    '<p class="ui-li-aside"><strong>' + aHistory.date.getHours() + ":" + aHistory.date.getMinutes() +
+                    ":" + aHistory.date.getSeconds() + '</strong></p></li>';
+                workingElement.append(appendMsg);
+
             }
             workingElement.listview("refresh");
         }
