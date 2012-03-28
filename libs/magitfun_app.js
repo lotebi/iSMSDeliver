@@ -176,7 +176,7 @@ $(function () {
             connectorObject.getHistory(function (historys) {
                 history = historys;
                 generateHistory();
-                //normalizeHistory();
+                normalizeHistory();
             }, page);
         }
 
@@ -217,7 +217,7 @@ $(function () {
             workingElement.html("");
             for (var i = 0; i < history.length; i++) {
                 var aHistory = history[i];
-                if (aHistory.date.getDate() != previousDate.getDate()) {
+                if (previousDate == undefined || aHistory.date.getDate() != previousDate.getDate()) {
                     previousDate = aHistory.date;
                     var group = previousDate.toDateString().split(" ");
                     var tmpGroup = group[0] + "," + group[1] + " " + group[2] + ", " + group[3];
