@@ -162,11 +162,12 @@ function Magitfun() {
                 if ($(element).text().replace(/[^\+\d]/g, "")) {
                     rec.number = $(element).text().replace(/[^\+\d]/g, "");
                 } else {
-                    if (index == child.find(".message_list_recipient > .gray").length) {
+                    rec.status = $(element).text();
+                    /*if (index == child.find(".message_list_recipient > .gray").length) {
                         rec.status = $(child.find(".message_list_recipient > .gray")[index - 1]).text();
                     } else {
                         rec.status = $(child.find(".message_list_recipient > .gray")[index + 1]).text();
-                    }
+                    }*/
                 }
 
             });
