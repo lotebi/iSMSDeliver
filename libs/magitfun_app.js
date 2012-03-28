@@ -123,10 +123,10 @@ $(function () {
                     var deviceContact = contacts[i];
                     var aContact = new Object();
                     aContact.name = deviceContact.name.formatted;
-                    aContact.number = new Object();
+                    aContact.number = new Array();
                     for (var j = 0; j < deviceContact.phoneNumbers.length; j++) {
                         var type = deviceContact.phoneNumbers[j].type;
-                        aContact.number[type] = deviceContact.phoneNumbers[j].value;
+                        aContact.number.push(deviceContact.phoneNumbers[j].value);
                     }
                     contactsLocal.push(aContact);
                 }
@@ -158,13 +158,11 @@ $(function () {
                         var aContact = a[i];
                         var normContact = new Object();
                         normContact.name = new String();
-                        normContact.number = -19;
+                        normContact.number = new Array();
                         for (var j = 1; j < aContact.length; j++) {
                             var aValue = aContact[j];
                             if (j == 4) {
-                                var number = new Object();
-                                number.provider = aValue;
-                                normContact.number = number;
+                                normContact.number.push(aValue);
                                 break;
                             } else {
                                 normContact.name = normContact.name + aValue + " ";
@@ -243,15 +241,18 @@ $(function () {
             workingElement.listview("refresh");
         }
 
-        function searchNumber(num){
+        function searchNumber(num) {
             var contacts = mergeContacts();
             for(var i = 0;i <contacts;i++) {
                 var aContact = contacts[i];
-                console.log(aContact);
+                for(var j =0;j < aContact.number;j++) {
+                    if(aContact.number[j].indexOf(num) > -1) {
+                        return aContact.name + "(" + num + ")";
+                    }
+                }
             }
             return num;
         }
-
         function normalizeHistory() {
             var counters = $(".ui-li-count");
             for (var i = 0; i < counters.length; i++) {
