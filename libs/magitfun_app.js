@@ -20,7 +20,6 @@ $(function () {
                 if (a == "succses") {
                     $.mobile.changePage($("#pageHome"), {transition:getRandTransition()});
                     refreshBalance();
-                    updateHistory();
                     grabContacts();
                     grabHistory(2);
                 } else {
