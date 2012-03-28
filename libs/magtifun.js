@@ -161,13 +161,15 @@ function Magitfun() {
             child.find(".message_list_recipient > .gray").each(function (index, element) {
                 if ($(element).text().replace(/[^\+\d]/g, "")) {
                     rec.number = $(element).text().replace(/[^\+\d]/g, "");
+                } else {
                     if (index == child.find(".message_list_recipient > .gray").length) {
                         rec.status = $(child.find(".message_list_recipient > .gray")[index - 1]).text();
                     } else {
                         rec.status = $(child.find(".message_list_recipient > .gray")[index + 1]).text();
                     }
                 }
-            })
+
+            });
             var monthYear = child.find(".msg_date").find(".date_month").html().split("<br>");
             var dateTime = child.find(".date_time").text().split(":");
             rec.date = new Date(monthYear[1], getMonth(monthYear[0]), child.find(".msg_date").find(".xlarge").text(), dateTime[0], dateTime[1], dateTime[2]);

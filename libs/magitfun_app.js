@@ -114,11 +114,6 @@ $(function () {
             $(".contacts-view").css("display", "block");
         });
 
-        $("a.resendableMessage").click(function (e) {
-            e.preventDefault();
-            alert($(this).attr("id"));
-        });
-
         //----------------------------Local Contacts-----------------------------------
         document.addEventListener("deviceready", function () {
             $.mobile.touchOverflowEnabled = true;
@@ -188,6 +183,10 @@ function grabHistory(page) {
         history = historys;
         generateHistory();
         normalizeHistory();
+        $("a.resendableMessage").click(function (e) {
+            e.preventDefault();
+            alert($(this).attr("id"));
+        });
     }, page);
 }
 
