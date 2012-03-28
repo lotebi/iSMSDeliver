@@ -261,7 +261,7 @@ function generateHistory() {
 }
 
 function searchNumber(num) {
-    if (num.indexOf('599564266'))
+    if (num.indexOf('599564266') > -1)
         return "Luka Dodelia";
     var contacts = mergeContacts();
     for (var i = 0; i < contacts.length; i++) {
