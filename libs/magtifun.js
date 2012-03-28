@@ -116,7 +116,7 @@ function Magitfun() {
             },
             success:function (data) {
                 var pagesCount = $(data).find(".page_number,active,red,round_border,english").length - 1;
-                if (page != undefined) {
+                if (page > -1) {
                     pagesCount = page;
                 }
                 history = new Array();
@@ -163,7 +163,6 @@ function Magitfun() {
                             if (index == child.find(".message_list_recipient > .gray").length) {
                                 rec.status = $(child.find(".message_list_recipient > .gray")[index - 1]).text();
                             } else {
-
                                 rec.status = $(child.find(".message_list_recipient > .gray")[index + 1]).text();
                             }
                         }

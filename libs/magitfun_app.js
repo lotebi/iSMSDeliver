@@ -31,7 +31,7 @@ $(function () {
         $("#refresh").click(function (e) {
             e.preventDefault();
             refreshBalance();
-            updateHistory();
+            grabHistory(2);
         });
 
         $("#send").click(function (e) {
@@ -112,6 +112,11 @@ $(function () {
             generateContacts(contactsRemote, false);
             $(".contacts-choose").css("display", "none");
             $(".contacts-view").css("display", "block");
+        });
+
+        $("a.resendableMessage").click(function (e) {
+            e.preventDefault();
+            alert($(this).attr("id"));
         });
 
         //----------------------------Local Contacts-----------------------------------
@@ -233,10 +238,23 @@ function generateHistory() {
             groupCounter = 0;
         }
         groupCounter++;
-        var appendMsg = '<li><h3 style="color: blue;">' + searchNumber(aHistory.number) + '</h3>' +
-            '<span>' + aHistory.msgText + '</span>' +
-            '<p class="ui-li-aside"><strong>' + aHistory.date.getHours() + ":" + aHistory.date.getMinutes() +
-            ":" + aHistory.date.getSeconds() + '</strong></p></li>';
+        var appendMsg;
+        if (aHistory.status == 'მიწოდებულია') {
+            appendMsg = '<li><h3 style="color: blue;">' + searchNumber(aHistory.number) + '</h3>' +
+                '<span>' + aHistory.msgText + '</span>' +
+                '<p class="ui-li-aside">' +
+                '<strong>' + aHistory.date.getHours().toString() + ":" + aHistory.date.getMinutes().toString() +
+                ":" + aHistory.date.getSeconds().toString() + '</strong>' +
+                '</p></li>';
+        } else {
+            appendMsg = '<li><a href="#" class="resendableMessage" id="' + aHistory.msgID + '">' +
+                '<h3 style="color: blue;">' + searchNumber(aHistory.number) + '</h3>' +
+                '<span>' + aHistory.msgText + '</span>' +
+                '<p class="ui-li-aside">' +
+                '<strong>' + aHistory.date.getHours().toString() + ":" + aHistory.date.getMinutes().toString() +
+                ":" + aHistory.date.getSeconds().toString() + '</strong>' +
+                '</p></a></li>';
+        }
         workingElement.append(appendMsg);
 
     }
@@ -244,12 +262,14 @@ function generateHistory() {
 }
 
 function searchNumber(num) {
+    if (num.indexOf('599564266'))
+        return "Luka Dodelia";
     var contacts = mergeContacts();
-    for (var i = 0; i < contacts; i++) {
+    for (var i = 0; i < contacts.length; i++) {
         var aContact = contacts[i];
-        for (var j = 0; j < aContact.number; j++) {
+        for (var j = 0; j < aContact.number.length; j++) {
             if (aContact.number[j].indexOf(num) > -1) {
-                return aContact.name + "(" + num + ")";
+                return aContact.name;
             }
         }
     }
