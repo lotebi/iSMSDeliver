@@ -2,15 +2,14 @@ var connectorObject;
 var history;
 var contactsRemote;
 var contactsLocal = new Array();
+var transitions = new Array();
+transitions.push("pop");
+transitions.push("flip");
+transitions.push("slide");
+transitions.push("slideup");
+transitions.push("slidedown");
 
 $(function () {
-        var transitions = new Array();
-        transitions.push("pop");
-        transitions.push("flip");
-        transitions.push("slide");
-        transitions.push("slideup");
-        transitions.push("slidedown");
-
         $("#login").click(function (e) {
             e.preventDefault();
             var user = $("#username").val();
