@@ -216,7 +216,22 @@ function generateContacts(contacts, merge) {
             firtChar = aContact.name[0].toUpperCase();
             $(".contacts-view > [data-role='listview']").append('<li data-role="list-divider">' + firtChar + '</li>');
         }
-        $(".contacts-view > [data-role='listview']").append('<li><a href="#" class="contactName">' + aContact.name + '</a></li>');
+        if (aContact.number.length > 1) {
+            var appendContact = '<li>' +
+                '<select name="select-choice-min" class="numberSelector"  data-native-menu="true" data-mini="true">';
+            appendContact += '<option>' + aContact.name + '</option>';
+            for (var l = 0; l < aContact.number.length; l++) {
+                appendContact += '<option value="' + aContact.number[l].replace(/[^\+\d]/g, "") + '">'
+                    + aContact.number[l] + '</option>';
+            }
+            appendContact += '</select>' +
+                '</li>';
+            $(".contacts-view > [data-role='listview']").append(appendContact);
+
+        } else {
+            $(".contacts-view > [data-role='listview']").append('<li><a href="' + aContact.number[0] +
+                '" class="contactName">' + aContact.name + '</a></li>');
+        }
     }
     $(".contacts-view").append('</ul>');
     $(".contacts-view").trigger('create');
@@ -312,25 +327,20 @@ function onMsgChange() {
 function contactsListener() {
     $("a.contactName").click(function (e) {
         e.preventDefault();
-        var cName = $(this).text();
-        var contacts = mergeContacts();
-        for (var i = 0; i < contacts.length; i++) {
-            var aContact = contacts[i];
-            if (aContact.name == cName) {
-                if (aContact.number.length > 1) {
-
-                } else {
-                    var num = aContact.number[0].replace(/[^\+\d]/g, "");
-                    if (!$("#recipients").val())
-                        $("#recipients").val();
-                    else
-                        $("#recipients").val($("#recipients").val() + "," + num);
-
-                }
-                $(this).parents("li").remove();
-                break;
-            }
-        }
+        var num = $(this).attr("id");
+        if (!$("#recipients").val())
+            $("#recipients").val(num);
+        else
+            $("#recipients").val($("#recipients").val() + "," + num);
+        $(this).parents('li').remove();
+    });
+    $(".numberSelector").bind("change", function (event, ui) {
+        var number = $(this).find(":selected").text()
+        if (!$("#recipients").val())
+            $("#recipients").val(number);
+        else
+            $("#recipients").val($("#recipients").val() + "," + number);
+        $(this).parents('li').remove();
     });
 }
 
