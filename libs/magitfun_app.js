@@ -317,11 +317,19 @@ function contactsListener() {
         for (var i = 0; i < contacts.length; i++) {
             var aContact = contacts[i];
             if (aContact.name == cName) {
+                if (aContact.number.length > 1) {
+                    $(this).autocomplete({
+                        source:aContact.number
+                    });
+                } else {
+                    var num = aContact.number[0].replace(/[^\+\d]/g, "");
+                    if (!$("#recipients").val())
+                        $("#recipients").val();
+                    else
+                        $("#recipients").val($("#recipients").val() + "," + num);
+
+                }
                 $(this).parents("li").remove();
-                if (!$("#recipients").val())
-                    $("#recipients").val(aContact.number[0]);
-                else
-                    $("#recipients").val($("#recipients").val() + "," + aContact.number[0]);
                 break;
             }
         }
