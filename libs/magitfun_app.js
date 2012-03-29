@@ -1,4 +1,9 @@
-var connectorObject, history, contactsRemote, contactsMerged, contactsLocal = [], transitions = [];
+var connectorObject;
+var history;
+var contactsRemote;
+var contactsLocal = new Array();
+var contactsMerged = undefined;
+var transitions = new Array();
 transitions.push("pop");
 transitions.push("flip");
 transitions.push("slide");
@@ -124,7 +129,7 @@ $(function () {
                     var deviceContact = contacts[i];
                     var aContact = new Object();
                     aContact.name = deviceContact.name.formatted;
-                    aContact.number = [];
+                    aContact.number = new Array();
                     for (var j = 0; j < deviceContact.phoneNumbers.length; j++) {
                         aContact.number.push(deviceContact.phoneNumbers[j].value);
                     }
@@ -157,12 +162,12 @@ function refreshBalance() {
 
 function grabContacts() {
     connectorObject.getContacts(function (a) {
-            contactsRemote = [];
+            contactsRemote = new Array();
             for (var i = 0; i < a.length; i++) {
                 var aContact = a[i];
                 var normContact = new Object();
                 normContact.name = new String();
-                normContact.number = [];
+                normContact.number = new Array();
                 for (var j = 1; j < aContact.length; j++) {
                     var aValue = aContact[j];
                     if (j == 4) {
@@ -191,8 +196,8 @@ function grabHistory(page) {
 }
 
 function mergeContacts() {
-    if (contactsMerged != undefined) {
-        contactsMerged = [];
+    if (contactsMerged !== undefined) {
+        contactsMerged = new Array();
         for (var j = 0; j < contactsRemote.length; j++) {
             contactsMerged.push(contactsRemote[j]);
         }
@@ -287,7 +292,7 @@ function searchNumber(num) {
     for (var i = 0; i < contacts.length; i++) {
         var aContact = contacts[i];
         for (var j = 0; j < aContact.number.length; j++) {
-            if (aContact.number[j].replace(/[^\+\d]/g, "").indexOf(num.replace(/[^\+\d]/g, "")) > -1) {
+            if (aContact.number[j].indexOf(num) > -1) {
                 return aContact.name;
             }
         }
