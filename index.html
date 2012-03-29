@@ -62,13 +62,17 @@
 
     <div data-role="content">
         <div class="content-sms">
-            <div>
-                <label for="recipients">Recipients:</label>
-                <input id="recipients" placeholder="requered" type="text"/>
+            <div data-role="fieldcontain">
+                <fieldset data-role="controlgroup">
+                    <<label for="recipients">Recipients:</label>
+                    <input id="recipients" placeholder="requered" type="text"/>
+                </fieldset>
             </div>
-            <div>
-                <label for="msgBody">Message Body:</label>
-                <textarea cols="80" rows="8" id="msgBody" data-mini="true" placeholder="requered"></textarea>
+            <div data-role="fieldcontain">
+                <fieldset data-role="controlgroup">
+                    <label for="msgBody">Message Body:</label>
+                    <textarea cols="80" rows="8" id="msgBody" data-mini="true" placeholder="requered"></textarea>
+                </fieldset>
             </div>
             <div>
                 <span id="charCount">146</span><span> Characters left(</span><span
