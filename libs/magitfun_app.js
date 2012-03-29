@@ -313,7 +313,20 @@ function resend(msgID) {
     var histRec = historyByID(msgID);
     navigator.notification.confirm(
         histRec.msgText, // message
-        function (button) {alert(button)}, // callback to invoke with index of button pressed
+        function (button) {
+            if (button == 2) {
+                $("#recipients").val(histRec.number);
+                $("#msgBody").val(histRec.msgText);
+                $(".contacts-view").html(" ");
+                //class="ui-btn-active"
+                $("#navbarHistory").removeClass("ui-btn-active");
+                $("#navbarSms").addClass("ui-btn-active");
+                $(".content-sms").css("display", "block");
+                $(".content-history").css("display", "none");
+                $(".content-contacts").css("display", "none");
+            }
+        }
+        , // callback to invoke with index of button pressed
         'Recipient: ' + histRec.number, // title
         'Cancel,Resend'          // buttonLabels
     );
@@ -338,7 +351,9 @@ function historyByID(id) {
             return history[i];
         }
     }
+    return undefined;
 }
+
 function sortContacts(contacts) {
     contacts.sort(function (a, b) {
         if (a.name.toLowerCase() > b.name.toLowerCase())
