@@ -229,7 +229,7 @@ function generateContacts(contacts, merge) {
             $(".contacts-view > [data-role='listview']").append(appendContact);
 
         } else {
-            $(".contacts-view > [data-role='listview']").append('<li><a href="' + aContact.number[0] +
+            $(".contacts-view > [data-role='listview']").append('<li><a href="#" id="' + aContact.number[0] +
                 '" class="contactName">' + aContact.name + '</a></li>');
         }
     }
