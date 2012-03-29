@@ -183,10 +183,7 @@ function grabHistory(page) {
         history = historys;
         generateHistory();
         normalizeHistory();
-        $("a.resendableMessage").click(function (e) {
-            e.preventDefault();
-            alert($(this).attr("id"));
-        });
+        resendListener();
     }, page);
 }
 
@@ -305,6 +302,23 @@ function onMsgChange() {
     }
 }
 
+function resendListener() {
+    $("a.resendableMessage").click(function (e) {
+        e.preventDefault();
+        resend($(this).attr("id"));
+    });
+}
+
+function resend(msgID) {
+    var histRec = historyByID(msgID);
+    navigator.notification.confirm(
+        histRec.msgText, // message
+        function (button) {alert(button)}, // callback to invoke with index of button pressed
+        'Recipient: ' + histRec.number, // title
+        'Cancel,Resend'          // buttonLabels
+    );
+}
+
 function updateCreditsGel(credits, gel) {
     $("#credit").text(credits);
     $("#gel").text(gel);
@@ -318,6 +332,13 @@ function getRandomArbitrary(min, max) {
     return Math.round(Math.random() * (max - min) + min);
 }
 
+function historyByID(id) {
+    for (var i = 0; i < history.length; i++) {
+        if (history[i].msgID == id) {
+            return history[i];
+        }
+    }
+}
 function sortContacts(contacts) {
     contacts.sort(function (a, b) {
         if (a.name.toLowerCase() > b.name.toLowerCase())
