@@ -12,7 +12,7 @@ transitions.push("slidedown");
 $(function () {
         $("#login").click(function (e) {
             e.preventDefault();
-            $.mobile.showLoadMsg();
+            $.mobile.showPageLoadingMsg();
             var user = $("#username").val();
             var password = $("#password").val();
             connectorObject = new Magitfun(user, password);
@@ -31,14 +31,14 @@ $(function () {
 
         $("#refresh").click(function (e) {
             e.preventDefault();
-            $.mobile.showLoadMsg();
+            $.mobile.showPageLoadingMsg();
             refreshBalance();
             grabHistory(2);
         });
 
         $("#send").click(function (e) {
             e.preventDefault();
-            $.mobile.showLoadMsg();
+            $.mobile.showPageLoadingMsg();
             if ($("#maxMessages").css("visibility") == "hidden") {
                 var recipient = $("#recipients").val();
                 var msgbody = $("#msgBody").val();
@@ -203,7 +203,7 @@ function mergeContacts() {
 }
 
 function generateContacts(contacts, merge) {
-    $.mobile.showLoadMsg();
+    $.mobile.showPageLoadingMsg();
     if (merge) {
         contacts = mergeContacts();
     }
