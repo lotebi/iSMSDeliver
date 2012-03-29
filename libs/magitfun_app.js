@@ -19,11 +19,9 @@ $(function () {
             connectorObject.login(function (a) {
                 if (a == "succses") {
                     $.mobile.changePage($("#pageHome"), {transition:getRandTransition()});
-                    window.setInterval(function () {
-                        refreshBalance();
-                        grabContacts();
-                        grabHistory(2);
-                    },500);
+                    refreshBalance();
+                    grabContacts();
+                    grabHistory(2);
                 } else {
                     navigator.notification.vibrate(250);
                     navigator.notification.alert("Wrong Username or Password", null, "MissBehaive", "I'm Sorry!");
@@ -49,7 +47,6 @@ $(function () {
                     $("#msgBody").val("");
                     refreshBalance();
                     grabHistory(2);
-                    //connectorObject.getBalance(updateCreditsGel);
                 })
             } else {
                 navigator.notification.alert("You exsided message character limit", null, "MissBehaive", "I'm Sorry!");
@@ -73,7 +70,7 @@ $(function () {
         $("#navbarSms").click(function (e) {
             e.preventDefault();
             $(".contacts-view").html(" ");
-            $(".content-history > .ui-listview").html(" ");
+
             $(".content-sms").css("display", "block");
             $(".content-history").css("display", "none");
             $(".content-contacts").css("display", "none");
@@ -81,11 +78,6 @@ $(function () {
         $("#navbarHistory").click(function (e) {
             e.preventDefault();
             $(".contacts-view").html(" ");
-            $.mobile.showPageLoadingMsg();
-
-            generateHistory();
-            normalizeHistory();
-            resendListener();
 
             $(".content-history").css("display", "block");
             $(".content-sms").css("display", "none");
@@ -94,7 +86,6 @@ $(function () {
         $("#navbarContacts").click(function (e) {
             e.preventDefault();
             $(".contacts-view").html(" ");
-            $(".content-history > .ui-listview").html(" ");
 
             $(".content-contacts").css("display", "block");
             $(".content-sms").css("display", "none");
@@ -193,6 +184,9 @@ function grabContacts() {
 function grabHistory(page) {
     connectorObject.getHistory(function (historys) {
         history = historys;
+        generateHistory();
+        normalizeHistory();
+        resendListener();
         $.mobile.hidePageLoadingMsg();
     }, page);
 }
@@ -283,6 +277,7 @@ function generateHistory() {
     }
     workingElement.listview("refresh");
     $.mobile.hidePageLoadingMsg();
+
 }
 
 function searchNumber(num) {
