@@ -12,6 +12,7 @@ transitions.push("slidedown");
 $(function () {
         $("#login").click(function (e) {
             e.preventDefault();
+            $.mobile.showLoadMsg();
             var user = $("#username").val();
             var password = $("#password").val();
             connectorObject = new Magitfun(user, password);
@@ -30,12 +31,14 @@ $(function () {
 
         $("#refresh").click(function (e) {
             e.preventDefault();
+            $.mobile.showLoadMsg();
             refreshBalance();
             grabHistory(2);
         });
 
         $("#send").click(function (e) {
             e.preventDefault();
+            $.mobile.showLoadMsg();
             if ($("#maxMessages").css("visibility") == "hidden") {
                 var recipient = $("#recipients").val();
                 var msgbody = $("#msgBody").val();
@@ -184,6 +187,7 @@ function grabHistory(page) {
         generateHistory();
         normalizeHistory();
         resendListener();
+        $.mobile.hidePageLoadingMsg();
     }, page);
 }
 
@@ -199,6 +203,7 @@ function mergeContacts() {
 }
 
 function generateContacts(contacts, merge) {
+    $.mobile.showLoadMsg();
     if (merge) {
         contacts = mergeContacts();
     }
@@ -216,6 +221,7 @@ function generateContacts(contacts, merge) {
     $(".contacts-view").append('</ul>');
     $(".contacts-view").trigger('create');
     contactsListener();
+    $.mobile.hidePageLoadingMsg();
 }
 
 function generateHistory() {
@@ -311,11 +317,12 @@ function contactsListener() {
         for (var i = 0; i < contacts.length; i++) {
             var aContact = contacts[i];
             if (aContact.name = cName) {
-                $(this).parent().remove();
+                $(this).parents("li").remove();
                 if (!$("#recipients").val())
                     $("#recipients").val(aContact.number[0]);
                 else
                     $("#recipients").val($("#recipients").val() + "," + aContact.number[0]);
+                break;
             }
         }
     });
