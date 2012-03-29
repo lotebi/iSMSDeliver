@@ -1,8 +1,4 @@
-var connectorObject;
-var history;
-var contactsRemote;
-var contactsLocal = new Array();
-var transitions = new Array();
+var connectorObject, history, contactsRemote, contactsMerged, contactsLocal = [], transitions = [];
 transitions.push("pop");
 transitions.push("flip");
 transitions.push("slide");
@@ -64,7 +60,7 @@ $(function () {
         });
         $("#about").click(function (e) {
             e.preventDefault();
-            navigator.notification.alert("Ra About ?? Button Dainaxe da daclicke?", null, "Kai roja Xar?", "Xo xo gavedii");
+            navigator.notification.alert("Ra About ?? Button Dainaxe da daachire?", null, "Kai roja Xar?", "sxvagan movxvdi");
         });
 
         $("#navbarSms").click(function (e) {
@@ -128,7 +124,7 @@ $(function () {
                     var deviceContact = contacts[i];
                     var aContact = new Object();
                     aContact.name = deviceContact.name.formatted;
-                    aContact.number = new Array();
+                    aContact.number = [];
                     for (var j = 0; j < deviceContact.phoneNumbers.length; j++) {
                         aContact.number.push(deviceContact.phoneNumbers[j].value);
                     }
@@ -161,12 +157,12 @@ function refreshBalance() {
 
 function grabContacts() {
     connectorObject.getContacts(function (a) {
-            contactsRemote = new Array();
+            contactsRemote = [];
             for (var i = 0; i < a.length; i++) {
                 var aContact = a[i];
                 var normContact = new Object();
                 normContact.name = new String();
-                normContact.number = new Array();
+                normContact.number = [];
                 for (var j = 1; j < aContact.length; j++) {
                     var aValue = aContact[j];
                     if (j == 4) {
@@ -195,14 +191,16 @@ function grabHistory(page) {
 }
 
 function mergeContacts() {
-    var contacts = new Array();
-    for (var j = 0; j < contactsRemote.length; j++) {
-        contacts.push(contactsRemote[j]);
+    if (contactsMerged != undefined) {
+        contactsMerged = [];
+        for (var j = 0; j < contactsRemote.length; j++) {
+            contactsMerged.push(contactsRemote[j]);
+        }
+        for (var i = 0; i < contactsLocal.length; i++) {
+            contactsMerged.push(contactsLocal[i]);
+        }
     }
-    for (var i = 0; i < contactsLocal.length; i++) {
-        contacts.push(contactsLocal[i]);
-    }
-    return contacts;
+    return contactsMerged;
 }
 
 function generateContacts(contacts, merge) {
