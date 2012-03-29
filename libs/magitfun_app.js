@@ -335,7 +335,7 @@ function contactsListener() {
         $(this).parents('li').remove();
     });
     $(".numberSelector").bind("change", function (event, ui) {
-        var number = $(this).find(":selected").text()
+        var number = $(this).find(":selected").val()
         if (!$("#recipients").val())
             $("#recipients").val(number);
         else
