@@ -318,9 +318,7 @@ function contactsListener() {
             var aContact = contacts[i];
             if (aContact.name == cName) {
                 if (aContact.number.length > 1) {
-                    $(this).autocomplete({
-                        source:aContact.number
-                    });
+
                 } else {
                     var num = aContact.number[0].replace(/[^\+\d]/g, "");
                     if (!$("#recipients").val())
