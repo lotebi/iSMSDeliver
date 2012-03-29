@@ -101,6 +101,7 @@ $(function () {
             generateContacts("", true);
             $(".contacts-choose").css("display", "none");
             $(".contacts-view").css("display", "block");
+            $.mobile.hidePageLoadingMsg();
         });
         $("#localContacts").click(function (e) {
             e.preventDefault();
@@ -108,6 +109,7 @@ $(function () {
             generateContacts(contactsLocal, false);
             $(".contacts-choose").css("display", "none");
             $(".contacts-view").css("display", "block");
+            $.mobile.hidePageLoadingMsg();
         });
         $("#providerContacts").click(function (e) {
             e.preventDefault();
@@ -115,6 +117,7 @@ $(function () {
             generateContacts(contactsRemote, false);
             $(".contacts-choose").css("display", "none");
             $(".contacts-view").css("display", "block");
+            $.mobile.hidePageLoadingMsg();
         });
 
         //----------------------------Local Contacts-----------------------------------
@@ -235,7 +238,6 @@ function generateContacts(contacts, merge) {
     $(".contacts-view").append('</ul>');
     $(".contacts-view").trigger('create');
     contactsListener();
-    $.mobile.hidePageLoadingMsg();
 }
 
 function generateHistory() {
