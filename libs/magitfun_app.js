@@ -316,7 +316,7 @@ function contactsListener() {
         var contacts = mergeContacts();
         for (var i = 0; i < contacts.length; i++) {
             var aContact = contacts[i];
-            if (aContact.name = cName) {
+            if (aContact.name == cName) {
                 $(this).parents("li").remove();
                 if (!$("#recipients").val())
                     $("#recipients").val(aContact.number[0]);
