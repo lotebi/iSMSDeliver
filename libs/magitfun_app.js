@@ -65,15 +65,13 @@ $(function () {
         });
         $("#about").click(function (e) {
             e.preventDefault();
-            var transition = getRandTransition();
-            $.mobile.changePage($("#pageHome"), {transition:transition});
-            $("#pageHome").trigger('create');
+            navigator.notification.alert("Ra About ?? Button Dainaxe da daclicke?", null, "Kai roja Xar?", "Xo xo gavedii");
         });
 
         $("#navbarSms").click(function (e) {
             e.preventDefault();
             $(".contacts-view").html(" ");
-
+            $(".content-history > .ui-listview").html(" ");
             $(".content-sms").css("display", "block");
             $(".content-history").css("display", "none");
             $(".content-contacts").css("display", "none");
@@ -81,6 +79,11 @@ $(function () {
         $("#navbarHistory").click(function (e) {
             e.preventDefault();
             $(".contacts-view").html(" ");
+            $.mobile.showPageLoadingMsg();
+
+            generateHistory();
+            normalizeHistory();
+            resendListener();
 
             $(".content-history").css("display", "block");
             $(".content-sms").css("display", "none");
@@ -89,6 +92,7 @@ $(function () {
         $("#navbarContacts").click(function (e) {
             e.preventDefault();
             $(".contacts-view").html(" ");
+            $(".content-history > .ui-listview").html(" ");
 
             $(".content-contacts").css("display", "block");
             $(".content-sms").css("display", "none");
@@ -100,18 +104,21 @@ $(function () {
 
         $("#allContacts").click(function (e) {
             e.preventDefault();
+            $.mobile.showPageLoadingMsg();
             generateContacts("", true);
             $(".contacts-choose").css("display", "none");
             $(".contacts-view").css("display", "block");
         });
         $("#localContacts").click(function (e) {
             e.preventDefault();
+            $.mobile.showPageLoadingMsg();
             generateContacts(contactsLocal, false);
             $(".contacts-choose").css("display", "none");
             $(".contacts-view").css("display", "block");
         });
         $("#providerContacts").click(function (e) {
             e.preventDefault();
+            $.mobile.showPageLoadingMsg();
             generateContacts(contactsRemote, false);
             $(".contacts-choose").css("display", "none");
             $(".contacts-view").css("display", "block");
@@ -184,9 +191,6 @@ function grabContacts() {
 function grabHistory(page) {
     connectorObject.getHistory(function (historys) {
         history = historys;
-        generateHistory();
-        normalizeHistory();
-        resendListener();
         $.mobile.hidePageLoadingMsg();
     }, page);
 }
@@ -203,7 +207,6 @@ function mergeContacts() {
 }
 
 function generateContacts(contacts, merge) {
-    $.mobile.showPageLoadingMsg();
     if (merge) {
         contacts = mergeContacts();
     }
@@ -277,6 +280,7 @@ function generateHistory() {
 
     }
     workingElement.listview("refresh");
+    $.mobile.hidePageLoadingMsg();
 }
 
 function searchNumber(num) {
