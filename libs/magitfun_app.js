@@ -211,10 +211,11 @@ function generateContacts(contacts, merge) {
             firtChar = aContact.name[0].toUpperCase();
             $(".contacts-view > [data-role='listview']").append('<li data-role="list-divider">' + firtChar + '</li>');
         }
-        $(".contacts-view > [data-role='listview']").append('<li><a href="#">' + aContact.name + '</a></li>');
+        $(".contacts-view > [data-role='listview']").append('<li><a href="#" class="contactName">' + aContact.name + '</a></li>');
     }
     $(".contacts-view").append('</ul>');
     $(".contacts-view").trigger('create');
+    contactsListener();
 }
 
 function generateHistory() {
@@ -300,6 +301,24 @@ function onMsgChange() {
         $("#message").text(2);
         $("#maxMessages").css("visibility", "hidden");
     }
+}
+
+function contactsListener() {
+    $("a.contactName").click(function (e) {
+        e.preventDefault();
+        var cName = $(this).text();
+        var contacts = mergeContacts();
+        for (var i = 0; i < contacts.length; i++) {
+            var aContact = contacts[i];
+            if (aContact.name = cName) {
+                $(this).parent().remove();
+                if (!$("#recipients").val())
+                    $("#recipients").val(aContact.number[0]);
+                else
+                    $("#recipients").val($("#recipients").val() + "," + aContact.number[0]);
+            }
+        }
+    });
 }
 
 function resendListener() {
