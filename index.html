@@ -44,12 +44,18 @@
     </div>
 
     <div data-role="content">
-        <label for="username">Username:</label>
-        <input id="username" placeholder="required" type="text">
-        <br>
-        <label for="password">Password:</label>
-        <input id="password" placeholder="required" type="password">
-        <br>
+        <div data-role="fieldcontain">
+            <fieldset data-role="controlgroup">
+                <label for="username">Username:</label>
+                <input id="username" placeholder="required" type="text">
+            </fieldset>
+        </div>
+        <div data-role="fieldcontain">
+            <fieldset data-role="controlgroup">
+                <label for="password">Password:</label>
+                <input id="password" placeholder="required" type="password">
+            </fieldset>
+        </div>
         <input id="login" value="login" type="button" data-theme="b">
     </div>
 </div>
@@ -64,7 +70,7 @@
         <div class="content-sms">
             <div data-role="fieldcontain">
                 <fieldset data-role="controlgroup">
-                    <<label for="recipients">Recipients:</label>
+                    <label for="recipients">Recipients:</label>
                     <input id="recipients" placeholder="requered" type="text"/>
                 </fieldset>
             </div>
