@@ -29,9 +29,6 @@ function Magitfun() {
         cookie = arguments[0];
 
     }
-    this.getCookie = function () {
-        return cookie;
-    };
 
     this.login = function (succ) {
         var jqxhr = $.ajax({

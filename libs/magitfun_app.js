@@ -2,7 +2,7 @@ var connectorObject;
 var history;
 var contactsRemote;
 var contactsLocal = new Array();
-var contactsMerged = undefined;
+var contactsMerged;
 var transitions = new Array();
 transitions.push("pop");
 transitions.push("flip");
