@@ -204,7 +204,8 @@ function mergeContacts() {
         }
         var ld = {};
         ld.name = "Luka Dodelia";
-        ld.number = "599564266";
+        ld.number = [];
+        ld.number.push("599564266");
         contactsMerged.push(ld);
     }
     return contactsMerged;
