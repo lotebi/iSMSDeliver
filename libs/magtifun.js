@@ -29,6 +29,7 @@ function Magitfun() {
         cookie = arguments[0];
 
     }
+
     this.getCookie = function () {
         return cookie;
     };

@@ -299,11 +299,16 @@ function searchNumber(num) {
 }
 
 function normalizeHistory() {
-    var counters = $(".ui-li-count");
-    for (var i = 0, length = counters.length; i < length; i++) {
-        if (i + 1 != counters.length) {
-            $(counters[i]).text($(counters[i + 1]).text());
+    var dividers = $(".content-history > .ui-listview > li[data-role='list-divider']");
+
+    for (var i = 0, len = dividers.length; i < len; i++) {
+        var count = $(".content-history > .ui-listview > li").index(dividers[i]);
+        if (i + 1 != len) {
+            count = $(".content-history > .ui-listview > li").index(dividers[i + 1]) - 1 - count;
+        } else {
+            count = $(".content-history > .ui-listview > li").length - 1 - count;
         }
+        $(dividers[i]).children(".ui-li-count").text(count);
     }
 }
 
