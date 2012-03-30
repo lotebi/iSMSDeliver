@@ -2,7 +2,6 @@ var connectorObject;
 var history;
 var contactsRemote;
 var contactsLocal = new Array();
-var contactsMerged;
 var transitions = new Array();
 transitions.push("pop");
 transitions.push("flip");
@@ -48,6 +47,7 @@ $(function () {
                     $("#msgBody").val("");
                     refreshBalance();
                     grabHistory(2);
+                    //connectorObject.getBalance(updateCreditsGel);
                 })
             } else {
                 navigator.notification.alert("You exsided message character limit", null, "MissBehaive", "I'm Sorry!");
@@ -65,7 +65,9 @@ $(function () {
         });
         $("#about").click(function (e) {
             e.preventDefault();
-            navigator.notification.alert("Ra About ?? Button Dainaxe da daachire?", null, "Kai roja Xar?", "sxvagan movxvdi");
+            var transition = getRandTransition();
+            $.mobile.changePage($("#pageHome"), {transition:transition});
+            $("#pageHome").trigger('create');
         });
 
         $("#navbarSms").click(function (e) {
@@ -98,27 +100,21 @@ $(function () {
 
         $("#allContacts").click(function (e) {
             e.preventDefault();
-            $.mobile.showPageLoadingMsg();
             generateContacts("", true);
             $(".contacts-choose").css("display", "none");
             $(".contacts-view").css("display", "block");
-            $.mobile.hidePageLoadingMsg();
         });
         $("#localContacts").click(function (e) {
             e.preventDefault();
-            $.mobile.showPageLoadingMsg();
             generateContacts(contactsLocal, false);
             $(".contacts-choose").css("display", "none");
             $(".contacts-view").css("display", "block");
-            $.mobile.hidePageLoadingMsg();
         });
         $("#providerContacts").click(function (e) {
             e.preventDefault();
-            $.mobile.showPageLoadingMsg();
             generateContacts(contactsRemote, false);
             $(".contacts-choose").css("display", "none");
             $(".contacts-view").css("display", "block");
-            $.mobile.hidePageLoadingMsg();
         });
 
         //----------------------------Local Contacts-----------------------------------
@@ -196,19 +192,18 @@ function grabHistory(page) {
 }
 
 function mergeContacts() {
-    if (contactsMerged !== undefined) {
-        contactsMerged = new Array();
-        for (var j = 0; j < contactsRemote.length; j++) {
-            contactsMerged.push(contactsRemote[j]);
-        }
-        for (var i = 0; i < contactsLocal.length; i++) {
-            contactsMerged.push(contactsLocal[i]);
-        }
+    var contacts = new Array();
+    for (var j = 0; j < contactsRemote.length; j++) {
+        contacts.push(contactsRemote[j]);
     }
-    return contactsMerged;
+    for (var i = 0; i < contactsLocal.length; i++) {
+        contacts.push(contactsLocal[i]);
+    }
+    return contacts;
 }
 
 function generateContacts(contacts, merge) {
+    $.mobile.showPageLoadingMsg();
     if (merge) {
         contacts = mergeContacts();
     }
@@ -234,13 +229,14 @@ function generateContacts(contacts, merge) {
             $(".contacts-view > [data-role='listview']").append(appendContact);
 
         } else {
-            $(".contacts-view > [data-role='listview']").append('<li><a href="#" id="' + aContact.number[0].replace(/[^\+\d]/g, "") +
+            $(".contacts-view > [data-role='listview']").append('<li><a href="#" id="' + aContact.number[0] +
                 '" class="contactName">' + aContact.name + '</a></li>');
         }
     }
     $(".contacts-view").append('</ul>');
     $(".contacts-view").trigger('create');
     contactsListener();
+    $.mobile.hidePageLoadingMsg();
 }
 
 function generateHistory() {
@@ -281,8 +277,6 @@ function generateHistory() {
 
     }
     workingElement.listview("refresh");
-    $.mobile.hidePageLoadingMsg();
-
 }
 
 function searchNumber(num) {
