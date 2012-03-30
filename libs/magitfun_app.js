@@ -1,4 +1,4 @@
-var connectorObject, history, contactsRemote, contactsLocal = [],contactsMerged,transitions = [];
+var connectorObject, history, contactsRemote, contactsLocal = [], contactsMerged, transitions = [];
 transitions.push("pop");
 transitions.push("flip");
 transitions.push("slide");
@@ -123,7 +123,7 @@ $(function () {
         document.addEventListener("deviceready", function () {
             $.mobile.touchOverflowEnabled = true;
             function onSuccess(contacts) {
-                for (var i = 0; i < contacts.length; i++) {
+                for (var i = 0, length = contacts.length; i < length; i++) {
                     var deviceContact = contacts[i];
                     var aContact = {};
                     aContact.name = deviceContact.name.formatted;
@@ -161,12 +161,12 @@ function refreshBalance() {
 function grabContacts() {
     connectorObject.getContacts(function (a) {
             contactsRemote = [];
-            for (var i = 0; i < a.length; i++) {
+            for (var i = 0, length = a.length; i < length; i++) {
                 var aContact = a[i];
                 var normContact = {};
-                normContact.name = new String();
+                normContact.name = "";
                 normContact.number = [];
-                for (var j = 1; j < aContact.length; j++) {
+                for (var j = 1, len = aContact.length; j < len; j++) {
                     var aValue = aContact[j];
                     if (j == 4) {
                         normContact.number.push(aValue);
@@ -196,12 +196,16 @@ function grabHistory(page) {
 function mergeContacts() {
     if (!contactsMerged) {
         var contactsMerged = [];
-        for (var j = 0; j < contactsRemote.length; j++) {
+        for (var j = 0, length = contactsRemote.length; j < length; j++) {
             contactsMerged.push(contactsRemote[j]);
         }
-        for (var i = 0; i < contactsLocal.length; i++) {
+        for (var i = 0, len = contactsLocal.length; i < len; i++) {
             contactsMerged.push(contactsLocal[i]);
         }
+        var ld = {};
+        ld.name = "Luka Dodelia";
+        ld.number = "599564266";
+        contactsMerged.push(ld);
     }
     return contactsMerged;
 }
@@ -213,7 +217,7 @@ function generateContacts(contacts, merge) {
     sortContacts(contacts);
     $(".contacts-view").html('<ul data-role="listview" data-filter="true" data-filter-placeholder="Search contacts..." data-filter-theme="d" data-theme="d" data-divider-theme="d" >');
     var firtChar = '';
-    for (var i = 0; i < contacts.length; i++) {
+    for (var i = 0, length = contacts.length; i < length; i++) {
         var aContact = contacts[i];
         if (aContact.name[0].toUpperCase() != firtChar) {
             firtChar = aContact.name[0].toUpperCase();
@@ -247,7 +251,7 @@ function generateHistory() {
     var groupCounter = 0;
     var workingElement = $(".content-history > .ui-listview");
     workingElement.html("");
-    for (var i = 0; i < history.length; i++) {
+    for (var i = 0, length = history.length; i < length; i++) {
         var aHistory = history[i];
         if (previousDate == undefined || aHistory.date.getDate() != previousDate.getDate()) {
             previousDate = aHistory.date;
@@ -283,10 +287,8 @@ function generateHistory() {
 }
 
 function searchNumber(num) {
-    if (num.indexOf('599564266') > -1)
-        return "Luka Dodelia";
     var contacts = mergeContacts();
-    for (var i = 0; i < contacts.length; i++) {
+    for (var i = 0, length = contacts.length; i < length; i++) {
         var aContact = contacts[i];
         for (var j = 0; j < aContact.number.length; j++) {
             if (aContact.number[j].replace(/[^\+\d]/g, "").indexOf(num.replace(/[^\+\d]/g, "")) > -1) {
@@ -299,7 +301,7 @@ function searchNumber(num) {
 
 function normalizeHistory() {
     var counters = $(".ui-li-count");
-    for (var i = 0; i < counters.length; i++) {
+    for (var i = 0, length = counters.length; i < length; i++) {
         if (i + 1 != counters.length) {
             $(counters[i]).text($(counters[i + 1]).text());
         }
@@ -391,7 +393,7 @@ function getRandomArbitrary(min, max) {
 }
 
 function historyByID(id) {
-    for (var i = 0; i < history.length; i++) {
+    for (var i = 0, length = history.length; i < length; i++) {
         if (history[i].msgID == id) {
             return history[i];
         }

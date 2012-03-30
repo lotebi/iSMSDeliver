@@ -54,7 +54,7 @@ function Magitfun() {
 
     this.sendSms = function (recipients, msgBody, succ) {
         var recipient = recipients.split(',');
-        for (var i = 0; i < recipient.length; i++) {
+        for (var i = 0, length = recipient.length; i < length; i++) {
             $.ajax({
                 type:"POST",
                 url:'http://www.magtifun.ge/scripts/sms_send.php',
@@ -82,7 +82,7 @@ function Magitfun() {
                 var contacts = data.match(regex);
 
                 if (contacts) {
-                    for (var i = 0; i < contacts.length; i++) {
+                    for (var i = 0, length = contacts.length; i < length; i++) {
                         var s = contacts[i].match(/\("(.*?)"\)/);
                         contacts[i] = s[1].split(/"\s*,\s*"/);
                     }
@@ -147,7 +147,7 @@ function Magitfun() {
     };
     var parseHistoryPerPage = function (data) {
         var children = $(data).find("#message_list").children();
-        for (var i = 0; i < children.length; i++) {
+        for (var i = 0, length = children.length; i < length; i++) {
             var child = $(children[i]);
             var rec = {};
             rec.msgID = $($(data).find("#message_list").children())[i].id
@@ -164,10 +164,10 @@ function Magitfun() {
                 } else {
                     rec.status = $(element).text();
                     /*if (index == child.find(".message_list_recipient > .gray").length) {
-                        rec.status = $(child.find(".message_list_recipient > .gray")[index - 1]).text();
-                    } else {
-                        rec.status = $(child.find(".message_list_recipient > .gray")[index + 1]).text();
-                    }*/
+                     rec.status = $(child.find(".message_list_recipient > .gray")[index - 1]).text();
+                     } else {
+                     rec.status = $(child.find(".message_list_recipient > .gray")[index + 1]).text();
+                     }*/
                 }
 
             });
