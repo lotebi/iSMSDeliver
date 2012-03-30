@@ -98,25 +98,25 @@ $(function () {
             e.preventDefault();
             $.mobile.showPageLoadingMsg();
 
-            window.setInterval(generateContacts("", true), 1);
             $(".contacts-choose").css("display", "none");
             $(".contacts-view").css("display", "block");
+            generateContacts("", true);
         });
         $("#localContacts").click(function (e) {
             e.preventDefault();
             $.mobile.showPageLoadingMsg();
 
-            window.setInterval(generateContacts(contactsLocal, false), 1);
             $(".contacts-choose").css("display", "none");
             $(".contacts-view").css("display", "block");
+            generateContacts(contactsLocal, false);
         });
         $("#providerContacts").click(function (e) {
             e.preventDefault();
             $.mobile.showPageLoadingMsg();
 
-            window.setInterval(generateContacts(contactsRemote, false), 1);
             $(".contacts-choose").css("display", "none");
             $(".contacts-view").css("display", "block");
+            generateContacts(contactsRemote, false);
         });
 
         //----------------------------Local Contacts-----------------------------------
