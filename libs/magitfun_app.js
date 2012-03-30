@@ -289,7 +289,7 @@ function searchNumber(num) {
     for (var i = 0; i < contacts.length; i++) {
         var aContact = contacts[i];
         for (var j = 0; j < aContact.number.length; j++) {
-            if (aContact.number[j].indexOf(num) > -1) {
+            if (aContact.number[j].replace(/[^\+\d]/g, "").indexOf(num.replace(/[^\+\d]/g, "")) > -1) {
                 return aContact.name;
             }
         }
