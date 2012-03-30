@@ -98,7 +98,7 @@ $(function () {
             e.preventDefault();
             $.mobile.showPageLoadingMsg();
 
-            generateContacts("", true);
+            window.setInterval(generateContacts("", true), 1);
             $(".contacts-choose").css("display", "none");
             $(".contacts-view").css("display", "block");
         });
@@ -106,7 +106,7 @@ $(function () {
             e.preventDefault();
             $.mobile.showPageLoadingMsg();
 
-            generateContacts(contactsLocal, false);
+            window.setInterval(generateContacts(contactsLocal, false), 1);
             $(".contacts-choose").css("display", "none");
             $(".contacts-view").css("display", "block");
         });
@@ -114,7 +114,7 @@ $(function () {
             e.preventDefault();
             $.mobile.showPageLoadingMsg();
 
-            generateContacts(contactsRemote, false);
+            window.setInterval(generateContacts(contactsRemote, false), 1);
             $(".contacts-choose").css("display", "none");
             $(".contacts-view").css("display", "block");
         });
