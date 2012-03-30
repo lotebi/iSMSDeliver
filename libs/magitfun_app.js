@@ -61,9 +61,7 @@ $(function () {
         });
         $("#about").click(function (e) {
             e.preventDefault();
-            var transition = getRandTransition();
-            $.mobile.changePage($("#pageHome"), {transition:transition});
-            $("#pageHome").trigger('create');
+            navigator.notification.alert("Ra About ?? Button Dainaxe da daachire?", null, "Kai roja Xar?", "sxvagan movxvdi");
         });
 
         $("#navbarSms").click(function (e) {
