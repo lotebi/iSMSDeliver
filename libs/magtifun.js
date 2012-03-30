@@ -119,7 +119,7 @@ function Magitfun() {
                 if (page > -1) {
                     pagesCount = page;
                 }
-                history = new Array();
+                history = [];
                 parseHistoryPerPage(data);
                 parseHistory(succ, 2, pagesCount + 1);
             }

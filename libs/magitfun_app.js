@@ -1,8 +1,4 @@
-var connectorObject;
-var history;
-var contactsRemote;
-var contactsLocal = new Array();
-var transitions = new Array();
+var connectorObject, history, contactsRemote, contactsLocal = [],contactsMerged,transitions = [];
 transitions.push("pop");
 transitions.push("flip");
 transitions.push("slide");
@@ -19,9 +15,9 @@ $(function () {
             connectorObject.login(function (a) {
                 if (a == "succses") {
                     $.mobile.changePage($("#pageHome"), {transition:getRandTransition()});
-                    refreshBalance();
-                    grabContacts();
-                    grabHistory(2);
+                    window.setInterval(refreshBalance());
+                    window.setInterval(grabContacts());
+                    window.setInterval(grabHistory(2));
                 } else {
                     navigator.notification.vibrate(250);
                     navigator.notification.alert("Wrong Username or Password", null, "MissBehaive", "I'm Sorry!");
@@ -32,8 +28,8 @@ $(function () {
         $("#refresh").click(function (e) {
             e.preventDefault();
             $.mobile.showPageLoadingMsg();
-            refreshBalance();
-            grabHistory(2);
+            window.setInterval(refreshBalance());
+            window.setInterval(grabHistory(2));
         });
 
         $("#send").click(function (e) {
@@ -100,18 +96,24 @@ $(function () {
 
         $("#allContacts").click(function (e) {
             e.preventDefault();
+            $.mobile.showPageLoadingMsg();
+
             generateContacts("", true);
             $(".contacts-choose").css("display", "none");
             $(".contacts-view").css("display", "block");
         });
         $("#localContacts").click(function (e) {
             e.preventDefault();
+            $.mobile.showPageLoadingMsg();
+
             generateContacts(contactsLocal, false);
             $(".contacts-choose").css("display", "none");
             $(".contacts-view").css("display", "block");
         });
         $("#providerContacts").click(function (e) {
             e.preventDefault();
+            $.mobile.showPageLoadingMsg();
+
             generateContacts(contactsRemote, false);
             $(".contacts-choose").css("display", "none");
             $(".contacts-view").css("display", "block");
@@ -123,9 +125,9 @@ $(function () {
             function onSuccess(contacts) {
                 for (var i = 0; i < contacts.length; i++) {
                     var deviceContact = contacts[i];
-                    var aContact = new Object();
+                    var aContact = {};
                     aContact.name = deviceContact.name.formatted;
-                    aContact.number = new Array();
+                    aContact.number = [];
                     for (var j = 0; j < deviceContact.phoneNumbers.length; j++) {
                         aContact.number.push(deviceContact.phoneNumbers[j].value);
                     }
@@ -158,12 +160,12 @@ function refreshBalance() {
 
 function grabContacts() {
     connectorObject.getContacts(function (a) {
-            contactsRemote = new Array();
+            contactsRemote = [];
             for (var i = 0; i < a.length; i++) {
                 var aContact = a[i];
-                var normContact = new Object();
+                var normContact = {};
                 normContact.name = new String();
-                normContact.number = new Array();
+                normContact.number = [];
                 for (var j = 1; j < aContact.length; j++) {
                     var aValue = aContact[j];
                     if (j == 4) {
@@ -192,18 +194,19 @@ function grabHistory(page) {
 }
 
 function mergeContacts() {
-    var contacts = new Array();
-    for (var j = 0; j < contactsRemote.length; j++) {
-        contacts.push(contactsRemote[j]);
+    if (!contactsMerged) {
+        var contactsMerged = [];
+        for (var j = 0; j < contactsRemote.length; j++) {
+            contactsMerged.push(contactsRemote[j]);
+        }
+        for (var i = 0; i < contactsLocal.length; i++) {
+            contactsMerged.push(contactsLocal[i]);
+        }
     }
-    for (var i = 0; i < contactsLocal.length; i++) {
-        contacts.push(contactsLocal[i]);
-    }
-    return contacts;
+    return contactsMerged;
 }
 
 function generateContacts(contacts, merge) {
-    $.mobile.showPageLoadingMsg();
     if (merge) {
         contacts = mergeContacts();
     }
