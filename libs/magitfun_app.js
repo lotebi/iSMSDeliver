@@ -14,15 +14,20 @@ $(function () {
             connectorObject = new Magitfun(user, password);
             connectorObject.login(function (a) {
                 if (a == "succses") {
-                    $.mobile.changePage($("#pageHome"), {transition:getRandTransition()});
-                    refreshBalance();
-                    grabContacts();
-                    grabHistory(2);
+                    $.mobile.changePage($("#pageHome"));
+                    $.mobile.hidePageLoadingMsg();
                 } else {
                     navigator.notification.vibrate(250);
                     navigator.notification.alert("Wrong Username or Password", null, "MissBehaive", "I'm Sorry!");
                 }
             })
+        });
+
+        $('#pageHome').live('pageload', function () {
+            $.mobile.showPageLoadingMsg();
+            refreshBalance();
+            grabContacts();
+            grabHistory(2);
         });
 
         $("#refresh").click(function (e) {
