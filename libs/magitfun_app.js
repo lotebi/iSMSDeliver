@@ -213,7 +213,7 @@ function mergeContacts() {
 }
 
 function generateContacts(contacts, merge) {
-    $.mobile.showPageLoadingMsg();
+    window.setTimeout($.mobile.showPageLoadingMsg, 500);
 
     if (merge) {
         contacts = mergeContacts();
@@ -391,6 +391,7 @@ function resend(msgID) {
 
 function updateCreditsGel(credits, gel) {
     $("#gel").text(gel);
+    $("#gel").button('refresh');;
     $("#credit").text(credits);
 }
 
