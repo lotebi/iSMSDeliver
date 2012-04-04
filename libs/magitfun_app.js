@@ -8,7 +8,7 @@ transitions.push("slidedown");
 $(function () {
         $("#login").click(function (e) {
             e.preventDefault();
-            $.mobile.showPageLoadingMsg();
+            ldLoading();
             var user = $("#username").val();
             var password = $("#password").val();
             connectorObject = new Magitfun(user, password);
@@ -25,7 +25,7 @@ $(function () {
         });
 
         $('#pageHome').live('pageshow', function () {
-            $.mobile.showPageLoadingMsg();
+            ldLoading();
             grabContacts();
             grabHistory(2);
         });
@@ -33,14 +33,14 @@ $(function () {
 
         $("#refresh").click(function (e) {
             e.preventDefault();
-            $.mobile.showPageLoadingMsg();
+            ldLoading();
             refreshBalance();
             grabHistory(2);
         });
 
         $("#send").click(function (e) {
             e.preventDefault();
-            $.mobile.showPageLoadingMsg();
+            ldLoading();
             if ($("#maxMessages").css("visibility") == "hidden") {
                 var recipient = $("#recipients").val();
                 var msgbody = $("#msgBody").val();
@@ -101,26 +101,34 @@ $(function () {
         $("#allContacts").click(function (e) {
             e.preventDefault();
 
-            generateContacts("", true);
+            ldLoading();
+            setTimeout(function () {
+                generateContacts("", true)
+            }, 100);
 
-            $(".contacts-choose").css("display", "none");
-            $(".contacts-view").css("display", "block");
+
         });
         $("#localContacts").click(function (e) {
             e.preventDefault();
 
-            generateContacts(contactsLocal, false);
+            ldLoading();
+            setTimeout(function () {
+                generateContacts(contactsLocal, false)
+            }, 100);
 
-            $(".contacts-choose").css("display", "none");
-            $(".contacts-view").css("display", "block");
+            //$(".contacts-choose").css("display", "none");
+            //$(".contacts-view").css("display", "block");
         });
         $("#providerContacts").click(function (e) {
             e.preventDefault();
 
-            generateContacts(contactsRemote, false);
+            ldLoading();
+            setTimeout(function () {
+                generateContacts(contactsRemote, false);
+            }, 100);
 
-            $(".contacts-choose").css("display", "none");
-            $(".contacts-view").css("display", "block");
+            //$(".contacts-choose").css("display", "none");
+            //$(".contacts-view").css("display", "block");
         });
 
         //----------------------------Local Contacts-----------------------------------
@@ -157,6 +165,10 @@ $(function () {
 
     }
 );
+
+function ldLoading(){
+    $.mobile.showPageLoadingMsg("a", "Loading...", true);
+}
 
 function refreshBalance() {
     connectorObject.getBalance(updateCreditsGel);
@@ -216,7 +228,6 @@ function mergeContacts() {
 }
 
 function generateContacts(contacts, merge) {
-    $.mobile.showPageLoadingMsg();
     if (merge) {
         contacts = mergeContacts();
     }
@@ -244,35 +255,41 @@ function generateContacts(contacts, merge) {
             //$(".contacts-view > [data-role='listview']").append(appendContact);
             html += appendContact;
         } else {
-           // $(".contacts-view > [data-role='listview']").append('<li><a href="#" id="' + aContact.number[0].replace(/[^\+\d]/g, "") +
-           //     '" class="contactName">' + aContact.name + '</a></li>');
+            // $(".contacts-view > [data-role='listview']").append('<li><a href="#" id="' + aContact.number[0].replace(/[^\+\d]/g, "") +
+            //     '" class="contactName">' + aContact.name + '</a></li>');
             html += '<li><a href="#" id="' + aContact.number[0].replace(/[^\+\d]/g, "") +
-                 '" class="contactName">' + aContact.name + '</a></li>';
+                '" class="contactName">' + aContact.name + '</a></li>';
         }
     }
     html += '</ul>';
 
-    $.mobile.hidePageLoadingMsg();
+
+    $(".contacts-choose").css("display", "none");
+    $(".contacts-view").css("display", "block");
     $(".contacts-view").html(html);
     //$(".contacts-view").append('</ul>');
     $(".contacts-view").trigger('create');
     contactsListener();
+    $.mobile.hidePageLoadingMsg();
+
 }
 
 function generateHistory() {
     var previousDate;
     var groupCounter = 0;
     var workingElement = $(".content-history > .ui-listview");
-    workingElement.html("");
+    var html = "";
+
+    //workingElement.html("");
     for (var i = 0, length = history.length; i < length; i++) {
         var aHistory = history[i];
         if (previousDate == undefined || aHistory.date.getDate() != previousDate.getDate()) {
             previousDate = aHistory.date;
             var group = previousDate.toDateString().split(" ");
             var tmpGroup = group[0] + "," + group[1] + " " + group[2] + ", " + group[3];
-            var appendHeader = '<li data-role="list-divider">' + tmpGroup +
+            //workingElement.append(appendHeader);
+            html += '<li data-role="list-divider">' + tmpGroup +
                 '<span class="ui-li-count">' + groupCounter + "</span></li>";
-            workingElement.append(appendHeader);
             groupCounter = 0;
         }
         groupCounter++;
@@ -293,9 +310,11 @@ function generateHistory() {
                 ":" + aHistory.date.getSeconds().toString() + '</strong>' +
                 '</p></a></li>';
         }
-        workingElement.append(appendMsg);
+        //workingElement.append(appendMsg);
+        html += appendMsg;
 
     }
+    workingElement.html(html);
     workingElement.listview("refresh");
 }
 
