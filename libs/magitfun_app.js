@@ -101,9 +101,7 @@ $(function () {
         $("#allContacts").click(function (e) {
             e.preventDefault();
 
-            $.mobile.showPageLoadingMsg();
             generateContacts("", true);
-            //$.mobile.hidePageLoadingMsg();
 
             $(".contacts-choose").css("display", "none");
             $(".contacts-view").css("display", "block");
@@ -111,9 +109,7 @@ $(function () {
         $("#localContacts").click(function (e) {
             e.preventDefault();
 
-            $.mobile.showPageLoadingMsg();
             generateContacts(contactsLocal, false);
-            $.mobile.hidePageLoadingMsg();
 
             $(".contacts-choose").css("display", "none");
             $(".contacts-view").css("display", "block");
@@ -121,9 +117,7 @@ $(function () {
         $("#providerContacts").click(function (e) {
             e.preventDefault();
 
-            $.mobile.showPageLoadingMsg();
             generateContacts(contactsRemote, false);
-            $.mobile.hidePageLoadingMsg();
 
             $(".contacts-choose").css("display", "none");
             $(".contacts-view").css("display", "block");
@@ -222,11 +216,13 @@ function mergeContacts() {
 }
 
 function generateContacts(contacts, merge) {
+    $.mobile.showPageLoadingMsg();
     if (merge) {
         contacts = mergeContacts();
     }
     sortContacts(contacts);
     $(".contacts-view").html('<ul data-role="listview" data-filter="true" data-filter-placeholder="Search contacts..." data-filter-theme="d" data-theme="d" data-divider-theme="d" >');
+    $.mobile.showPageLoadingMsg();
     var firtChar = '';
     for (var i = 0, length = contacts.length; i < length; i++) {
         var aContact = contacts[i];
