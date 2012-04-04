@@ -23,12 +23,13 @@ $(function () {
             })
         });
 
-        $('#pageHome').bind('pageload', function () {
+        $('#pageHome').live('pageshow', function () {
             $.mobile.showPageLoadingMsg();
             refreshBalance();
             grabContacts();
             grabHistory(2);
         });
+
 
         $("#refresh").click(function (e) {
             e.preventDefault();
@@ -43,7 +44,7 @@ $(function () {
             if ($("#maxMessages").css("visibility") == "hidden") {
                 var recipient = $("#recipients").val();
                 var msgbody = $("#msgBody").val();
-                connectorObject.sendSms(recipient, msgbody, function (a) {
+                connectorObject.sendSms(recipient, msgbody, function () {
                     $("#recipients").val("");
                     $("#msgBody").val("");
                     refreshBalance();
@@ -198,7 +199,7 @@ function grabHistory(page) {
 
 function mergeContacts() {
     if (!contactsMerged) {
-        var contactsMerged = [];
+        contactsMerged = [];
         for (var j = 0, length = contactsRemote.length; j < length; j++) {
             contactsMerged.push(contactsRemote[j]);
         }
