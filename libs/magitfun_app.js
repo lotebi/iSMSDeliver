@@ -271,7 +271,7 @@ function generateHistory() {
         var appendMsg;
         if (aHistory.status == 'მიწოდებულია') {
             appendMsg = '<li><h3 style="color: blue;">' + searchNumber(aHistory.number) + '</h3>' +
-                '<span>' + aHistory.msgText + '</span>' +
+                '<span>' + $('<div/>').text(aHistory.msgText).html() + '</span>' +
                 '<p class="ui-li-aside">' +
                 '<strong>' + aHistory.date.getHours().toString() + ":" + aHistory.date.getMinutes().toString() +
                 ":" + aHistory.date.getSeconds().toString() + '</strong>' +
