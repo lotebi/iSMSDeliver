@@ -221,14 +221,15 @@ function generateContacts(contacts, merge) {
         contacts = mergeContacts();
     }
     sortContacts(contacts);
-    $(".contacts-view").html('<ul data-role="listview" data-filter="true" data-filter-placeholder="Search contacts..." data-filter-theme="d" data-theme="d" data-divider-theme="d" >');
-    $.mobile.showPageLoadingMsg();
+    //$(".contacts-view").html('<ul data-role="listview" data-filter="true" data-filter-placeholder="Search contacts..." data-filter-theme="d" data-theme="d" data-divider-theme="d" >');
+    var html = '<ul data-role="listview" data-filter="true" data-filter-placeholder="Search contacts..." data-filter-theme="d" data-theme="d" data-divider-theme="d" >';
     var firtChar = '';
     for (var i = 0, length = contacts.length; i < length; i++) {
         var aContact = contacts[i];
         if (aContact.name[0].toUpperCase() != firtChar) {
             firtChar = aContact.name[0].toUpperCase();
-            $(".contacts-view > [data-role='listview']").append('<li data-role="list-divider">' + firtChar + '</li>');
+            //$(".contacts-view > [data-role='listview']").append('<li data-role="list-divider">' + firtChar + '</li>');
+            html += '<li data-role="list-divider">' + firtChar + '</li>';
         }
         if (aContact.number.length > 1) {
             var appendContact = '<li>' +
@@ -240,14 +241,20 @@ function generateContacts(contacts, merge) {
             }
             appendContact += '</select>' +
                 '</li>';
-            $(".contacts-view > [data-role='listview']").append(appendContact);
-
+            //$(".contacts-view > [data-role='listview']").append(appendContact);
+            html += appendContact;
         } else {
-            $(".contacts-view > [data-role='listview']").append('<li><a href="#" id="' + aContact.number[0].replace(/[^\+\d]/g, "") +
-                '" class="contactName">' + aContact.name + '</a></li>');
+           // $(".contacts-view > [data-role='listview']").append('<li><a href="#" id="' + aContact.number[0].replace(/[^\+\d]/g, "") +
+           //     '" class="contactName">' + aContact.name + '</a></li>');
+            html += '<li><a href="#" id="' + aContact.number[0].replace(/[^\+\d]/g, "") +
+                 '" class="contactName">' + aContact.name + '</a></li>';
         }
     }
-    $(".contacts-view").append('</ul>');
+    html += '</ul>';
+
+    $.mobile.hidePageLoadingMsg();
+    $(".contacts-view").html(html);
+    //$(".contacts-view").append('</ul>');
     $(".contacts-view").trigger('create');
     contactsListener();
 }
