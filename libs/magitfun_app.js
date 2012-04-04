@@ -103,7 +103,7 @@ $(function () {
 
             $.mobile.showPageLoadingMsg();
             generateContacts("", true);
-            $.mobile.hidePageLoadingMsg();
+            //$.mobile.hidePageLoadingMsg();
 
             $(".contacts-choose").css("display", "none");
             $(".contacts-view").css("display", "block");
