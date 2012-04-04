@@ -25,9 +25,9 @@ $(function () {
 
         $('#pageHome').live('pageshow', function () {
             $.mobile.showPageLoadingMsg();
-            refreshBalance();
             grabContacts();
             grabHistory(2);
+            refreshBalance();
         });
 
 
@@ -100,7 +100,6 @@ $(function () {
 
         $("#allContacts").click(function (e) {
             e.preventDefault();
-            $.mobile.showPageLoadingMsg();
 
             $(".contacts-choose").css("display", "none");
             $(".contacts-view").css("display", "block");
@@ -108,7 +107,6 @@ $(function () {
         });
         $("#localContacts").click(function (e) {
             e.preventDefault();
-            $.mobile.showPageLoadingMsg();
 
             $(".contacts-choose").css("display", "none");
             $(".contacts-view").css("display", "block");
@@ -116,7 +114,6 @@ $(function () {
         });
         $("#providerContacts").click(function (e) {
             e.preventDefault();
-            $.mobile.showPageLoadingMsg();
 
             $(".contacts-choose").css("display", "none");
             $(".contacts-view").css("display", "block");
@@ -216,6 +213,8 @@ function mergeContacts() {
 }
 
 function generateContacts(contacts, merge) {
+    $.mobile.showPageLoadingMsg();
+
     if (merge) {
         contacts = mergeContacts();
     }
@@ -248,7 +247,8 @@ function generateContacts(contacts, merge) {
     $(".contacts-view").append('</ul>');
     $(".contacts-view").trigger('create');
     contactsListener();
-    $.mobile.hidePageLoadingMsg();
+
+    window.setTimeout($.mobile.hidePageLoadingMsg, 150);
 }
 
 function generateHistory() {
