@@ -15,6 +15,7 @@ $(function () {
             connectorObject.login(function (a) {
                 if (a == "succses") {
                     $.mobile.changePage($("#pageHome"));
+                    refreshBalance();
                 } else {
                     navigator.notification.vibrate(250);
                     navigator.notification.alert("Wrong Username or Password", null, "MissBehaive", "I'm Sorry!");
@@ -27,7 +28,6 @@ $(function () {
             $.mobile.showPageLoadingMsg();
             grabContacts();
             grabHistory(2);
-            refreshBalance();
         });
 
 
@@ -391,7 +391,6 @@ function resend(msgID) {
 
 function updateCreditsGel(credits, gel) {
     $("#gel").text(gel);
-    $("#gel").button('refresh');;
     $("#credit").text(credits);
 }
 
