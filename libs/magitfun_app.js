@@ -102,7 +102,7 @@ $(function () {
             e.preventDefault();
 
             $.mobile.showPageLoadingMsg();
-            window.setTimeout(generateContacts("", true), 1);
+            generateContacts("", true);
             $.mobile.hidePageLoadingMsg();
 
             $(".contacts-choose").css("display", "none");
@@ -112,9 +112,8 @@ $(function () {
             e.preventDefault();
 
             $.mobile.showPageLoadingMsg();
-            window.setTimeout(generateContacts(contactsLocal, false), 1);
+            generateContacts(contactsLocal, false);
             $.mobile.hidePageLoadingMsg();
-
 
             $(".contacts-choose").css("display", "none");
             $(".contacts-view").css("display", "block");
@@ -123,7 +122,7 @@ $(function () {
             e.preventDefault();
 
             $.mobile.showPageLoadingMsg();
-            window.setTimeout(generateContacts(contactsRemote, false), 1);
+            generateContacts(contactsRemote, false);
             $.mobile.hidePageLoadingMsg();
 
             $(".contacts-choose").css("display", "none");
