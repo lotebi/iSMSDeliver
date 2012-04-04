@@ -20,12 +20,10 @@ $(function () {
                     navigator.notification.vibrate(250);
                     navigator.notification.alert("Wrong Username or Password", null, "MissBehaive", "I'm Sorry!");
                 }
-                $.mobile.hidePageLoadingMsg();
             })
         });
 
         $('#pageHome').live('pageshow', function () {
-            ldLoading();
             grabContacts();
             grabHistory(2);
         });
