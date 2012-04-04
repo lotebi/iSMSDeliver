@@ -101,9 +101,9 @@ $(function () {
         $("#allContacts").click(function (e) {
             e.preventDefault();
 
-            window.setTimeout($.mobile.showPageLoadingMsg, 1);
+            $.mobile.showPageLoadingMsg();
             window.setTimeout(generateContacts("", true), 1);
-            window.setTimeout($.mobile.hidePageLoadingMsg, 1);
+            $.mobile.hidePageLoadingMsg();
 
             $(".contacts-choose").css("display", "none");
             $(".contacts-view").css("display", "block");
@@ -111,9 +111,9 @@ $(function () {
         $("#localContacts").click(function (e) {
             e.preventDefault();
 
-            window.setTimeout($.mobile.showPageLoadingMsg, 1);
+            $.mobile.showPageLoadingMsg();
             window.setTimeout(generateContacts(contactsLocal, false), 1);
-            window.setTimeout($.mobile.hidePageLoadingMsg, 1);
+            $.mobile.hidePageLoadingMsg();
 
 
             $(".contacts-choose").css("display", "none");
@@ -122,9 +122,9 @@ $(function () {
         $("#providerContacts").click(function (e) {
             e.preventDefault();
 
-            window.setTimeout($.mobile.showPageLoadingMsg, 1);
+            $.mobile.showPageLoadingMsg();
             window.setTimeout(generateContacts(contactsRemote, false), 1);
-            window.setTimeout($.mobile.hidePageLoadingMsg, 1);
+            $.mobile.hidePageLoadingMsg();
 
             $(".contacts-choose").css("display", "none");
             $(".contacts-view").css("display", "block");
