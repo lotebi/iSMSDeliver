@@ -63,7 +63,7 @@ $(function () {
         $("#logout").click(function (e) {
             e.preventDefault();
             var transition = getRandTransition();
-            $.mobile.changePage($("#pageLogin"), {transition:transition})
+            $.mobile.changePage($("#pageLogin"));
         });
         $("#about").click(function (e) {
             e.preventDefault();
@@ -101,23 +101,23 @@ $(function () {
         $("#allContacts").click(function (e) {
             e.preventDefault();
 
+            generateContacts("", true);
             $(".contacts-choose").css("display", "none");
             $(".contacts-view").css("display", "block");
-            generateContacts("", true);
         });
         $("#localContacts").click(function (e) {
             e.preventDefault();
 
+            generateContacts(contactsLocal, false);
             $(".contacts-choose").css("display", "none");
             $(".contacts-view").css("display", "block");
-            generateContacts(contactsLocal, false);
         });
         $("#providerContacts").click(function (e) {
             e.preventDefault();
 
+            generateContacts(contactsRemote, false);
             $(".contacts-choose").css("display", "none");
             $(".contacts-view").css("display", "block");
-            generateContacts(contactsRemote, false);
         });
 
         //----------------------------Local Contacts-----------------------------------
@@ -248,7 +248,7 @@ function generateContacts(contacts, merge) {
     $(".contacts-view").trigger('create');
     contactsListener();
 
-    window.setTimeout($.mobile.hidePageLoadingMsg, 150);
+    window.setTimeout($.mobile.hidePageLoadingMsg, 500);
 }
 
 function generateHistory() {
@@ -390,8 +390,8 @@ function resend(msgID) {
 }
 
 function updateCreditsGel(credits, gel) {
-    $("#credit").text(credits);
     $("#gel").text(gel);
+    $("#credit").text(credits);
 }
 
 function getRandTransition() {
