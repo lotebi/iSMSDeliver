@@ -24,6 +24,7 @@ $(function () {
         });
 
         $('#pageHome').live('pageshow', function () {
+            console.log("pageShow");
             grabContacts();
             grabHistory(2);
         });
@@ -198,7 +199,11 @@ function grabContacts() {
 }
 
 function grabHistory(page) {
+    console.log("\nGrab History Start\n");
     connectorObject.getHistory(function (historys) {
+        console.log("history\n");
+        console.log(historys);
+        console.log("\n-----------\n")
         history = historys;
         generateHistory();
         normalizeHistory();
