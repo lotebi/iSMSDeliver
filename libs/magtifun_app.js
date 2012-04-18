@@ -1,4 +1,4 @@
-var connectorObject, history, contactsRemote, contactsLocal = [], contactsMerged, transitions = [];
+var connectorObject, mHistory, contactsRemote, contactsLocal = [], contactsMerged, transitions = [];
 transitions.push("pop");
 transitions.push("flip");
 transitions.push("slide");
@@ -204,8 +204,7 @@ function grabContacts() {
 function grabHistory(page) {
     connectorObject.getHistory(function (historys) {
         try {
-            history = historys;
-            alert(JSON.stringify(history));
+            mHistory = historys;
             generateHistory();
             normalizeHistory();
             resendListener();
@@ -287,9 +286,8 @@ function generateHistory() {
     var workingElement = $(".content-history > .ui-listview");
     var html = "";
 
-    alert(JSON.stringify(history));
-    for (var i = 0, length = history.length; i < length; i++) {
-        var aHistory = history[i];
+    for (var i = 0, length = mHistory.length; i < length; i++) {
+        var aHistory = mHistory[i];
         if (previousDate == undefined || aHistory.date.getDate() != previousDate.getDate()) {
             previousDate = aHistory.date;
             var group = previousDate.toDateString().split(" ");
@@ -437,9 +435,9 @@ function getRandomArbitrary(min, max) {
 }
 
 function historyByID(id) {
-    for (var i = 0, length = history.length; i < length; i++) {
-        if (history[i].msgID == id) {
-            return history[i];
+    for (var i = 0, length = mHistory.length; i < length; i++) {
+        if (mHistory[i].msgID == id) {
+            return mHistory[i];
         }
     }
     return undefined;

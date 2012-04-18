@@ -19,7 +19,7 @@ function Magitfun() {
     var password;
     var credits;
     var gel;
-    var history;
+    var magtiHistory;
 
     if (arguments.length == 2) {
         user = arguments[0];
@@ -120,7 +120,7 @@ function Magitfun() {
                 if (page > -1) {
                     pagesCount = page;
                 }
-                history = [];
+                magtiHistory = [];
                 parseHistoryPerPage(data);
                 parseHistory(succ, 2, pagesCount + 1);
             }
@@ -129,8 +129,8 @@ function Magitfun() {
 
     var parseHistory = function (succ, currIndex, lastIndex) {
         if (currIndex >= lastIndex) {
-            sortHistory(history);
-            succ(history);
+            sortHistory(magtiHistory);
+            succ(magtiHistory);
         } else {
             $.ajax({
                 type:"POST",
@@ -176,7 +176,7 @@ function Magitfun() {
             var monthYear = child.find(".msg_date").find(".date_month").html().split("<br>");
             var dateTime = child.find(".date_time").text().split(":");
             rec.date = new Date(monthYear[1], getMonth(monthYear[0]), child.find(".msg_date").find(".xlarge").text(), dateTime[0], dateTime[1], dateTime[2]);
-            history.push(rec);
+            magtiHistory.push(rec);
         }
     };
 
