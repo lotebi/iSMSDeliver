@@ -24,7 +24,6 @@ $(function () {
         });
 
         $('#pageHome').live('pageshow', function () {
-            console.log("pageShow");
             grabContacts();
             grabHistory(2);
         });
@@ -137,13 +136,17 @@ $(function () {
                 for (var i = 0, length = contacts.length; i < length; i++) {
                     var deviceContact = contacts[i];
                     var aContact = {};
-                    aContact.name = deviceContact.name.formatted;
-                    aContact.number = [];
-                    for (var j = 0; j < deviceContact.phoneNumbers.length; j++) {
-                        aContact.number.push(deviceContact.phoneNumbers[j].value);
+                    try {
+                        aContact.name = deviceContact.name.formatted;
+                        aContact.number = [];
+                        for (var j = 0; j < deviceContact.phoneNumbers.length; j++) {
+                            aContact.number.push(deviceContact.phoneNumbers[j].value);
+                        }
+                        contactsLocal.push(aContact);
+                    } catch (e) {
                     }
-                    contactsLocal.push(aContact);
                 }
+
                 sortContacts(contactsLocal);
             }
 
@@ -165,7 +168,7 @@ $(function () {
     }
 );
 
-function ldLoading(){
+function ldLoading() {
     $.mobile.showPageLoadingMsg("a", "Loading...", true);
 }
 
@@ -199,15 +202,15 @@ function grabContacts() {
 }
 
 function grabHistory(page) {
-    console.log("\nGrab History Start\n");
     connectorObject.getHistory(function (historys) {
-        console.log("history\n");
-        console.log(historys);
-        console.log("\n-----------\n")
-        history = historys;
-        generateHistory();
-        normalizeHistory();
-        resendListener();
+        try {
+            history = historys;
+            generateHistory();
+            normalizeHistory();
+            resendListener();
+        } catch (e) {
+            alert(e);
+        }
         $.mobile.hidePageLoadingMsg();
     }, page);
 }
