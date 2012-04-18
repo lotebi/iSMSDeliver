@@ -24,6 +24,7 @@ $(function () {
         });
 
         $('#pageHome').live('pageshow', function () {
+            ldLoading();
             grabContacts();
             grabHistory(2);
         });
