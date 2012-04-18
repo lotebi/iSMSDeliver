@@ -146,6 +146,7 @@ function Magitfun() {
             });
         }
     };
+
     var parseHistoryPerPage = function (data) {
         var children = $(data).find("#message_list").children();
         for (var i = 0, length = children.length; i < length; i++) {
@@ -172,7 +173,7 @@ function Magitfun() {
                 }
 
             });
-            var monthYear = child.find(".msg_date").find(".date_month").html().split("<br>");
+            var monthYear = child.find(".msg_date").find(".date_month").text().split(/\s+/);
             var dateTime = child.find(".date_time").text().split(":");
             rec.date = new Date(monthYear[1], getMonth(monthYear[0]), child.find(".msg_date").find(".xlarge").text(), dateTime[0], dateTime[1], dateTime[2]);
             history.push(rec);
