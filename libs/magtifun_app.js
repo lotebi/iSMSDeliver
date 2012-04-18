@@ -205,7 +205,6 @@ function grabHistory(page) {
     connectorObject.getHistory(function (historys) {
         try {
             history = historys;
-            alert(JSON.stringify(historys));
             generateHistory();
             normalizeHistory();
             resendListener();
@@ -287,7 +286,7 @@ function generateHistory() {
     var workingElement = $(".content-history > .ui-listview");
     var html = "";
 
-    //workingElement.html("");
+    alert(JSON.stringify(history));
     for (var i = 0, length = history.length; i < length; i++) {
         var aHistory = history[i];
         if (previousDate == undefined || aHistory.date.getDate() != previousDate.getDate()) {
