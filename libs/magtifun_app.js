@@ -205,6 +205,7 @@ function grabHistory(page) {
     connectorObject.getHistory(function (historys) {
         try {
             history = historys;
+            alert(JSON.stringify(history));
             generateHistory();
             normalizeHistory();
             resendListener();
