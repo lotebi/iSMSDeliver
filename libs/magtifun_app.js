@@ -243,29 +243,31 @@ function generateContacts(contacts, merge) {
     var html = '<ul data-role="listview" data-filter="true" data-filter-placeholder="Search contacts..." data-filter-theme="d" data-theme="d" data-divider-theme="d" >';
     var firtChar = '';
     for (var i = 0, length = contacts.length; i < length; i++) {
-        var aContact = contacts[i];
-        if (aContact.name[0].toUpperCase() != firtChar) {
-            firtChar = aContact.name[0].toUpperCase();
-            //$(".contacts-view > [data-role='listview']").append('<li data-role="list-divider">' + firtChar + '</li>');
-            html += '<li data-role="list-divider">' + firtChar + '</li>';
-        }
-        if (aContact.number.length > 1) {
-            var appendContact = '<li>' +
-                '<select name="select-choice-min" class="numberSelector"  data-native-menu="true" data-mini="true">';
-            appendContact += '<option>' + aContact.name + '</option>';
-            for (var l = 0; l < aContact.number.length; l++) {
-                appendContact += '<option value="' + aContact.number[l].replace(/[^\+\d]/g, "") + '">'
-                    + aContact.number[l] + '</option>';
+        try {
+            var aContact = contacts[i];
+            if (aContact.name != null && aContact.name[0].toUpperCase() != firtChar) {
+                firtChar = aContact.name[0].toUpperCase();
+                //$(".contacts-view > [data-role='listview']").append('<li data-role="list-divider">' + firtChar + '</li>');
+                html += '<li data-role="list-divider">' + firtChar + '</li>';
             }
-            appendContact += '</select>' +
-                '</li>';
-            //$(".contacts-view > [data-role='listview']").append(appendContact);
-            html += appendContact;
-        } else {
-            // $(".contacts-view > [data-role='listview']").append('<li><a href="#" id="' + aContact.number[0].replace(/[^\+\d]/g, "") +
-            //     '" class="contactName">' + aContact.name + '</a></li>');
-            html += '<li><a href="#" id="' + aContact.number[0].replace(/[^\+\d]/g, "") +
-                '" class="contactName">' + aContact.name + '</a></li>';
+            if (aContact.number != null) {
+                if (aContact.number.length > 1) {
+                    var appendContact = '<li>' +
+                        '<select name="select-choice-min" class="numberSelector"  data-native-menu="true" data-mini="true">';
+                    appendContact += '<option>' + aContact.name + '</option>';
+                    for (var l = 0; l < aContact.number.length; l++) {
+                        appendContact += '<option value="' + aContact.number[l].replace(/[^\+\d]/g, "") + '">'
+                            + aContact.number[l] + '</option>';
+                    }
+                    appendContact += '</select>' +
+                        '</li>';
+                    html += appendContact;
+                } else {
+                    html += '<li><a href="#" id="' + aContact.number[0].replace(/[^\+\d]/g, "") +
+                        '" class="contactName">' + aContact.name + '</a></li>';
+                }
+            }
+        } catch (e) {
         }
     }
     html += '</ul>';
@@ -446,9 +448,9 @@ function historyByID(id) {
 
 function sortContacts(contacts) {
     contacts.sort(function (a, b) {
-        if (a.name.toLowerCase() > b.name.toLowerCase())
+        if (a.name && b.name && a.name.toLowerCase() > b.name.toLowerCase())
             return 1;
-        else if (a.name.toLowerCase() < b.name.toLowerCase())
+        else if (a.name && b.name && a.name.toLowerCase() < b.name.toLowerCase())
             return -1;
         else
             return 0;
