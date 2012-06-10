@@ -63,7 +63,6 @@ function Magitfun() {
             success:function (data) {
                 //console.log(data);
                 cookie = jqxhr.getResponseHeader('Set-Cookie').split(';')[0];
-                getCaptchaUrl();
                 verifyLogin(succ);
                 parseCreditsAndGel(data);
             }
@@ -248,11 +247,7 @@ function Magitfun() {
                 xhr.setRequestHeader('Cookie', cookie);
             },
             success:function (data) {
-                if (data != "not_logged_in") {
-                    succ("succses");
-                } else {
-                    succ(data);
-                }
+                succ(data);
             }
         });
     };
