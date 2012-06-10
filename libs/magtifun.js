@@ -48,8 +48,9 @@ function Magitfun() {
             success:function (data) {
                 //console.log(jqxhr.getAllResponseHeaders());
                 cookie = jqxhr.getResponseHeader('Set-Cookie').split(';')[0];
+                verifyBoxUrl = "http://www.magtifun.ge/";
+                verifyBoxUrl += $(data).find("#verif_img").attr("src");
                 verifyLogin(succ);
-                verifyBoxUrl = "http://www.magtifun.ge/" + $(data).find("#verif_img").attr("src");
                 parseCreditsAndGel(data);
             }
         });
