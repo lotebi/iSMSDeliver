@@ -247,7 +247,11 @@ function Magitfun() {
                 xhr.setRequestHeader('Cookie', cookie);
             },
             success:function (data) {
-                succ(data);
+                if (data != "not_logged_in") {
+                    succ("succses");
+                } else {
+                    succ(data);
+                }
             }
         });
     };
