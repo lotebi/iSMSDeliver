@@ -35,7 +35,7 @@ function Magitfun() {
         return cookie;
     };
     
-    this.getCaptchaUrl = function () {
+    this.getCaptchaUrl = function (succ) {
      		$.ajax({
                 type:"POST",
                 url:'http://www.magtifun.ge/index.php?page=2&lang=ge',
@@ -45,6 +45,7 @@ function Magitfun() {
                 success:function (data) {
                 	verifyBoxUrl = "http://www.magtifun.ge/";
                 	verifyBoxUrl += $(data).find("#verif_img").attr("src");
+                	succ(verifyBoxUrl);
                 }
             }); 
         return verifyBoxUrl;

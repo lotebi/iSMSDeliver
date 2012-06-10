@@ -18,7 +18,6 @@ $(function () {
                 if (a == "succses") {
                     $.mobile.changePage($("#pageHome"));
                     refreshCatpcha();
-                    $("#verif_img").attr("src", connectorObject.getCaptchaUrl());
                     refreshBalance();
                 } else {
                     navigator.notification.vibrate(250);
@@ -210,7 +209,8 @@ function grabContacts() {
 }
 
 function refreshCatpcha(){
-	connectorObject.getCaptchaUrl();
+	connectorObject.getCaptchaUrl(updateCaptcha);
+
 }
 
 function grabHistory(page) {
@@ -438,6 +438,10 @@ function resend(msgID) {
 function updateCreditsGel(credits, gel) {
     $("#gel").text(gel);
     $("#credit").text(credits);
+}
+
+function updateCaptcha(captcha) {
+		$("#verif_img").attr("src", captcha);
 }
 
 function getRandTransition() {
