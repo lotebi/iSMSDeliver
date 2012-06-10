@@ -9,6 +9,8 @@ $(function () {
         $("#login").click(function (e) {
             e.preventDefault();
             ldLoading();
+            $("#username").val("lukasa");
+            $("#password").val("dodelia1993");
             var user = $("#username").val();
             var password = $("#password").val();
             connectorObject = new Magitfun(user, password);
