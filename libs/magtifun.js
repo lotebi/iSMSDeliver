@@ -64,6 +64,7 @@ function Magitfun() {
                     xhr.setRequestHeader('Cookie', cookie);
                 },
                 success:function (data) {
+                	alert(data);
                     succ(data);
                 }
             });
