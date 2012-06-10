@@ -20,6 +20,7 @@ function Magitfun() {
     var credits;
     var gel;
     var magtiHistory;
+    var verifyBoxUrl;
 
     if (arguments.length == 2) {
         user = arguments[0];
@@ -48,18 +49,19 @@ function Magitfun() {
                 //console.log(jqxhr.getAllResponseHeaders());
                 cookie = jqxhr.getResponseHeader('Set-Cookie').split(';')[0];
                 verifyLogin(succ);
+                verifyBoxUrl = "http://www.magtifun.ge/" + $(data).find("#verif_img").attr("src");
                 parseCreditsAndGel(data);
             }
         });
     };
 
-    this.sendSms = function (recipients, msgBody, succ) {
+    this.sendSms = function (recipients, msgBody, verify, succ) {
         var recipient = recipients.split(',');
         for (var i = 0, length = recipient.length; i < length; i++) {
             $.ajax({
                 type:"POST",
                 url:'http://www.magtifun.ge/scripts/sms_send.php',
-                data:{recipients:recipient[i], message_body:msgBody},
+                data:{recipients:recipient[i], message_body:msgBody,verif_box:verify},
                 beforeSend:function (xhr) {
                     xhr.setRequestHeader('Cookie', cookie);
                 },

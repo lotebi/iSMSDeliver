@@ -15,6 +15,7 @@ $(function () {
             connectorObject.login(function (a) {
                 if (a == "succses") {
                     $.mobile.changePage($("#pageHome"));
+                    $("#captcha").attr("src",connectorObject.verifyBoxUrl);
                     refreshBalance();
                 } else {
                     navigator.notification.vibrate(250);
@@ -43,9 +44,11 @@ $(function () {
             if ($("#maxMessages").css("visibility") == "hidden") {
                 var recipient = $("#recipients").val();
                 var msgbody = $("#msgBody").val();
-                connectorObject.sendSms(recipient, msgbody, function () {
+                var captcha = $("#captcha").val();
+                connectorObject.sendSms(recipient, msgbody, captcha, function () {
                     $("#recipients").val("");
                     $("#msgBody").val("");
+                    $("#captcha").val("");
                     refreshBalance();
                     grabHistory(2);
                     onMsgChange();
