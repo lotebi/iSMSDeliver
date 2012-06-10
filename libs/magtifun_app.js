@@ -53,6 +53,7 @@ $(function () {
                     $("#msgBody").val("");
                     $("#captcha").val("");
                     refreshBalance();
+                    refreshCatpcha();
                     grabHistory(2);
                     onMsgChange();
                 })
