@@ -36,6 +36,17 @@ function Magitfun() {
     };
     
     this.getCaptchaUrl = function () {
+     		$.ajax({
+                type:"POST",
+                url:'http://www.magtifun.ge/index.php?page=2&lang=ge',
+                beforeSend:function (xhr) {
+                    xhr.setRequestHeader('Cookie', cookie);
+                },
+                success:function (data) {
+                	verifyBoxUrl = "http://www.magtifun.ge/";
+                	verifyBoxUrl += $(data).find("#verif_img").attr("src");
+                }
+            }); 
         return verifyBoxUrl;
     };
 
@@ -50,10 +61,9 @@ function Magitfun() {
                 xhr.setRequestHeader('Cookie', '');
             },
             success:function (data) {
-                //console.log(jqxhr.getAllResponseHeaders());
+                //console.log(data);
                 cookie = jqxhr.getResponseHeader('Set-Cookie').split(';')[0];
-                verifyBoxUrl = "http://www.magtifun.ge/";
-                verifyBoxUrl += $(data).find("#verif_img").attr("src");
+                getCaptchaUrl();
                 verifyLogin(succ);
                 parseCreditsAndGel(data);
             }
@@ -134,6 +144,8 @@ function Magitfun() {
             }
         });
     };
+    
+    
 
     var parseHistory = function (succ, currIndex, lastIndex) {
         if (currIndex >= lastIndex) {

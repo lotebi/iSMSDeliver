@@ -37,6 +37,7 @@ $(function () {
             e.preventDefault();
             ldLoading();
             refreshBalance();
+            refreshCatpcha();
             grabHistory(2);
         });
 
@@ -205,6 +206,10 @@ function grabContacts() {
             sortContacts(contactsRemote);
         }
     )
+}
+
+function refreshCatpcha(){
+	connectorObject.getCaptchaUrl();
 }
 
 function grabHistory(page) {
