@@ -17,7 +17,7 @@ $(function () {
             connectorObject.login(function (a) {
                 if (a == "succses") {
                     $.mobile.changePage($("#pageHome"));
-                    $("#verif_img").attr("src",connectorObject.verifyBoxUrl);
+                    $("#verif_img").attr("src", connectorObject.getCaptchaUrl());
                     refreshBalance();
                 } else {
                     navigator.notification.vibrate(250);

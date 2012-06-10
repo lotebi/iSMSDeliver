@@ -34,6 +34,10 @@ function Magitfun() {
     this.getCookie = function () {
         return cookie;
     };
+    
+    this.getCaptchaUrl = function () {
+        return verifyBoxUrl;
+    };
 
     this.login = function (succ) {
         var jqxhr = $.ajax({
